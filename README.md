@@ -1,5 +1,4 @@
 # CC
-CastCommunity
 가제 : Cast Commuinity(CC)
 
 목적 : 에버랜드 혹은 롯데월드 직원들은 서로 소통할 수 있는 방법이 많이 없음

@@ -8,14 +8,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import kr.ac.castcommunity.cc.adapters.PostAdapter;
+import kr.ac.castcommunity.cc.adapters.BoardAdapter;
 import kr.ac.castcommunity.cc.models.Board;
 
 public class BoardActivity extends AppCompatActivity {
 
     private RecyclerView mPostRecyclerView;
 
-    private PostAdapter mAdpater;
+    private BoardAdapter mAdpater;
     private List<Board> mDatas;
 
     @Override
@@ -29,7 +29,8 @@ public class BoardActivity extends AppCompatActivity {
         mDatas.add(new Board(null,"title","contents"));
         mDatas.add(new Board(null,"title","contents"));
 
-        mAdpater = new PostAdapter(mDatas);
+        // Adapter 연결
+        mAdpater = new BoardAdapter(mDatas);
         mPostRecyclerView.setAdapter(mAdpater);
     }
 

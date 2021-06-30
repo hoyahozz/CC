@@ -12,4 +12,5 @@
         android:layout_height="match_parent"
         android:id="@+id/recyclerView"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        <!-- 화면에 보이게 하는 layoutManager 설정 -->
 </LinearLayout>

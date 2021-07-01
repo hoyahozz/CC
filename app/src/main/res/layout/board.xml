@@ -5,12 +5,22 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BoardActivity">
+    android:background="@color/colorBlack"
+    tools:context=".Board.BoardActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorWhite"
+        android:text="자유게시판" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/recyclerView"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-        <!-- 화면에 보이게 하는 layoutManager 설정 -->
+    <!-- 화면에 보이게 하는 layoutManager 설정 -->
 </LinearLayout>

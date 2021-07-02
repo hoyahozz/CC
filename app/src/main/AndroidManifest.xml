@@ -9,9 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".IdFindActivity"></activity>
+        <activity android:name=".Board.BoardToolbarActivity"></activity>
+        <activity android:name=".FindToolbarActivity" />
+        <activity android:name=".IdFindActivity" />
         <activity android:name=".PwFindActivity" />
-        <activity android:name=".IdfindActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".Board.BoardActivity" />
         <activity android:name=".LoginActivity" />

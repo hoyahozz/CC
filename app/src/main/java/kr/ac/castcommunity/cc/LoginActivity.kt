@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import kotlinx.android.synthetic.main.login.*
 import kr.ac.castcommunity.cc.Board.BoardActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -12,9 +13,9 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
 
-        var Login = findViewById<Button>(R.id.login_button)
-        var Register = findViewById<Button>(R.id.login_join)
-        var Find = findViewById<Button>(R.id.login_find)
+        var Login = login_button
+        var Register = login_join
+        var Find = login_find
 
         Login.setOnClickListener {
             val intent = Intent(applicationContext, BoardActivity::class.java)

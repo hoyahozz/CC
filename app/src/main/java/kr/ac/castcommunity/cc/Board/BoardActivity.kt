@@ -12,7 +12,7 @@ import kr.ac.castcommunity.cc.adapters.BoardAdapter
 import kr.ac.castcommunity.cc.models.Board
 import java.util.ArrayList
 
-class BoardActivity : AppCompatActivity() {
+class BoardActivity : BoardToolbarActivity() {
 
     private var mPostRecyclerView: RecyclerView? = null
 
@@ -40,10 +40,5 @@ class BoardActivity : AppCompatActivity() {
 
         val decoration = DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
         mPostRecyclerView!!.addItemDecoration(decoration)
-
-
-
-
-
     }
 }

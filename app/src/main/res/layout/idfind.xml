@@ -5,22 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@color/colorBlack"
-    tools:context = ".IdFindActivity">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="아이디 / 비밀번호 찾기"
-            android:textSize="35sp"
-            android:textColor="@color/colorWhite" />
-    </LinearLayout>
-
-
+    tools:context=".IdFindActivity"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -75,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:textColor="@color/colorWhite"
-            android:hint="아이디를 입력하세요."
+            android:hint="이메일을 입력하세요."
             android:textColorHint="@color/colorGray"
             android:background="@color/colorBlack"
             />

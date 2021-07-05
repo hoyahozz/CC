@@ -30,7 +30,7 @@ class RegisterActivity : AppCompatActivity() {
             setSupportActionBar(toolbar)
             supportActionBar?.setDisplayShowTitleEnabled(false)
             getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar()!!.setHomeAsUpIndicator(R.drawable.leftback)
+            getSupportActionBar()!!.setHomeAsUpIndicator(R.drawable.leftback) // 뒤로가기 버튼 활성화
 
         } else {
             toolbar.visibility = View.GONE

@@ -18,7 +18,7 @@ class LoginActivity : AppCompatActivity() {
         var Find = login_find
 
         Login.setOnClickListener {
-            val intent = Intent(applicationContext, BoardActivity::class.java)
+            val intent = Intent(applicationContext, MainActivity::class.java)
             startActivity(intent)
         }
 

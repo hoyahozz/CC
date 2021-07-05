@@ -95,6 +95,18 @@
 
     </LinearLayout>
 
+    <EditText
+
+        android:id="@+id/join_email"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/colorWhite"
+        android:hint="이메일을 입력하세요."
+        android:textColorHint="@color/colorGray"
+        android:background="@color/colorBlack" />
+
 
     <RadioGroup
         android:id="@+id/join_radioGroup"

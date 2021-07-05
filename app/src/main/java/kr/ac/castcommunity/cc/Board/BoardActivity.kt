@@ -27,6 +27,8 @@ class BoardActivity : BoardToolbarActivity() {
         mDatas.add(Board("1", "title", "contents", "writer", "time"))
         mDatas.add(Board("2", "title", "contents", "writer", "time"))
         mDatas.add(Board("3", "title", "contents", "writer", "time"))
+        mDatas.add(Board("4", "title", "contents", "writer", "time"))
+        mDatas.add(Board("5", "title", "contents", "writer", "time"))
         // Adapter 연결
         mAdpater = BoardAdapter(this, mDatas)
         mPostRecyclerView!!.adapter = mAdpater

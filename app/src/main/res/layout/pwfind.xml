@@ -83,7 +83,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginLeft="20dp"
         android:textColor="@color/colorWhite"
-        android:hint="닉네임을 입력하세요."
+        android:hint="이메일을 입력하세요."
         android:textColorHint="@color/colorGray"
         android:background="@color/colorBlack" />
 

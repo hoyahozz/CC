@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Toolbar.BoardToolbarActivity">
+    tools:context=".Toolbar.WriteToolbarActivity">
 
 
     <!-- 왼쪽 아이콘 빈공간 없애기 (contentinsetStart)-->
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/board_toolbar"
+        android:id="@+id/write_toolbar"
         app:contentInsetStart="0dp"
         app:titleTextColor="@color/colorWhite"
         android:layout_width="match_parent"
@@ -21,11 +21,21 @@
             android:id="@+id/bar_findText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="자유게시판"
+            android:text="글 쓰기"
             android:layout_gravity="center"
             android:textColor="@color/colorWhite"
             android:textSize="30sp"
             android:textStyle="bold"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:textColor="@color/colorMyBlue"
+            android:background="@color/colorBlack"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="완료" />
 
 
     </androidx.appcompat.widget.Toolbar>

@@ -4,17 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ImageFragment">
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/pager_img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/exam1"
+        android:src="@drawable/exam2"
         android:scaleType="centerCrop"
-        android:layout_marginTop="16dp"/>
-
-    
-
-</>
+        android:layout_marginTop="30dp"/>
+</LinearLayout>

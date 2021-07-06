@@ -15,5 +15,4 @@
         android:icon="@drawable/menu_person"
         app:showAsAction="ifRoom" />
 
-
 </menu>

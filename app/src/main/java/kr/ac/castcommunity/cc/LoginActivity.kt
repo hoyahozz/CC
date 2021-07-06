@@ -3,9 +3,7 @@ package kr.ac.castcommunity.cc
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import kotlinx.android.synthetic.main.login.*
-import kr.ac.castcommunity.cc.Board.BoardActivity
 
 class LoginActivity : AppCompatActivity() {
 

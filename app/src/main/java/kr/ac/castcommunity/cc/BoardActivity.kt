@@ -1,13 +1,11 @@
-package kr.ac.castcommunity.cc.Board
+package kr.ac.castcommunity.cc
 
-import android.graphics.drawable.ClipDrawable.VERTICAL
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.board.*
-import kr.ac.castcommunity.cc.R
+import kr.ac.castcommunity.cc.Board.BoardDecoration
+import kr.ac.castcommunity.cc.Toolbar.BoardToolbarActivity
 import kr.ac.castcommunity.cc.adapters.BoardAdapter
 import kr.ac.castcommunity.cc.models.Board
 import java.util.ArrayList

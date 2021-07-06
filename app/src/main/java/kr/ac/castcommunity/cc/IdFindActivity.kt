@@ -3,6 +3,7 @@ package kr.ac.castcommunity.cc
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import kr.ac.castcommunity.cc.Toolbar.FindToolbarActivity
 
 class IdFindActivity : FindToolbarActivity() {
 

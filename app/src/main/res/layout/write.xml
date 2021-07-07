@@ -9,6 +9,7 @@
     tools:context=".WriteActivity">
 
     <EditText
+        android:id="@+id/write_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/colorWhite"
@@ -21,6 +22,7 @@
         android:background="@color/colorGray" />
 
     <EditText
+        android:id="@+id/write_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textColor="@color/colorWhite"

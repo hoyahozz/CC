@@ -11,8 +11,8 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import kr.ac.castcommunity.cc.LoginActivity
 import kr.ac.castcommunity.cc.MainActivity
-import kr.ac.castcommunity.cc.R
 import kr.ac.castcommunity.cc.WriteActivity
+import kr.ac.castcommunity.cc.R
 
 open class BoardToolbarActivity : AppCompatActivity() {
 

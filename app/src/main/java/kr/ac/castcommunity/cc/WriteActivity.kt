@@ -1,6 +1,8 @@
 package kr.ac.castcommunity.cc
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import kr.ac.castcommunity.cc.R
 
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +25,8 @@ class WriteActivity : WriteToolbarActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.write)
 
+        var pref : SharedPreferences = getSharedPreferences("mine", Context.MODE_PRIVATE)
+        val writer = pref.getString("nickname","").toString()
         val write_btn = write_btn
 
         write_btn.setOnClickListener {
@@ -45,7 +49,7 @@ class WriteActivity : WriteToolbarActivity() {
                 }
             }
             //서버로 Volley를 이용해서 요청함.
-            val writeRequest = WriteRequest(title, content, responseListener)
+            val writeRequest = WriteRequest(title, content, writer, responseListener)
             val queue = Volley.newRequestQueue(this@WriteActivity)
             queue.add(writeRequest)
         }

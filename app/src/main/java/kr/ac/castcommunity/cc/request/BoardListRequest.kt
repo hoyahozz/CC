@@ -1,32 +1,32 @@
 package kr.ac.castcommunity.cc.request
 
-
 import android.util.Log
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.Response.success
+import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.StringRequest
 import java.util.HashMap
+import org.json.JSONObject
+import com.android.volley.toolbox.JsonObjectRequest
+import org.json.JSONArray
 
-class WriteRequest(title: String, content: String, writer : String, listener: Response.Listener<String>) :
-    StringRequest(Request.Method.POST, URL, listener, Response.ErrorListener { error ->
+
+class BoardListRequest(listener: Response.Listener<JSONArray>) :
+    JsonArrayRequest(Request.Method.POST, URL, JSONArray(), listener, Response.ErrorListener { error ->
         Log.d("ERROR", "서버 Response 가져오기 실패: $error")
     }) {
     private val parameters: MutableMap<String, String>
     companion object {
-        private val URL = "http://192.168.100.251/cc/boardwrite.php"
+        private val URL = "http://192.168.100.251/cc/boardlist.php"
     }
 
     init {
         parameters = HashMap()
-        parameters["title"] = title
-        parameters["content"] = content
-        parameters["writer"] = writer
     }
 
     override fun getParams(): Map<String, String> {
         return parameters
     }
-
 
 }

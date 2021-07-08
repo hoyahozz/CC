@@ -16,6 +16,7 @@ import kr.ac.castcommunity.cc.R
 
 open class BoardToolbarActivity : AppCompatActivity() {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.board_toolbar)
@@ -26,6 +27,8 @@ open class BoardToolbarActivity : AppCompatActivity() {
         val activityContainer = fullView.findViewById<View>(R.id.activity_content) as FrameLayout
         layoutInflater.inflate(layoutResID, activityContainer, true)
         super.setContentView(fullView)
+
+
 
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.board_toolbar) //툴바 사용여부 결정(기본적으로 사용)
         if (useToolbar()) {
@@ -60,6 +63,7 @@ open class BoardToolbarActivity : AppCompatActivity() {
             }
             R.id.action_write -> {
                 //글쓰기 버튼 눌렀을 때
+
                 val intent = Intent(applicationContext, WriteActivity::class.java)
                 startActivity(intent)
                 return true;

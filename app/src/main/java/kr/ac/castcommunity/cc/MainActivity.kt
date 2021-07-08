@@ -15,12 +15,12 @@ class MainActivity : MainToolbar() {
 
         main_viewPager.adapter = ViewPagerAdapter(getList())
 
-
-
         var mainboard = main_board
+        var nickname = intent.getStringExtra("nickname")
 
         mainboard.setOnClickListener {
             val intent = Intent(applicationContext, BoardActivity::class.java)
+            intent.putExtra("nickname",nickname)
             startActivity(intent)
         }
 

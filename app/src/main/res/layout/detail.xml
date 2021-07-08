@@ -82,24 +82,28 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_marginLeft="6dp"
-
+            android:layout_gravity="center"
             android:src="@drawable/detail_thumup" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_gravity="center"
             android:background="@color/colorBlack"
             android:gravity="right"
             android:textSize="10sp"
             android:text="20"
-            android:layout_marginTop="7dp"
-            android:layout_marginLeft="6dp"
+            android:layout_marginLeft="3dp"
             android:textColor="@color/colorWhite" />
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorGray" />
 
 
 

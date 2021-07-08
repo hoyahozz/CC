@@ -9,12 +9,28 @@
 
 언어 및 도구 
 
+공통
 - MariaDB 10.4.13
+
+Android
 - Apache 2.4
 - PHP 5 & 7
 - Wampserver
 - Android Studio
 - Kotlin
+
+Front End
+- Visual Studio
+- React
+- HTML, CSS
+- JavaScript
+- Styled-commponents
+- axios
+
+Back End
+- STS(SpringBoot)
+- Spring(Java)
+- MyBatis
 
 
 CC 구현 기술 목록
@@ -25,7 +41,8 @@ CC 구현 기술 목록
 - ViewPager 구현
 - ToolBar 구현
 - ScrollView 구현
-- SharedPrefernces 를 통한 세션 관리
+- SharedPreferences 를 통한 세션 관리
+
 
 앞으로 해야할 것
 - 게시판 글 상세보기 구현

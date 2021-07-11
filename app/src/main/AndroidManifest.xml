@@ -14,6 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".Toolbar.DetailToolbarActivity" />
         <activity android:name=".DetailActivity"></activity>
         <activity android:name=".Toolbar.WriteToolbarActivity" />
         <activity android:name=".WriteActivity" />

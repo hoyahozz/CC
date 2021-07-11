@@ -23,6 +23,7 @@ import kr.ac.castcommunity.cc.BoardActivity
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import androidx.core.content.ContextCompat.getSystemService
 import kotlinx.android.synthetic.main.board.*
+import kotlinx.android.synthetic.main.item_board.*
 
 
 class BoardActivity : BoardToolbarActivity() {
@@ -30,18 +31,20 @@ class BoardActivity : BoardToolbarActivity() {
     private var mPostRecyclerView: RecyclerView? = null
 
     private var mAdpater: BoardAdapter? = null
-    val mDatas : ArrayList<Board> = ArrayList()
+    val mDatas: ArrayList<Board> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.board)
-        Log.d("oncreate","oncreate Start")
+        Log.d("oncreate", "oncreate Start")
 
+
+        // 게시물 번호를 담기위한 배열
         mPostRecyclerView = recyclerView
 
         val responseListener = Response.Listener<JSONArray> { response ->
             try {
-                Log.d("response","response Start")
+                Log.d("response", "response Start")
                 // val jsonarray = response.getJSONArray("result")
                 for (i in 0 until response.length()) {
                     val jobject = response.getJSONObject(i)
@@ -54,8 +57,7 @@ class BoardActivity : BoardToolbarActivity() {
 
                     if (success == true) {
                         mDatas.add(Board(bnum, title, content, date, writer))
-                    }
-                    else { // 로그인에 실패한 경우
+                    } else { // 로그인에 실패한 경우
                         return@Listener
                     }
                 }
@@ -64,19 +66,66 @@ class BoardActivity : BoardToolbarActivity() {
 
                 mPostRecyclerView!!.addItemDecoration(BoardDecoration(20))
                 val lm = LinearLayoutManager(this)
+                lm.reverseLayout = true // 출력 역순으로
+                lm.stackFromEnd = true
                 mPostRecyclerView!!.layoutManager = lm
                 mPostRecyclerView!!.setHasFixedSize(true)
                 val decoration = DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
                 mPostRecyclerView!!.addItemDecoration(decoration)
+
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
         }
         //서버로 Volley를 이용해서 요청함.
 
-        val loginRequest = BoardListRequest(responseListener)
+        val BoardRequest = BoardListRequest(responseListener)
         val queue = Volley.newRequestQueue(this@BoardActivity)
-        queue.add(loginRequest)
-}
+        queue.add(BoardRequest)
+
+        // 리사이클러뷰에서는 setOnItemClickListener 존재 X )
+
+        board_swipe.setOnRefreshListener { // 새로고침했을 때 반응
+            mDatas.clear()
+            val responseListener = Response.Listener<JSONArray> { response ->
+                try {
+                    Log.d("response", "response Start")
+                    // val jsonarray = response.getJSONArray("result")
+                    for (i in 0 until response.length()) {
+                        val jobject = response.getJSONObject(i)
+                        val success = jobject.getBoolean("success")
+                        val bnum = jobject.getInt("bnum")
+                        val title = jobject.getString("title")
+                        val content = jobject.getString("content")
+                        val date = jobject.getString("date")
+                        val writer = jobject.getString("writer")
+
+                        if (success == true) {
+                            mDatas.add(Board(bnum, title, content, date, writer))
+                        } else { // 로그인에 실패한 경우
+                            return@Listener
+                        }
+                    }
+                    mAdpater = BoardAdapter(this, mDatas)
+                    mPostRecyclerView!!.adapter = mAdpater
+                    val lm = LinearLayoutManager(this)
+                    lm.reverseLayout = true // 출력 역순으로
+                    lm.stackFromEnd = true
+                    mPostRecyclerView!!.layoutManager = lm
+                    mPostRecyclerView!!.setHasFixedSize(true)
+
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+            //서버로 Volley를 이용해서 요청함.
+            val BoardRequest = BoardListRequest(responseListener)
+            val queue = Volley.newRequestQueue(this@BoardActivity)
+            queue.add(BoardRequest)
+            board_swipe.isRefreshing = false
+
+        }
+
+    }
 
 }

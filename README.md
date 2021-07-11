@@ -1,15 +1,15 @@
 # CC
-가제 : Cast Commuinity(CC)
+Title : Cast Commuinity(CC)
 
-인원 : 김정호(안드로이드), 김지원(안드로이드), 김찬영(웹 프론트), 신승현 (웹 백엔드)
+Person&Assign : 김정호(Android), 김지원(Android), 김찬영(Web Front-end), 신승현 (Back-end)
 
-목적 : 에버랜드 혹은 롯데월드 직원들은 서로 소통할 수 있는 방법이 많이 없음.
+Purpose : 에버랜드 혹은 롯데월드 직원들은 서로 소통할 수 있는 방법이 많이 없음.
 많은 인원들임에도 불구하고 소통 수단이 없다는 것에 주목, 여러 정보를 주고 받고
 친목 도모를 장려하기 위해 해당 어플 및 웹사이트를 생성하려고 함
 
-언어 및 도구 
+Programming Language and Tools
 
-공통
+Common Area
 - MariaDB 10.4.13
 
 Android
@@ -19,7 +19,7 @@ Android
 - Android Studio
 - Kotlin
 
-Front End
+Front-end
 - Visual Studio
 - React
 - HTML, CSS
@@ -27,7 +27,7 @@ Front End
 - Styled-commponents
 - axios
 
-Back End
+Back-end
 - STS(SpringBoot)
 - Spring(Java)
 - MyBatis

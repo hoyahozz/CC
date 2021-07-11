@@ -18,6 +18,8 @@ import org.w3c.dom.Text
 class BoardAdapter(val context : Context, val datas: ArrayList<Board>) :
 
     RecyclerView.Adapter<BoardAdapter.BoardViewHolder>() {
+
+    // RecyclerView 에 표시될 Item View 를 생성하는 역할을 담당하는 Adapter 구현
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardViewHolder {
         // ViewHolder 를 생성
         return BoardViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_board, parent, false))
@@ -27,6 +29,7 @@ class BoardAdapter(val context : Context, val datas: ArrayList<Board>) :
         return datas.size // 아이템의 개수 조회
     }
 
+    // adapter 가 해당 Position 에 해당하는 데이터를 결합하는 과정
     override fun onBindViewHolder(holder: BoardViewHolder, position: Int) {
         val data = datas[position]
         holder.title.text = data.title
@@ -38,17 +41,18 @@ class BoardAdapter(val context : Context, val datas: ArrayList<Board>) :
     }
 
     inner class BoardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
+        // 해당 TextView 변수 지정
         val title = itemView.findViewById<TextView>(R.id.item_board_title)
         val contents = itemView.findViewById<TextView>(R.id.item_board_content)
         val writer = itemView.findViewById<TextView>(R.id.item_board_writer)
         val time = itemView.findViewById<TextView>(R.id.item_board_time)
 
         fun bind(position: Int) {
-            itemView.setOnClickListener {
+            itemView.setOnClickListener { // 리사이클러뷰에서는 setOnItemClickListener 존재 X 직접 지정이 필요
                 Intent(context, DetailActivity::class.java).apply {
-                    putExtra("bnum", position+1)
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    putExtra("bnum", position+1) // 0부터 시작되기 때문에 1을 더해줌
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) // 기존 플래그에 새로운 플래그 추가, 새로운 태스크를 생성하여 태스크 안에 액티비티를 추가한다.
+
                 }.run {
                     context.startActivity(this)
                 }

@@ -26,9 +26,7 @@ class LoginActivity : AppCompatActivity() {
         Login.setOnClickListener {
             val id = login_id.text.toString()
             val password = login_password.text.toString()
-            val pref : SharedPreferences = getSharedPreferences("mine",MODE_PRIVATE)
-
-
+            val pref : SharedPreferences = getSharedPreferences("mine",MODE_PRIVATE) // SharedPreferences 초기화
 
             val responseListener = Response.Listener<String> { response ->
                 try {
@@ -40,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         intent.putExtra("id",id)
                         intent.putExtra("password",password)
-                        val editor : SharedPreferences.Editor = pref.edit()
+                        val editor : SharedPreferences.Editor = pref.edit() //  SharedPreferences 의 데이터를 저장/편집하기 위한 Editor 변수 선언
 
                         // SharedPreferences 에 데이터 저장
                         editor.putString("nickname",nickname.toString())

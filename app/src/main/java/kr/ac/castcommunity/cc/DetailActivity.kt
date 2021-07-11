@@ -35,7 +35,7 @@ import androidx.core.content.ContextCompat.getSystemService
 
 class DetailActivity : DetailToolbarActivity() {
 
-    private var mCommentRecyclerView: RecyclerView? = null
+    private var mCommentRecyclerView: RecyclerView? = null // 댓글 RecyclerView 지정
     private var mAdpater: CommentAdapter? = null
     val mDatas: ArrayList<Comment> = ArrayList()
 
@@ -44,9 +44,12 @@ class DetailActivity : DetailToolbarActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail)
 
-        var pref: SharedPreferences = getSharedPreferences("mine", Context.MODE_PRIVATE)
-        val writer = pref.getString("nickname", "").toString()
+        var pref: SharedPreferences = getSharedPreferences("mine", Context.MODE_PRIVATE) // 초기화
+        val writer = pref.getString("nickname", "").toString() // 저장한 값 불러오는 과정
+        // 저장 값이 없으면 ""(공백)으로 불러옴
         val boardid = intent.getIntExtra("bnum", 0)
+
+
 
         val DetailresponseListener = Response.Listener<String> { response ->
             try {
@@ -76,9 +79,11 @@ class DetailActivity : DetailToolbarActivity() {
         val queue = Volley.newRequestQueue(this@DetailActivity)
         queue.add(detailRequest)
 
-        // 게시물 번호를 담기위한 배열
+        // 댓글 RecyclerView
         mCommentRecyclerView = comment_recyclerView
 
+        // ★ PHP에서 JSONArray 를 리턴한다고 해서 JSONArrayRequest 를 해야하는 것이 아님.
+        // 그리고 JSONArrayRequest 에서 getParams 함수는 먹히지 않음.
         val responseListener = Response.Listener<String> { response ->
             try {
                 val comment_array = JSONArray(response)
@@ -112,13 +117,10 @@ class DetailActivity : DetailToolbarActivity() {
                 e.printStackTrace()
             }
         }
-        //서버로 Volley를 이용해서 요청함.
-
         val commentRequest = CommentRequest(boardid, responseListener)
-        // 생성 Request 를 queue 에 추가
         queue.add(commentRequest)
 
-        // 리사이클러뷰에서는 setOnItemClickListener 존재 X )
+
 
         val write_btn = comment_write_btn
 

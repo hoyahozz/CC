@@ -12,26 +12,26 @@ import com.android.volley.toolbox.JsonObjectRequest
 import org.json.JSONArray
 
 
-class BoardListRequest(listener: Response.Listener<JSONArray>) :
-    JsonArrayRequest(Request.Method.POST, URL, JSONArray(), listener, Response.ErrorListener { error ->
-        Log.d("ERROR", "서버 Response 가져오기 실패: $error")
+class CommentRequest(boardid : Int , listener: Response.Listener<String>) :
+    StringRequest(Request.Method.POST, URL,listener, Response.ErrorListener { error ->
+        Log.d("COMMENT ERROR", "Server Response FAIL: $error")
     }) {
     private val parameters: MutableMap<String, String>
     companion object {
-<<<<<<< Updated upstream
-        private val URL = "http://192.168.100.251/cc/boardlist.php"
-=======
-        // private val URL = "http://192.168.100.251/cc/boardlist.php"
-        private val URL = "http://192.168.100.249/cc/boardlist.php"
-        // private val URL = "http://192.168.0.4/cc/boardlist.php"
->>>>>>> Stashed changes
+        // private val URL = "http://192.168.100.251/cc/commentlist.php"
+        private val URL = "http://192.168.100.249/cc/commentlist.php"
+        //private val URL = "http://192.168.0.4/cc/commentlist.php"
     }
 
     init {
         parameters = HashMap()
+        parameters["boardid"] = boardid.toString()
     }
 
+
+
     override fun getParams(): Map<String, String> {
+
         return parameters
     }
 

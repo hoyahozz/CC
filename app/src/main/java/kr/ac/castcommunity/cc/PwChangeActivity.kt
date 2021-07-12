@@ -85,6 +85,8 @@ class PwChangeActivity : AppCompatActivity() {
                                         val editor : SharedPreferences.Editor = pref.edit()
                                         editor.remove("pw") // 기존 패스워드를 지움
                                         editor.putString("pw",pw) // 새로운 패스워드 등록
+
+                                        editor.commit()
                                         finish()
                                     } else { // 비밀번호 변경 실패했을 때
                                         Toast.makeText(

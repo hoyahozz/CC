@@ -25,6 +25,7 @@
             />
 
         <Button
+            android:id="@+id/overlap_check"
             android:layout_marginTop="30dp"
             android:layout_width="80dp"
             android:layout_height="30dp"
@@ -42,6 +43,7 @@
         android:layout_marginLeft="20dp"
         android:textColor="@color/colorWhite"
         android:hint="비밀번호를 입력하세요."
+        android:inputType="textPassword"
         android:textColorHint="@color/colorGray"
         android:background="@color/colorBlack" />
 
@@ -53,6 +55,7 @@
         android:layout_marginLeft="20dp"
         android:textColor="@color/colorWhite"
         android:hint="비밀번호를 재입력하세요."
+        android:inputType="textPassword"
         android:textColorHint="@color/colorGray"
         android:background="@color/colorBlack" />
 
@@ -86,6 +89,7 @@
             android:background="@color/colorBlack" />
 
         <Button
+            android:id="@+id/nickname_chk"
             android:layout_marginTop="30dp"
             android:layout_width="80dp"
             android:layout_height="30dp"
@@ -109,7 +113,7 @@
 
 
     <RadioGroup
-        android:id="@+id/join_radioGroup"
+        android:id="@+id/join_rdGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"

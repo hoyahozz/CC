@@ -2,6 +2,7 @@ package kr.ac.castcommunity.cc
 
 import LoginRequest
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -25,16 +26,25 @@ class LoginActivity : AppCompatActivity() {
         Login.setOnClickListener {
             val id = login_id.text.toString()
             val password = login_password.text.toString()
+            val pref : SharedPreferences = getSharedPreferences("mine",MODE_PRIVATE)
+
+
 
             val responseListener = Response.Listener<String> { response ->
                 try {
                     val jsonObject = JSONObject(response)
                     val success = jsonObject.getBoolean("success")
                     if (success == true) {// 로그인에 성공한 경우
+                        val nickname = jsonObject.getString("nickname")
                         Toast.makeText(applicationContext, "로그인 성공!", Toast.LENGTH_LONG).show()
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         intent.putExtra("id",id)
                         intent.putExtra("password",password)
+                        val editor : SharedPreferences.Editor = pref.edit()
+
+                        // SharedPreferences 에 데이터 저장
+                        editor.putString("nickname",nickname.toString())
+                        editor.commit()
                         startActivity(intent)
                     } else { // 로그인에 실패한 경우
                         Toast.makeText(applicationContext, "로그인 실패!", Toast.LENGTH_LONG).show()

@@ -27,8 +27,8 @@ class BoardAdapter(val context : Context, val datas: ArrayList<Board>) :
         val data = datas[position]
         holder.title.text = data.title
         holder.contents.text = data.contents
-        holder.time.text = data.time
         holder.writer.text = data.writer
+        holder.time.text = data.time
     }
 
 

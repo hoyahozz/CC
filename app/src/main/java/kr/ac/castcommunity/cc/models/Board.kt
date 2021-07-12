@@ -2,7 +2,7 @@ package kr.ac.castcommunity.cc.models
 
 class Board {
 
-    var id: String? = null
+    var bnum: Int? = null
     var title: String? = null
     var writer: String? = null
     var contents: String? = null
@@ -14,28 +14,26 @@ class Board {
 
     }
 
-    constructor(id: String, title: String, contents: String, writer: String, time: String) {
-        this.id = id
+    constructor(bnum: Int, title: String, contents: String, time: String, writer : String) {
+        this.bnum = bnum
         this.title = title
         this.contents = contents
         this.time = time
         this.writer = writer
-
-
     }
-
-    constructor(id: String, title: String, writer: String, contents: String, am: String, img: String) {
-        this.id = id
+/*
+    constructor(bnum: String, title: String, writer: String, contents: String, am: String, img: String) {
+        this.bnum = bnum
         this.title = title
         this.writer = writer
         this.contents = contents
         this.am = am
         this.img = img
     }
-
+*/
     override fun toString(): String {
         return "Board{" +
-                "id='" + id + '\''.toString() +
+                "bnum='" + bnum + '\''.toString() +
                 ", title='" + title + '\''.toString() +
                 ", writer='" + writer + '\''.toString() +
                 ", contents='" + contents + '\''.toString() +

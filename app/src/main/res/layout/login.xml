@@ -33,6 +33,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:background="@drawable/rounded_edittext"
+        android:inputType="textPassword"
         android:gravity="center"
         android:textSize="13sp"
         android:hint="비밀번호" />

@@ -14,17 +14,13 @@ import org.json.JSONArray
 
 class BoardListRequest(listener: Response.Listener<JSONArray>) :
     JsonArrayRequest(Request.Method.POST, URL, JSONArray(), listener, Response.ErrorListener { error ->
-        Log.d("ERROR", "서버 Response 가져오기 실패: $error")
+        Log.d("ERROR", "Server Response Fail: $error")
     }) {
     private val parameters: MutableMap<String, String>
     companion object {
-<<<<<<< Updated upstream
-        private val URL = "http://192.168.100.251/cc/boardlist.php"
-=======
         // private val URL = "http://192.168.100.251/cc/boardlist.php"
         private val URL = "http://192.168.100.249/cc/boardlist.php"
         // private val URL = "http://192.168.0.4/cc/boardlist.php"
->>>>>>> Stashed changes
     }
 
     init {

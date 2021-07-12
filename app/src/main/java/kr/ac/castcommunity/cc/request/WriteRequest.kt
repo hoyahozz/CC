@@ -14,13 +14,9 @@ class WriteRequest(title: String, content: String, writer : String, listener: Re
     }) {
     private val parameters: MutableMap<String, String>
     companion object {
-<<<<<<< Updated upstream
-        private val URL = "http://192.168.100.251/cc/boardwrite.php"
-=======
         // private val URL = "http://192.168.100.251/cc/boardwrite.php"
         private val URL = "http://192.168.100.249/cc/boardwrite.php"
         // private val URL = "http://192.168.0.4/cc/boardwrite.php"
->>>>>>> Stashed changes
     }
 
     init {

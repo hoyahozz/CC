@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    tools:context=".PwChangeActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/pwChange_exist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:hint="현재 비밀번호를 입력하세요."
+            android:inputType="textPassword"
+            android:textColor="@color/colorBlack"
+            android:textColorHint="@color/colorGray" />
+
+        <Button
+            android:id="@+id/pwChange_confirm"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="30dp"
+            android:background="@color/colorWhite"
+            android:text="확인"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/pwChange_pw1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:hint="변경 비밀번호를 입력하세요."
+        android:inputType="textPassword"
+        android:textColor="@color/colorBlack"
+        android:textColorHint="@color/colorGray" />
+
+    <EditText
+        android:id="@+id/pwChange_pw2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:hint="변경 비밀번호를 재입력하세요."
+        android:inputType="textPassword"
+        android:textColor="@color/colorBlack"
+        android:textColorHint="@color/colorGray" />
+    <Button
+        android:id="@+id/pwChange_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:background="@color/colorMyBlue"
+        android:text="비밀번호 변경"/>
+</LinearLayout>

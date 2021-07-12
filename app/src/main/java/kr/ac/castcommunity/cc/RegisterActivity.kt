@@ -3,71 +3,187 @@ package kr.ac.castcommunity.cc
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.widget.FrameLayout
-import android.widget.LinearLayout
+import android.util.Log
+
+import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.Volley
+import kotlinx.android.synthetic.main.login.*
 import kotlinx.android.synthetic.main.register.*
+import kr.ac.castcommunity.cc.request.NickValidateRequest
+import kr.ac.castcommunity.cc.request.RegisterRequest
+import kr.ac.castcommunity.cc.request.ValidateRequest
+import org.json.JSONException
+import org.json.JSONObject
 
 class RegisterActivity : AppCompatActivity() {
+    private val nickname: String?=null
+    private var join_id: EditText? = null
+    private var join_password: EditText? = null
+    private var join_password2: EditText? = null
+    private var join_name: EditText? = null
+    private var join_nickname: EditText? = null
+    private var join_email: EditText? = null
+
+    private var idcheck: Button? = null
+    private var nickname_chk: Button? = null
+    private var dialog: AlertDialog? = null
+    private var validate = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.register)
+        var check = overlap_check
+        var role = "" // 신분 초기값
 
-    }
+        join_rdGroup.setOnCheckedChangeListener{ // 라디오 그룹이 변경될 때마다 신분이 변경됨
+                group, checkedId ->
+            when(checkedId) {
+                R.id.join_rdButton1 -> role = "Cast"
+                R.id.join_rdButton2 -> role = "Normal"
+            }
+        }
+
+        //닉네임 중복 확인
+        nickname_chk = findViewById(R.id.nickname_chk)
+        nickname_chk?.setOnClickListener {
+            val nickname = join_nickname?.getText().toString()
+            if (nickname!!.equals("")) {
+                val builder: AlertDialog.Builder = AlertDialog.Builder(this@RegisterActivity)
+                dialog = builder.setMessage("닉네임을 입력하세요.").setPositiveButton("확인", null).create()
+                dialog!!.show()
+                return@setOnClickListener
+            } else {
+                val responseListener: Response.Listener<String> =
+                    Response.Listener<String> { response ->
+                        try {
+                            Log.d("nickname", join_nickname.toString())
+                            Log.d("response", "start")
+                            val jsonResponse = JSONObject(response)
+                            val success: Boolean = jsonResponse.getBoolean("success")
+                            if (success) {
+                                val builder: AlertDialog.Builder =
+                                    AlertDialog.Builder(this@RegisterActivity)
+                                dialog = builder.setMessage("사용 가능한 닉네임입니다.").setPositiveButton("확인", null).create()
+                                dialog!!.show()
+                            } else {
+                                val builder: AlertDialog.Builder =
+                                    AlertDialog.Builder(this@RegisterActivity)
+                                dialog =
+                                    builder.setMessage("이미 존재하는 닉네임입니다.").setNegativeButton("확인", null).create()
+                                dialog!!.show()
+
+                            }
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+                    }
+                val nickValidateRequest = NickValidateRequest(nickname, responseListener)
+                val queue: RequestQueue = Volley.newRequestQueue(this@RegisterActivity)
+                queue.add(nickValidateRequest)
+            }
+        }
+            // 아이디 중복 체크
+            check.setOnClickListener { view ->
+                var id = join_id?.text.toString()
+                if (id!!.equals("")) {
+                    val builder: AlertDialog.Builder = AlertDialog.Builder(this@RegisterActivity)
+                    dialog = builder.setMessage("아이디를 입력하세요.").setPositiveButton("확인", null).create()
+                    dialog!!.show()
+                    return@setOnClickListener
+                }
+                val responseListener: Response.Listener<String> =
+                    Response.Listener<String> { response ->
+                        try {
+                            Log.d("userid", id.toString())
+                            Log.d("response", "start")
+                            val jsonResponse = JSONObject(response)
+                            val success: Boolean = jsonResponse.getBoolean("success")
+
+                            if (success) {
+                                val builder: AlertDialog.Builder =
+                                    AlertDialog.Builder(this@RegisterActivity)
+                                dialog = builder.setMessage("사용 가능한 아이디입니다.").setPositiveButton("확인", null).create()
+                                dialog!!.show()
+                            } else {
+                                val builder: AlertDialog.Builder =
+                                    AlertDialog.Builder(this@RegisterActivity)
+                                dialog = builder.setMessage("이미 존재하는 아이디입니다.")
+                                    .setNegativeButton("확인", null).create()
+                                dialog!!.show()
+
+                            }
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+                    }
+                val validateRequest = ValidateRequest(id, responseListener)
+                val queue: RequestQueue = Volley.newRequestQueue(this@RegisterActivity)
+                queue.add(validateRequest)
+            }
 
 
-    override fun setContentView(layoutResID: Int) {
-        val fullView = layoutInflater.inflate(R.layout.register_toolbar, null) as LinearLayout
-        val activityContainer = fullView.findViewById<View>(R.id.register_content) as FrameLayout
-        layoutInflater.inflate(layoutResID, activityContainer, true)
-        super.setContentView(fullView)
+            //회원가입(join_button)버튼 클릭 시 수행
+            join_button?.setOnClickListener {
+                val id = join_id?.getText().toString()
+                val password = join_password?.text.toString()
+                val password2 = join_password2?.text.toString()
+                val name = join_name?.text.toString()
+                val nickname = join_nickname?.text.toString()
+                val email = join_email?.text.toString()
 
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.register_toolbar) //툴바 사용여부 결정(기본적으로 사용)
-        if (useToolbar()) {
-            setSupportActionBar(toolbar)
-            supportActionBar?.setDisplayShowTitleEnabled(false)
-            getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar()!!.setHomeAsUpIndicator(R.drawable.leftback) // 뒤로가기 버튼 활성화
+                //빈칸이 있을경우
+                if (id.equals("") || password.equals("") || password2.equals("") || name.equals("") ||
+                    nickname.equals("") || email.equals("") || role.equals("")
+                ) {
+                    val builder: AlertDialog.Builder = AlertDialog.Builder(this@RegisterActivity)
+                    dialog = builder.setMessage("정보를 모두 입력해주세요").setNegativeButton("확인", null).create()
+                    dialog!!.show()
+                    return@setOnClickListener
+                }
 
-        } else {
-            toolbar.visibility = View.GONE
+                //회원가입 진행
+                val responseListener = Response.Listener<String> { response ->
+                    try {
+                        val jsonObject = JSONObject(response)
+                        val success = jsonObject.getBoolean("success")
+
+                        //비밀번호가 같을 경우
+                        if (password.equals(password2)) {
+                            if (success == true) {// 회원가입 성공한 경우
+                                Toast.makeText(applicationContext, "회원가입 성공", Toast.LENGTH_LONG)
+                                    .show()
+                                val intent =
+                                    Intent(this@RegisterActivity, LoginActivity::class.java)
+                                startActivity(intent)
+                            } else { // 회원가입 실패한 경우
+                                Toast.makeText(applicationContext, "회원가입 실패", Toast.LENGTH_LONG)
+                                    .show()
+                                return@Listener
+                            }
+                        } else { //비밀번호 입력이 다를경우
+                            val builder: AlertDialog.Builder =
+                                AlertDialog.Builder(this@RegisterActivity)
+                            dialog =
+                                builder.setMessage("비밀번호가 동일하지 않습니다.").setNegativeButton("확인", null)
+                                    .create()
+                            dialog!!.show()
+                        }
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                    }
+
+                }
+
+                // Volley 라이브러리를 이용해 실제 서버와 통신을 구현하는 부분
+                val registerRequest =
+                    RegisterRequest(id, password, name, nickname, email, role, responseListener)
+                val queue = Volley.newRequestQueue(this@RegisterActivity)
+                queue.add(registerRequest)
+
+            }
         }
     }
-
-    protected fun useToolbar(): Boolean {
-        return true
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        // menuInflater.inflate(R.menu.toolbar_menu, menu)
-        return true
-    }
-
-
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            /*
-            R.id.action_search -> {
-                //검색 버튼 눌렀을 때
-                Toast.makeText(applicationContext, "검색 이벤트 실행", Toast.LENGTH_LONG).show()
-                return super.onOptionsItemSelected(item)
-            }
-            R.id.action_share -> {
-                //공유 버튼 눌렀을 때
-                Toast.makeText(applicationContext, "공유 이벤트 실행", Toast.LENGTH_LONG).show()
-                return super.onOptionsItemSelected(item)
-            }
-            */
-            android.R.id.home -> {
-                val intent = Intent(applicationContext, LoginActivity::class.java)
-                startActivity(intent)
-                return true;
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
-}

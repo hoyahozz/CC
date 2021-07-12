@@ -10,29 +10,25 @@ class LoginRequest(id: String, password: String, listener: Response.Listener<Str
     StringRequest(Request.Method.POST, LoginRequest.URL, listener, Response.ErrorListener { error ->
         Log.d("ERROR", "서버 Response 가져오기 실패: $error")
     }) {
-    private val map: MutableMap<String, String>
+    private val parameters: MutableMap<String, String>
 
     companion object {
-<<<<<<< Updated upstream
-        private val URL = "http://192.168.100.251/cc/login.php"
-=======
         // private val URL = "http://192.168.100.251/cc/login.php"
         private val URL = "http://192.168.100.249/cc/login.php"
     // private val URL = "http://192.168.0.4/cc/login.php"
 
->>>>>>> Stashed changes
     }
 
     init {
 
-        map = HashMap()
-        map["id"] = id
-        map["password"] = password
+        parameters = HashMap()
+        parameters["id"] = id
+        parameters["password"] = password
     }
 
     @Throws(AuthFailureError::class)
     override fun getParams(): Map<String, String> {
-        return map
+        return parameters
     }
 
 }

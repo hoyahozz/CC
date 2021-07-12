@@ -14,8 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".PwChangeActivity" android:theme="@style/popupTheme" android:screenOrientation="portrait"/>
+        <activity android:name=".MyInfoActivity" />
+        <activity android:name=".Toolbar.MyInfoToolbarActivity" />
         <activity android:name=".Toolbar.DetailToolbarActivity" />
-        <activity android:name=".DetailActivity"></activity>
+        <activity android:name=".DetailActivity" />
         <activity android:name=".Toolbar.WriteToolbarActivity" />
         <activity android:name=".WriteActivity" />
         <activity android:name=".MainActivity" />

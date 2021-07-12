@@ -34,14 +34,22 @@ class LoginActivity : AppCompatActivity() {
                     val success = jsonObject.getBoolean("success")
                     if (success == true) {// 로그인에 성공한 경우
                         val nickname = jsonObject.getString("nickname")
-                        Toast.makeText(applicationContext, "로그인 성공!", Toast.LENGTH_LONG).show()
+                        val name = jsonObject.getString("name")
+                        val email = jsonObject.getString("email")
+                        val role = jsonObject.getString("role")
+                        // Toast.makeText(applicationContext, "로그인 성공!", Toast.LENGTH_LONG).show()
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                        intent.putExtra("id",id)
-                        intent.putExtra("password",password)
+                        // intent.putExtra("id",id)
+                        // intent.putExtra("password",password)
                         val editor : SharedPreferences.Editor = pref.edit() //  SharedPreferences 의 데이터를 저장/편집하기 위한 Editor 변수 선언
 
                         // SharedPreferences 에 데이터 저장
-                        editor.putString("nickname",nickname.toString())
+                        editor.putString("nickname",nickname)
+                        editor.putString("pw",password)
+                        editor.putString("id",id)
+                        editor.putString("email",email)
+                        editor.putString("name",name)
+                        editor.putString("role",role)
                         editor.commit()
                         startActivity(intent)
                     } else { // 로그인에 실패한 경우

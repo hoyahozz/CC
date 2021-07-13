@@ -51,6 +51,7 @@ class BoardActivity : BoardToolbarActivity() {
                 for (i in 0 until response.length()) { // 받아온 데이터의 길이만큼 계속 받아옴
                     val jobject = response.getJSONObject(i)
                     val success = jobject.getBoolean("success")
+                    // val rownum = jobject.getInt("rownum")
                     val bnum = jobject.getInt("bnum")
                     val title = jobject.getString("title")
                     val content = jobject.getString("content")

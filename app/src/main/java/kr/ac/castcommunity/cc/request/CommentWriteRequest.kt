@@ -14,8 +14,8 @@ class CommentWriteRequest(boardid: Int, writer: String, content : String, listen
     }) {
     private val parameters: MutableMap<String, String>
     companion object {
-        private val URL = "http://192.168.100.251/cc/commentwrite.php"
-        // private val URL = "http://192.168.0.4/cc/commentwrite.php"
+        //private val URL = "http://192.168.100.251/cc/commentwrite.php"
+        private val URL = "http://192.168.0.4/cc/commentwrite.php"
     }
 
     init {

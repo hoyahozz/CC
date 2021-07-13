@@ -24,15 +24,13 @@ class PwChangeActivity : AppCompatActivity() {
         var pref: SharedPreferences = getSharedPreferences("mine", Context.MODE_PRIVATE) // 초기화
         val userID = pref.getString("id", "").toString() // 저장한 값 불러오는 과정
         val my_pw = pref.getString("pw", "").toString()
-
+        val builder = AlertDialog.Builder(this@PwChangeActivity)
         var validate = false // 비밀번호 확인 결과
 
         pwChange_confirm.setOnClickListener {
             val password = pwChange_exist.text.toString()
-            val pref: SharedPreferences =
-                getSharedPreferences("mine", MODE_PRIVATE) // SharedPreferences 초기화
 
-            // 바꾸는 비밀번호와 현 비밀번호가 일치할 때
+            // 사용자의 현 비밀번호 확인
             val responseListener = Response.Listener<String> { response ->
                 try {
                     val jsonObject = JSONObject(response)
@@ -57,7 +55,6 @@ class PwChangeActivity : AppCompatActivity() {
             queue.add(loginRequest)
         }
 
-        val builder = AlertDialog.Builder(this@PwChangeActivity)
         pwChange_btn.setOnClickListener {
 
             if (pwChange_pw1.text.toString() == "" || pwChange_pw2.text.toString() == "") {

@@ -18,8 +18,8 @@ class BoardListRequest(listener: Response.Listener<JSONArray>) :
     }) {
     private val parameters: MutableMap<String, String>
     companion object {
-         private val URL = "http://192.168.100.251/cc/boardlist.php"
-        // private val URL = "http://192.168.0.4/cc/boardlist.php"
+         // private val URL = "http://192.168.100.251/cc/boardlist.php"
+        private val URL = "http://192.168.0.4/cc/boardlist.php"
     }
 
     init {

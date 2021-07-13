@@ -12,6 +12,7 @@ import kr.ac.castcommunity.cc.DetailActivity
 import kr.ac.castcommunity.cc.MainActivity
 
 import kr.ac.castcommunity.cc.R
+import kr.ac.castcommunity.cc.Toolbar.DetailToolbarActivity
 import kr.ac.castcommunity.cc.models.Board
 import org.w3c.dom.Text
 

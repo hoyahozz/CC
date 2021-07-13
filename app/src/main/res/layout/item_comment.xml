@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8sp"
         android:layout_marginLeft="8dp"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/colorWhite"
         tools:text="작성자"/>
@@ -32,7 +32,7 @@
         android:id="@+id/item_comment_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8sp"
+        android:layout_marginLeft="8dp"
         android:textColor="@color/colorGray"
         android:textSize="16sp"
         tools:text="Time" />

@@ -18,7 +18,8 @@ class RegisterRequest(id: String, password: String, name: String, nickname:Strin
     private val map: MutableMap<String, String>
 
     companion object {
-        const val URL = "http://192.168.100.251/cc/register.php"
+        // const val URL = "http://192.168.100.251/cc/register.php"
+        const val URL = "http://192.168.0.4/cc/register.php"
     }
 
     init {

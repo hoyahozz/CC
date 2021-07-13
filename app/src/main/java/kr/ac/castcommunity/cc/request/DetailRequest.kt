@@ -14,8 +14,8 @@ class DetailRequest(bnum : Int, listener: Response.Listener<String>) :
     }) {
     private val parameters: MutableMap<String, String>
     companion object {
-        private val URL = "http://192.168.100.251/cc/boarddetail.php"
-        // private val URL = "http://192.168.0.4/cc/boarddetail.php"
+        // private val URL = "http://192.168.100.251/cc/boarddetail.php"
+         private val URL = "http://192.168.0.4/cc/boarddetail.php"
     }
 
     init {

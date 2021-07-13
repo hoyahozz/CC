@@ -2,10 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="330dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".NickChangeActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="닉네임 변경"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="20sp"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -14,31 +30,32 @@
 
         <EditText
             android:id="@+id/nickChange_exist"
-            android:layout_width="wrap_content"
+            android:layout_width="235dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="30dp"
             android:hint="현재 닉네임"
-            android:inputType="textPassword"
             android:textColor="@color/colorBlack"
             android:textColorHint="@color/colorGray" />
 
         <Button
-            android:id="@+id/pwChange_confirm"
-            android:layout_width="wrap_content"
+            android:id="@+id/nickChange_confirm"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
             android:layout_marginTop="30dp"
-            android:background="@color/colorWhite"
-            android:text="중복확인"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="20dp"
+            android:background="@null"
+            android:text="확인"
             android:textStyle="bold"
+            android:maxLength="15"
             android:textColor="@color/colorBlack"/>
 
     </LinearLayout>
 
     <EditText
         android:id="@+id/nickChange_pw"
-        android:layout_width="match_parent"
+        android:layout_width="235dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="30dp"
@@ -49,11 +66,11 @@
 
     <Button
         android:id="@+id/nickChange_btn"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:background="@color/colorMyBlue"
-        android:text="닉네임 변경"/>
+        android:text="닉네임 변경" />
 
 </LinearLayout>

@@ -18,8 +18,8 @@ class CommentRequest(boardid : Int , listener: Response.Listener<String>) :
     }) {
     private val parameters: MutableMap<String, String>
     companion object {
-        private val URL = "http://192.168.100.251/cc/commentlist.php"
-        //private val URL = "http://192.168.0.4/cc/commentlist.php"
+        //private val URL = "http://192.168.100.251/cc/commentlist.php"
+        private val URL = "http://192.168.0.4/cc/commentlist.php"
     }
 
     init {

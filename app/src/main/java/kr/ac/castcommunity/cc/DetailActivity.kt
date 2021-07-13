@@ -29,6 +29,8 @@ import java.util.ArrayList
 import android.os.Build.VERSION_CODES.O
 import kr.ac.castcommunity.cc.DetailActivity
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat.getSystemService
 
 
@@ -40,15 +42,15 @@ class DetailActivity : DetailToolbarActivity() {
     val mDatas: ArrayList<Comment> = ArrayList()
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail)
 
+        val boardid = intent.getIntExtra("bnum", 0)
         var pref: SharedPreferences = getSharedPreferences("mine", Context.MODE_PRIVATE) // 초기화
         val writer = pref.getString("nickname", "").toString() // 저장한 값 불러오는 과정
         // 저장 값이 없으면 ""(공백)으로 불러옴
-        val boardid = intent.getIntExtra("bnum", 0)
-
 
 
         val DetailresponseListener = Response.Listener<String> { response ->
@@ -98,7 +100,7 @@ class DetailActivity : DetailToolbarActivity() {
                     val writer = jobject.getString("writer")
 
                     if (success == true) {
-                        mDatas.add(Comment(boardid, commentid, content, date, writer))
+                        mDatas.add(Comment(boardid, commentid, writer, content, date))
                     } else {
                         return@Listener
                     }
@@ -166,7 +168,7 @@ class DetailActivity : DetailToolbarActivity() {
                         val writer = jobject.getString("writer")
 
                         if (success == true) {
-                            mDatas.add(Comment(boardid, commentid, content, date, writer))
+                            mDatas.add(Comment(boardid, commentid, writer, content, date))
                         } else {
                             return@Listener
                         }
@@ -187,6 +189,60 @@ class DetailActivity : DetailToolbarActivity() {
             // 생성 Request 를 queue 에 추가
             queue.add(commentRequest)
             comment_swipe.isRefreshing = false
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val boardid = intent.getIntExtra("bnum", 0)
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+
+        when(item.itemId){
+
+            R.id.action_change -> {
+                val intent = Intent(applicationContext, BoardActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+
+            R.id.action_delete -> {
+                builder.setMessage("정말로 삭제하시겠습니까?")
+                builder.setPositiveButton("확인") { DialogInterface, i ->
+                    val deleteListener = Response.Listener<String> { response ->
+                        try {
+                            Log.d("delete response :", boardid.toString())
+                            val jsonObject = JSONObject(response)
+                            val success = jsonObject.getBoolean("success")
+                            if (success == true) { // 글 삭제에 성공했을 때
+                                Toast.makeText(applicationContext, "삭제 완료!", Toast.LENGTH_LONG)
+                                    .show()
+                                val intent = Intent(this, BoardActivity::class.java)
+                                startActivity(intent)
+                            } else { // 글 삭제에 실패했을 때
+                                Toast.makeText(applicationContext, "삭제 실패!", Toast.LENGTH_LONG).show()
+                                return@Listener
+                            }
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+                    }
+                    // 서버로 Volley를 이용해서 요청함.
+                    val deleteRequest = BoardDeleteRequest(boardid.toString(), deleteListener)
+                    val queue = Volley.newRequestQueue(this)
+                    queue.add(deleteRequest)
+                }
+                builder.setNegativeButton("취소") { DialogInterface, i ->
+
+                }
+                builder.show()
+                return true
+            }
+
+            android.R.id.home -> {
+                val intent = Intent(applicationContext, BoardActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
         }
     }
 }

@@ -70,10 +70,17 @@ class DetailActivity : DetailToolbarActivity() {
                 val date = jsonObject.getString("date")
                 val memId = jsonObject.getString("memId")
                 val cnt = jsonObject.getInt("cnt")
+                val anonymous = jsonObject.getInt("anonymous")
+
                 if (success == true) {
                     detail_content.text = content
                     detail_title.text = title
-                    detail_writer.text = writer
+
+                    if (anonymous == 1) {
+                        detail_writer.text = "익명"
+                    } else {
+                        detail_writer.text = writer
+                    }
                     detail_date.text = date
                     detail_cnt.text = cnt.toString()
                     if(my_id != memId) {
@@ -106,17 +113,23 @@ class DetailActivity : DetailToolbarActivity() {
                     val success = jobject.getBoolean("success")
                     val boardid = jobject.getInt("boardid")
                     val commentid = jobject.getInt("commentid")
+                    val memId = jobject.getString("memId")
                     val content = jobject.getString("content")
                     val date = jobject.getString("date")
-                    val writer = jobject.getString("writer")
+                    var writer = jobject.getString("writer")
+                    val anonymous = jobject.getInt("anonymous")
+
+                    if (anonymous == 1) {
+                        writer = "익명"
+                    }
 
                     if (success == true) {
-                        mDatas.add(Comment(boardid, commentid, writer, content, date))
+                        mDatas.add(Comment(boardid, commentid, memId, writer, content, date, anonymous))
                     } else {
                         return@Listener
                     }
                 }
-                mAdpater = CommentAdapter(this, mDatas, nickname)
+                mAdpater = CommentAdapter(this, mDatas, my_id)
                 mCommentRecyclerView!!.adapter = mAdpater
                 mCommentRecyclerView!!.addItemDecoration(BoardDecoration(20))
                 val lm = LinearLayoutManager(this)
@@ -137,14 +150,17 @@ class DetailActivity : DetailToolbarActivity() {
 
         val write_btn = comment_write_btn
 
+        var com_anonymous = 0
         write_btn.setOnClickListener {
+            if(comment_anonymous.isChecked) {
+                com_anonymous = 1
+            }
             val content = comment_content.text.toString()
             val commentWriteListener = Response.Listener<String> { response ->
                 try {
                     val jsonObject = JSONObject(response)
                     val success = jsonObject.getBoolean("success")
                     if (success == true) {// 글 등록에 성공한 경우
-                        Toast.makeText(applicationContext, "글쓰기 성공!", Toast.LENGTH_LONG).show()
                         val intent = Intent(this@DetailActivity, DetailActivity::class.java)
                         intent.putExtra("bnum", boardid)
                         startActivity(intent)
@@ -157,7 +173,7 @@ class DetailActivity : DetailToolbarActivity() {
                 }
             }
             //서버로 Volley를 이용해서 요청함.
-            val writeRequest = CommentWriteRequest(my_id, boardid, nickname, content, commentWriteListener)
+            val writeRequest = CommentWriteRequest(my_id, boardid, nickname, content, com_anonymous.toString(), commentWriteListener)
             queue.add(writeRequest)
         }
 
@@ -174,17 +190,23 @@ class DetailActivity : DetailToolbarActivity() {
                         val success = jobject.getBoolean("success")
                         val boardid = jobject.getInt("boardid")
                         val commentid = jobject.getInt("commentid")
+                        val memId = jobject.getString("memId")
                         val content = jobject.getString("content")
                         val date = jobject.getString("date")
-                        val writer = jobject.getString("writer")
+                        var writer = jobject.getString("writer")
+                        val anonymous = jobject.getInt("anonymous")
+
+                        if (anonymous == 1) { // 익명일 때 닉네임 익명으로 설정
+                            writer = "익명"
+                        }
 
                         if (success == true) {
-                            mDatas.add(Comment(boardid, commentid, writer, content, date))
+                            mDatas.add(Comment(boardid, commentid, memId, writer, content, date, anonymous))
                         } else {
                             return@Listener
                         }
                     }
-                    mAdpater = CommentAdapter(this, mDatas, nickname)
+                    mAdpater = CommentAdapter(this, mDatas, my_id)
                     mCommentRecyclerView!!.adapter = mAdpater
                     val lm = LinearLayoutManager(this)
                     lm.reverseLayout = true // 출력 역순으로

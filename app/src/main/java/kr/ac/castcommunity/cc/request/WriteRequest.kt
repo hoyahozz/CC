@@ -8,7 +8,7 @@ import com.android.volley.Response.success
 import com.android.volley.toolbox.StringRequest
 import java.util.HashMap
 
-class WriteRequest(id : String, title: String, content: String, writer : String, listener: Response.Listener<String>) :
+class WriteRequest(id : String, title: String, content: String, writer : String, anonymous : String, listener: Response.Listener<String>) :
     StringRequest(Request.Method.POST, URL, listener, Response.ErrorListener { error ->
         Log.d("ERROR", "서버 Response 가져오기 실패: $error")
     }) {
@@ -24,6 +24,7 @@ class WriteRequest(id : String, title: String, content: String, writer : String,
         parameters["title"] = title
         parameters["content"] = content
         parameters["writer"] = writer
+        parameters["anonymous"] = anonymous
     }
 
     override fun getParams(): Map<String, String> {

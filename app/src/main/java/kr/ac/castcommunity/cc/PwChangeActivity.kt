@@ -37,7 +37,8 @@ class PwChangeActivity : AppCompatActivity() {
 
                     val success = jsonObject.getBoolean("success")
                     if (success == true) { // 현재 비밀번호가 맞을 경우
-                        Toast.makeText(applicationContext, "확인 완료!", Toast.LENGTH_LONG).show()
+                        builder.setMessage("비밀번호를 확인하였습니다.").setPositiveButton("확인", null).create()
+                        builder.show()
                         validate = true // 비밀번호 확인 결과 true
                     } else { // 현재 비밀번호가 아닌 경우
                         Toast.makeText(applicationContext, "일치하지 않습니다!", Toast.LENGTH_LONG).show()

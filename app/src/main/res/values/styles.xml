@@ -17,4 +17,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="CustomRadioButton" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/colorMyBlue</item>
+        <item name="colorControlNormal">@color/colorGray</item>
+    </style>
+
 </resources>

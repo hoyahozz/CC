@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
@@ -49,9 +49,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_gravity="right"
-                android:background="@drawable/rounded_layout"
+                android:background="@null"
                 android:text="공감"
-                android:textColor="@color/colorGray"
+                android:visibility="invisible"
+                android:textColor="@color/colorMyBlue"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -99,6 +100,7 @@
                 android:src="@drawable/detail_thumup" />
 
             <TextView
+                android:id="@+id/detail_cnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -138,11 +140,18 @@
             android:id="@+id/comment_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="40dp"
             android:hint="댓글을 입력하세요."
             android:textSize="20sp"
             android:textColor="@color/colorWhite"
             android:textColorHint="@color/colorGray" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:theme="@style/CustomRadioButton"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"/>
 
         <ImageButton
             android:id="@+id/comment_write_btn"

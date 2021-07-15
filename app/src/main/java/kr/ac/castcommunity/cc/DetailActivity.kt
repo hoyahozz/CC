@@ -1,5 +1,8 @@
 package kr.ac.castcommunity.cc
 
+import RecommendAddRequest
+import RecommendDeleteRequest
+import RecommendRequest
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -29,10 +32,12 @@ import java.util.ArrayList
 import android.os.Build.VERSION_CODES.O
 import kr.ac.castcommunity.cc.DetailActivity
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat.getSystemService
-
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 
 
 class DetailActivity : DetailToolbarActivity() {
@@ -46,10 +51,12 @@ class DetailActivity : DetailToolbarActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail)
+        var pref: SharedPreferences = getSharedPreferences("mine", Context.MODE_PRIVATE) // 초기화
+        val nickname = pref.getString("nickname", "").toString() // 저장한 값 불러오는 과정
+        val my_id = pref.getString("id","").toString()
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
 
         val boardid = intent.getIntExtra("bnum", 0)
-        var pref: SharedPreferences = getSharedPreferences("mine", Context.MODE_PRIVATE) // 초기화
-        val writer = pref.getString("nickname", "").toString() // 저장한 값 불러오는 과정
         // 저장 값이 없으면 ""(공백)으로 불러옴
 
 
@@ -61,14 +68,18 @@ class DetailActivity : DetailToolbarActivity() {
                 val content = jsonObject.getString("content")
                 val writer = jsonObject.getString("writer")
                 val date = jsonObject.getString("date")
+                val memId = jsonObject.getString("memId")
+                val cnt = jsonObject.getInt("cnt")
                 if (success == true) {
-                    Toast.makeText(applicationContext, "게시판 불러오기 성공!", Toast.LENGTH_LONG).show()
                     detail_content.text = content
                     detail_title.text = title
                     detail_writer.text = writer
                     detail_date.text = date
-                } else { // 로그인에 실패한 경우
-                    Toast.makeText(applicationContext, "게시판 불러오기 실패!", Toast.LENGTH_LONG).show()
+                    detail_cnt.text = cnt.toString()
+                    if(my_id != memId) {
+                        detail_recommend.isVisible = true
+                    }
+                } else {
                     return@Listener
                 }
             } catch (e: JSONException) {
@@ -105,7 +116,7 @@ class DetailActivity : DetailToolbarActivity() {
                         return@Listener
                     }
                 }
-                mAdpater = CommentAdapter(this, mDatas)
+                mAdpater = CommentAdapter(this, mDatas, nickname)
                 mCommentRecyclerView!!.adapter = mAdpater
                 mCommentRecyclerView!!.addItemDecoration(BoardDecoration(20))
                 val lm = LinearLayoutManager(this)
@@ -126,7 +137,7 @@ class DetailActivity : DetailToolbarActivity() {
 
         val write_btn = comment_write_btn
 
-        write_btn.setOnClickListener() {
+        write_btn.setOnClickListener {
             val content = comment_content.text.toString()
             val commentWriteListener = Response.Listener<String> { response ->
                 try {
@@ -146,7 +157,7 @@ class DetailActivity : DetailToolbarActivity() {
                 }
             }
             //서버로 Volley를 이용해서 요청함.
-            val writeRequest = CommentWriteRequest(boardid, writer, content, commentWriteListener)
+            val writeRequest = CommentWriteRequest(my_id, boardid, nickname, content, commentWriteListener)
             queue.add(writeRequest)
         }
 
@@ -173,7 +184,7 @@ class DetailActivity : DetailToolbarActivity() {
                             return@Listener
                         }
                     }
-                    mAdpater = CommentAdapter(this, mDatas)
+                    mAdpater = CommentAdapter(this, mDatas, nickname)
                     mCommentRecyclerView!!.adapter = mAdpater
                     val lm = LinearLayoutManager(this)
                     lm.reverseLayout = true // 출력 역순으로
@@ -190,16 +201,121 @@ class DetailActivity : DetailToolbarActivity() {
             queue.add(commentRequest)
             comment_swipe.isRefreshing = false
         }
+
+        detail_recommend.setOnClickListener {
+                val recommendListener = Response.Listener<String> { response ->
+                    try {
+                        val jsonObject = JSONObject(response)
+                        val success = jsonObject.getBoolean("success")
+                        if (success == true) { // 해당 유저가 공감 버튼을 이미 눌렀을 때
+
+                            builder.setMessage("공감 삭제하시겠습니까?")
+                            builder.setPositiveButton("확인") { DialogInterface, i ->
+                                val recommendDeleteListener = Response.Listener<String> { response->
+                                    try {
+                                        val jsonObject = JSONObject(response)
+                                        val success = jsonObject.getBoolean("success")
+                                        if (success == true) {
+                                            Toast.makeText(applicationContext, "공감이 취소되었습니다!", Toast.LENGTH_LONG).show()
+                                            val intent = Intent(this@DetailActivity, DetailActivity::class.java)
+                                            intent.putExtra("bnum", boardid)
+                                            startActivity(intent)
+                                        }
+                                    } catch (e: JSONException) {
+                                        e.printStackTrace()
+                                    }
+                                }
+                                val recommendDeleteRequest = RecommendDeleteRequest(boardid.toString(),my_id,recommendDeleteListener)
+                                queue.add(recommendDeleteRequest)
+                            }
+                            builder.setNegativeButton("취소") { DialogInterface, i ->
+
+                            }
+                            builder.show()
+
+
+                        } else { // 공감 버튼을 누르지 않았을 때
+                            builder.setMessage("공감하시겠습니까?")
+                            builder.setPositiveButton("확인") { DialogInterface, i ->
+                                val recommendAddListener = Response.Listener<String> { response->
+                                    try {
+                                        val jsonObject = JSONObject(response)
+                                        val success = jsonObject.getBoolean("success")
+                                        if (success == true) {
+                                            Toast.makeText(applicationContext, "공감 성공!", Toast.LENGTH_LONG).show()
+                                            val intent = Intent(this@DetailActivity, DetailActivity::class.java)
+                                            intent.putExtra("bnum", boardid)
+                                            startActivity(intent)
+                                        }
+                                    } catch (e: JSONException) {
+                                        e.printStackTrace()
+                                    }
+                                }
+                                val recommendAddRequest = RecommendAddRequest(boardid.toString(),my_id,recommendAddListener)
+                                queue.add(recommendAddRequest)
+                            }
+                            builder.setNegativeButton("취소") { DialogInterface, i ->
+
+                            }
+                            builder.show()
+                            return@Listener
+                        }
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                    }
+                }
+                //서버로 Volley를 이용해서 요청함.
+                val recommendRequest = RecommendRequest(boardid.toString(),my_id,recommendListener)
+                queue.add(recommendRequest)
+
+        }
+    }
+
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        Log.d("onPrepareOptionsMenu", "START")
+        menuInflater.inflate(R.menu.board_menu, menu)
+        val more = menu?.findItem(R.id.action_more)
+        val boardid = intent.getIntExtra("bnum", 0)
+        var pref: SharedPreferences = getSharedPreferences("mine", Context.MODE_PRIVATE) // 초기화
+
+        val my_id = pref.getString("id","").toString()
+
+        val DetailresponseListener = Response.Listener<String> { response ->
+            try {
+                val jsonObject = JSONObject(response)
+                val success = jsonObject.getBoolean("success")
+                val memId = jsonObject.getString("memId")
+                if (success == true) {
+                    if(my_id == memId) {
+                        more?.setVisible(true)
+                    } else {
+                        more?.setVisible(false)
+                    }
+                } else { // 로그인에 실패한 경우
+                    return@Listener
+                }
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+        }
+        val detailRequest = DetailRequest(boardid, DetailresponseListener)
+        val queue = Volley.newRequestQueue(this@DetailActivity)
+        queue.add(detailRequest)
+
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val boardid = intent.getIntExtra("bnum", 0)
+
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
 
         when(item.itemId){
 
             R.id.action_change -> {
-                val intent = Intent(applicationContext, BoardActivity::class.java)
+                val intent = Intent(applicationContext, UpdateActivity::class.java)
+                intent.putExtra("boardid", boardid)
                 startActivity(intent)
                 return true
             }

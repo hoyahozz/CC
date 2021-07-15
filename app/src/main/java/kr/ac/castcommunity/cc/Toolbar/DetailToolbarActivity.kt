@@ -48,12 +48,10 @@ open class DetailToolbarActivity : AppCompatActivity() {
     protected fun useToolbar(): Boolean {
         return true
     }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.board_menu, menu)
-        return true
-    }
-
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        menuInflater.inflate(R.menu.board_menu, menu)
+//        return true
+//    }
 
 
 //    override fun onOptionsItemSelected(item: MenuItem): Boolean {

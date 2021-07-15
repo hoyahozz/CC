@@ -51,15 +51,18 @@ class BoardActivity : BoardToolbarActivity() {
                 for (i in 0 until response.length()) { // 받아온 데이터의 길이만큼 계속 받아옴
                     val jobject = response.getJSONObject(i)
                     val success = jobject.getBoolean("success")
-                    // val rownum = jobject.getInt("rownum")
                     val bnum = jobject.getInt("bnum")
+                    val btype = jobject.getString("btype")
+                    val writer = jobject.getString("writer")
                     val title = jobject.getString("title")
                     val content = jobject.getString("content")
                     val date = jobject.getString("date")
-                    val writer = jobject.getString("writer")
+                    val memId = jobject.getString("memId")
+                    val cnt = jobject.getInt("cnt")
+                    val anonymous = jobject.getInt("anonymous")
 
                     if (success == true) { // 게시물을 받아오는데 성공했을 때
-                        mDatas.add(Board(bnum, title, content, date, writer)) // ArrayList 에 데이터 추가
+                        mDatas.add(Board(bnum, btype, writer, title, content, memId, date, cnt, anonymous)) // ArrayList 에 데이터 추가
                     } else {
                         return@Listener
                     }
@@ -95,18 +98,21 @@ class BoardActivity : BoardToolbarActivity() {
             val responseListener = Response.Listener<JSONArray> { response ->
                 try { // 데이터를 확인하고 다시 넣는 과정
                     Log.d("response", "response Start")
-                    // val jsonarray = response.getJSONArray("result")
                     for (i in 0 until response.length()) {
                         val jobject = response.getJSONObject(i)
                         val success = jobject.getBoolean("success")
                         val bnum = jobject.getInt("bnum")
+                        val btype = jobject.getString("btype")
                         val title = jobject.getString("title")
                         val content = jobject.getString("content")
                         val date = jobject.getString("date")
                         val writer = jobject.getString("writer")
+                        val memId = jobject.getString("memId")
+                        val cnt = jobject.getInt("cnt")
+                        val anonymous = jobject.getInt("anonymous")
 
-                        if (success == true) {
-                            mDatas.add(Board(bnum, title, content, date, writer))
+                        if (success == true) { // 게시물을 받아오는데 성공했을 때
+                            mDatas.add(Board(bnum, btype, writer, title, content, memId, date, cnt, anonymous)) // ArrayList 에 데이터 추가
                         } else { // 로그인에 실패한 경우
                             return@Listener
                         }

@@ -42,6 +42,17 @@ class MyInfoActivity : MyInfoToolbarActivity() {
             startActivity(intent)
         }
 
+
+        my_nickChange.setOnClickListener {
+            val intent = Intent(this@MyInfoActivity, NickChangeActivity::class.java)
+            startActivity(intent)
+        }
+
+        my_mailChange.setOnClickListener {
+            val intent = Intent(this@MyInfoActivity, EmailChangeActivity::class.java)
+            startActivity(intent)
+        }
+
         // 탈퇴 버튼을 눌렀을 때
         my_delete.setOnClickListener {
             builder.setMessage("정말로 탈퇴하시겠습니까?")

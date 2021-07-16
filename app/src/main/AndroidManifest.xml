@@ -14,7 +14,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".PwChangeActivity" android:theme="@style/popupTheme" android:screenOrientation="portrait"/>
+        <activity android:name=".Toolbar.UpdateToolbarActivity"></activity>
+        <activity android:name=".UpdateActivity" />
+        <activity
+            android:name=".PwChangeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/popupTheme" />
+        <activity
+            android:name=".NickChangeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/popupTheme" />
+        <activity
+            android:name=".EmailChangeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/popupTheme" />
         <activity android:name=".MyInfoActivity" />
         <activity android:name=".Toolbar.MyInfoToolbarActivity" />
         <activity android:name=".Toolbar.DetailToolbarActivity" />

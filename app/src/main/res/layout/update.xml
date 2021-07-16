@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorBlack"
-    tools:context=".WriteActivity">
+    tools:context=".UpdateActivity">
 
     <EditText
-        android:id="@+id/write_title"
+        android:id="@+id/update_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/colorWhite"
@@ -22,16 +22,16 @@
         android:background="@color/colorGray" />
 
     <EditText
-        android:id="@+id/write_content"
+        android:id="@+id/update_content"
         android:layout_width="match_parent"
         android:layout_height="450dp"
-        android:gravity="top"
-        android:hint="내용을 입력하세요."
         android:textColor="@color/colorWhite"
-        android:textColorHint="@color/colorGray" />
+        android:textColorHint="@color/colorGray"
+        android:gravity="top"
+        android:hint="내용을 입력하세요." />
 
     <CheckBox
-        android:id="@+id/write_anonymous"
+        android:id="@+id/update_anonymous"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:theme="@style/CustomRadioButton"
@@ -41,6 +41,5 @@
         android:checked="true"
         android:textColor="@color/colorGray"
         android:layout_marginLeft="10dp"/>
-
 
 </LinearLayout>

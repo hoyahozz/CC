@@ -1,9 +1,7 @@
 package kr.ac.castcommunity.cc
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,15 +13,9 @@ import kr.ac.castcommunity.cc.adapters.BoardAdapter
 import kr.ac.castcommunity.cc.request.BoardListRequest
 import org.json.JSONArray
 import org.json.JSONException
-import org.json.JSONObject
 import java.util.ArrayList
 import kr.ac.castcommunity.cc.models.Board
-import android.os.Build.VERSION_CODES.O
-import kr.ac.castcommunity.cc.BoardActivity
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import androidx.core.content.ContextCompat.getSystemService
 import kotlinx.android.synthetic.main.board.*
-import kotlinx.android.synthetic.main.item_board.*
 
 
 class BoardActivity : BoardToolbarActivity() {
@@ -52,13 +44,21 @@ class BoardActivity : BoardToolbarActivity() {
                     val jobject = response.getJSONObject(i)
                     val success = jobject.getBoolean("success")
                     val bnum = jobject.getInt("bnum")
+                    val btype = jobject.getString("btype")
+                    var writer = jobject.getString("writer")
                     val title = jobject.getString("title")
                     val content = jobject.getString("content")
                     val date = jobject.getString("date")
-                    val writer = jobject.getString("writer")
+                    val memId = jobject.getString("memId")
+                    val cnt = jobject.getInt("cnt")
+                    val anonymous = jobject.getInt("anonymous")
+
+                    if(anonymous == 1) { // 익명일 때 닉네임 익명으로 설정
+                        writer = "익명"
+                    }
 
                     if (success == true) { // 게시물을 받아오는데 성공했을 때
-                        mDatas.add(Board(bnum, title, content, date, writer)) // ArrayList 에 데이터 추가
+                        mDatas.add(Board(bnum, btype, writer, title, content, memId, date, cnt, anonymous)) // ArrayList 에 데이터 추가
                     } else {
                         return@Listener
                     }
@@ -94,18 +94,26 @@ class BoardActivity : BoardToolbarActivity() {
             val responseListener = Response.Listener<JSONArray> { response ->
                 try { // 데이터를 확인하고 다시 넣는 과정
                     Log.d("response", "response Start")
-                    // val jsonarray = response.getJSONArray("result")
                     for (i in 0 until response.length()) {
                         val jobject = response.getJSONObject(i)
                         val success = jobject.getBoolean("success")
                         val bnum = jobject.getInt("bnum")
+                        val btype = jobject.getString("btype")
                         val title = jobject.getString("title")
                         val content = jobject.getString("content")
                         val date = jobject.getString("date")
-                        val writer = jobject.getString("writer")
+                        var writer = jobject.getString("writer")
+                        val memId = jobject.getString("memId")
+                        val cnt = jobject.getInt("cnt")
+                        val anonymous = jobject.getInt("anonymous")
 
-                        if (success == true) {
-                            mDatas.add(Board(bnum, title, content, date, writer))
+                        if(anonymous == 1) { // 익명일 때 닉네임 익명으로 설정
+                            writer = "익명"
+                        }
+
+
+                        if (success == true) { // 게시물을 받아오는데 성공했을 때
+                            mDatas.add(Board(bnum, btype, writer, title, content, memId, date, cnt, anonymous)) // ArrayList 에 데이터 추가
                         } else { // 로그인에 실패한 경우
                             return@Listener
                         }

@@ -14,8 +14,8 @@ class PwChangeRequest(id : String, pw : String, listener: Response.Listener<Stri
     }) {
     private val parameters: MutableMap<String, String>
     companion object {
-        private val URL = "http://192.168.100.251/cc/pwchange.php"
-        // private val URL = "http://192.168.0.4/cc/pwchange.php"
+        // private val URL = "http://192.168.100.251/cc/pwchange.php"
+        private val URL = "http://192.168.0.4/cc/pwchange.php"
     }
 
     init {

@@ -34,9 +34,9 @@
 
         <TextView
             android:id="@+id/item_board_time"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8sp"
+            android:layout_marginLeft="8dp"
             android:textColor="@color/colorGray"
             android:textSize="16sp"
             tools:text="Time" />
@@ -44,7 +44,7 @@
             android:id="@+id/item_board_writer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20px"
+            android:layout_marginLeft="8dp"
             android:textColor="@color/colorGray"
             android:textSize="16sp"
             tools:text="Writer" />
@@ -56,16 +56,15 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
             android:src="@drawable/board_thumup" />
 
         <TextView
+            android:id="@+id/item_board_reCnt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:background="@color/colorBlack"
-            android:gravity="right"
+            android:background="@null"
             android:text="20"
+            android:textSize="16sp"
             android:layout_marginRight="5dp"
             android:textColor="@color/colorWhite" />
 
@@ -75,11 +74,13 @@
             android:src="@drawable/board_chat" />
 
         <TextView
+            android:id="@+id/item_board_coCnt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:background="@color/colorBlack"
+            android:background="@null"
             android:text="10"
+            android:textSize="16sp"
             android:textColor="@color/colorWhite" />
     </LinearLayout>
 

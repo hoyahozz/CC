@@ -2,11 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="330dp"
     android:layout_height="wrap_content"
-    android:background="@color/colorWhite"
     android:orientation="vertical"
-    tools:context=".PwChangeActivity">
+    tools:context=".NickChangeActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="비밀번호 변경"
+            android:text="닉네임 변경"
             android:textColor="@color/colorBlack"
             android:textStyle="bold"
             android:gravity="center"
@@ -30,58 +29,48 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/pwChange_exist"
-            android:layout_width="wrap_content"
+            android:id="@+id/nickChange_exist"
+            android:layout_width="235dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="30dp"
-            android:hint="현재 비밀번호를 입력하세요."
-            android:inputType="textPassword"
+            android:hint="현재 닉네임"
             android:textColor="@color/colorBlack"
-            android:maxLength="25"
             android:textColorHint="@color/colorGray" />
 
         <Button
-            android:id="@+id/pwChange_confirm"
-            android:layout_width="50dp"
+            android:id="@+id/nickChange_confirm"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
             android:layout_marginTop="30dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="20dp"
             android:background="@null"
             android:text="확인"
             android:textStyle="bold"
+            android:maxLength="15"
             android:textColor="@color/colorBlack"/>
 
     </LinearLayout>
 
     <EditText
-        android:id="@+id/pwChange_pw1"
-        android:layout_width="wrap_content"
+        android:id="@+id/nickChange_pw"
+        android:layout_width="235dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="30dp"
-        android:hint="변경 비밀번호를 입력하세요."
+        android:hint="비밀번호를 입력하세요."
         android:inputType="textPassword"
         android:textColor="@color/colorBlack"
         android:textColorHint="@color/colorGray" />
 
-    <EditText
-        android:id="@+id/pwChange_pw2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:hint="변경 비밀번호를 재입력하세요."
-        android:inputType="textPassword"
-        android:textColor="@color/colorBlack"
-        android:textColorHint="@color/colorGray" />
     <Button
-        android:id="@+id/pwChange_btn"
+        android:id="@+id/nickChange_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:background="@color/colorMyBlue"
-        android:text="비밀번호 변경"/>
+        android:text="닉네임 변경" />
+
 </LinearLayout>

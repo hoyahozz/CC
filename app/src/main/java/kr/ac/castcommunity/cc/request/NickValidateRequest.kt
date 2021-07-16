@@ -12,9 +12,9 @@ class NickValidateRequest(nickname: String, listener: Response.Listener<String>)
         Log.d("ERROR", "서버 Response 가져오기 실패: $error")
     }) {
     private val map: MutableMap<String, String>
-
     companion object {
-        private const val URL = "http://192.168.100.251/cc/nickvalidate.php"
+        //private const val URL = "http://192.168.100.251/cc/nickvalidate.php"
+        private const val URL = "http://192.168.0.4/cc/nickvalidate.php"
     }
     init {
         map = HashMap()

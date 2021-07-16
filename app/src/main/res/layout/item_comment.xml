@@ -7,34 +7,57 @@
     android:background="@drawable/layout_selector"
     android:id="@+id/item_comment">
 
-    <TextView
-        android:id="@+id/item_comment_writer"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8sp"
-        android:layout_marginLeft="8dp"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/colorWhite"
-        tools:text="작성자"/>
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
 
-    <TextView
-        android:id="@+id/item_comment_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorWhite"
-        android:textSize="16sp"
-        android:layout_marginLeft="8dp"
-        tools:text="Contents" />
+            <TextView
+                android:id="@+id/item_comment_writer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8sp"
+                android:layout_marginLeft="8dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite"
+                tools:text="작성자"/>
+
+            <TextView
+                android:id="@+id/item_comment_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp"
+                android:layout_marginLeft="8dp"
+                tools:text="Contents" />
 
 
-    <TextView
-        android:id="@+id/item_comment_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8sp"
-        android:textColor="@color/colorGray"
-        android:textSize="16sp"
-        tools:text="Time" />
+            <TextView
+                android:id="@+id/item_comment_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:textColor="@color/colorGray"
+                android:textSize="16sp"
+                tools:text="Time" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/comment_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/menu_delete"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            android:layout_marginRight="20dp"/>
+
+    </LinearLayout>
+
 
 </LinearLayout>

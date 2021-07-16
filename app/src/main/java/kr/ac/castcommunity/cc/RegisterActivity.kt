@@ -20,18 +20,8 @@ import org.json.JSONException
 import org.json.JSONObject
 
 class RegisterActivity : AppCompatActivity() {
-    private val nickname: String?=null
-    private var join_id: EditText? = null
-    private var join_password: EditText? = null
-    private var join_password2: EditText? = null
-    private var join_name: EditText? = null
-    private var join_nickname: EditText? = null
-    private var join_email: EditText? = null
 
-    private var idcheck: Button? = null
-    private var nickname_chk: Button? = null
     private var dialog: AlertDialog? = null
-    private var validate = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,9 +38,8 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         //닉네임 중복 확인
-        nickname_chk = findViewById(R.id.nickname_chk)
-        nickname_chk?.setOnClickListener {
-            val nickname = join_nickname?.getText().toString()
+        nickname_chk.setOnClickListener {
+            val nickname = join_nickname.text.toString()
             if (nickname!!.equals("")) {
                 val builder: AlertDialog.Builder = AlertDialog.Builder(this@RegisterActivity)
                 dialog = builder.setMessage("닉네임을 입력하세요.").setPositiveButton("확인", null).create()
@@ -154,8 +143,6 @@ class RegisterActivity : AppCompatActivity() {
                         //비밀번호가 같을 경우
                         if (password.equals(password2)) {
                             if (success == true) {// 회원가입 성공한 경우
-                                Toast.makeText(applicationContext, "회원가입 성공", Toast.LENGTH_LONG)
-                                    .show()
                                 val intent =
                                     Intent(this@RegisterActivity, LoginActivity::class.java)
                                 startActivity(intent)

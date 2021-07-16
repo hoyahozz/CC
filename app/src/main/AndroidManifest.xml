@@ -3,16 +3,16 @@
     package="kr.ac.castcommunity.cc"
     android:targetSandboxVersion="1">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 인터넷 권한 선언 -->
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:networkSecurityConfig="@xml/network"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+<<<<<<< HEAD
         android:usesCleartextTraffic="true">
         <activity android:name=".Toolbar.UpdateToolbarActivity"></activity>
         <activity android:name=".UpdateActivity" />
@@ -33,6 +33,11 @@
         <activity android:name=".Toolbar.DetailToolbarActivity" />
         <activity android:name=".DetailActivity" />
         <activity android:name=".Toolbar.WriteToolbarActivity" />
+=======
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network">
+        <activity android:name=".Toolbar.WriteToolbarActivity"></activity>
+>>>>>>> parent of 65318ca (merged)
         <activity android:name=".WriteActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Toolbar.BoardToolbarActivity" />

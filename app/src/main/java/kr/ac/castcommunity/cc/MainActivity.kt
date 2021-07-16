@@ -19,7 +19,13 @@ class MainActivity : MainToolbar() {
 
         main_viewPager.adapter = ViewPagerAdapter(getList())
 
+
+
         var mainboard = main_board
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 65318ca (merged)
         mainboard.setOnClickListener {
             val intent = Intent(applicationContext, BoardActivity::class.java)
             startActivity(intent)

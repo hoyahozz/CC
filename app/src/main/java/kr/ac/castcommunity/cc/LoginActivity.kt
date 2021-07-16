@@ -66,12 +66,12 @@ class LoginActivity : AppCompatActivity() {
             val queue = Volley.newRequestQueue(this@LoginActivity)
             queue.add(loginRequest)
         }
-
+        //회원가입 클릭 시
         Register.setOnClickListener {
             val intent = Intent(applicationContext, RegisterActivity::class.java)
             startActivity(intent)
         }
-
+        //아이디/비밀번호 찾기로 이동
         Find.setOnClickListener {
             val intent = Intent(applicationContext, IdFindActivity::class.java)
             startActivity(intent)

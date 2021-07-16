@@ -20,14 +20,6 @@ import org.json.JSONException
 import org.json.JSONObject
 
 class RegisterActivity : AppCompatActivity() {
-    private val nickname: String?=null
-    private var join_id: EditText? = null
-    private var join_password: EditText? = null
-    private var join_password2: EditText? = null
-    private var join_name: EditText? = null
-    private var join_nickname: EditText? = null
-    private var join_email: EditText? = null
-
     private var idcheck: Button? = null
     private var nickname_chk: Button? = null
     private var dialog: AlertDialog? = null
@@ -46,7 +38,6 @@ class RegisterActivity : AppCompatActivity() {
                 R.id.join_rdButton2 -> role = "Normal"
             }
         }
-
         //닉네임 중복 확인
         nickname_chk = findViewById(R.id.nickname_chk)
         nickname_chk?.setOnClickListener {
@@ -124,8 +115,6 @@ class RegisterActivity : AppCompatActivity() {
                 val queue: RequestQueue = Volley.newRequestQueue(this@RegisterActivity)
                 queue.add(validateRequest)
             }
-
-
             //회원가입(join_button)버튼 클릭 시 수행
             join_button?.setOnClickListener {
                 val id = join_id?.getText().toString()
@@ -137,20 +126,18 @@ class RegisterActivity : AppCompatActivity() {
 
                 //빈칸이 있을경우
                 if (id.equals("") || password.equals("") || password2.equals("") || name.equals("") ||
-                    nickname.equals("") || email.equals("") || role.equals("")
-                ) {
+                    nickname.equals("") || email.equals("") || role.equals(""))
+                    {
                     val builder: AlertDialog.Builder = AlertDialog.Builder(this@RegisterActivity)
                     dialog = builder.setMessage("정보를 모두 입력해주세요").setNegativeButton("확인", null).create()
                     dialog!!.show()
                     return@setOnClickListener
                 }
-
                 //회원가입 진행
                 val responseListener = Response.Listener<String> { response ->
                     try {
                         val jsonObject = JSONObject(response)
                         val success = jsonObject.getBoolean("success")
-
                         //비밀번호가 같을 경우
                         if (password.equals(password2)) {
                             if (success == true) {// 회원가입 성공한 경우
@@ -177,10 +164,8 @@ class RegisterActivity : AppCompatActivity() {
                     }
 
                 }
-
                 // Volley 라이브러리를 이용해 실제 서버와 통신을 구현하는 부분
-                val registerRequest =
-                    RegisterRequest(id, password, name, nickname, email, role, responseListener)
+                val registerRequest = RegisterRequest(id, password, name, nickname, email, role, responseListener)
                 val queue = Volley.newRequestQueue(this@RegisterActivity)
                 queue.add(registerRequest)
 

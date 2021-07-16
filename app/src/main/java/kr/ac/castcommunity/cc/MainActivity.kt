@@ -23,7 +23,10 @@ class MainActivity : MainToolbar() {
 
         var mainboard = main_board
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 65318ca (merged)
 
 >>>>>>> parent of 65318ca (merged)
         mainboard.setOnClickListener {

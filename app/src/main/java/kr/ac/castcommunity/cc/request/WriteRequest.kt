@@ -9,7 +9,11 @@ import com.android.volley.toolbox.StringRequest
 import java.util.HashMap
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 class WriteRequest(id : String, title: String, content: String, writer : String, listener: Response.Listener<String>) :
+=======
+class WriteRequest(title: String, content: String, listener: Response.Listener<String>) :
+>>>>>>> parent of 65318ca (merged)
 =======
 class WriteRequest(title: String, content: String, listener: Response.Listener<String>) :
 >>>>>>> parent of 65318ca (merged)
@@ -19,8 +23,12 @@ class WriteRequest(title: String, content: String, listener: Response.Listener<S
     private val parameters: MutableMap<String, String>
     companion object {
 <<<<<<< HEAD
+<<<<<<< HEAD
         // private val URL = "http://192.168.100.251/cc/boardwrite.php"
         private val URL = "http://192.168.0.4/cc/boardwrite.php"
+=======
+        private val URL = "http://192.168.100.251/cc/boardwrite2.php"
+>>>>>>> parent of 65318ca (merged)
 =======
         private val URL = "http://192.168.100.251/cc/boardwrite2.php"
 >>>>>>> parent of 65318ca (merged)

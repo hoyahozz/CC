@@ -24,9 +24,12 @@ class WriteActivity : WriteToolbarActivity() {
         setContentView(R.layout.write)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         var pref : SharedPreferences = getSharedPreferences("mine", Context.MODE_PRIVATE)
         val writer = pref.getString("nickname","").toString()
         val my_id = pref.getString("id","").toString()
+=======
+>>>>>>> parent of 65318ca (merged)
 =======
 >>>>>>> parent of 65318ca (merged)
         val write_btn = write_btn
@@ -52,7 +55,11 @@ class WriteActivity : WriteToolbarActivity() {
             }
             //서버로 Volley를 이용해서 요청함.
 <<<<<<< HEAD
+<<<<<<< HEAD
             val writeRequest = WriteRequest(my_id, title, content, writer, responseListener)
+=======
+            val writeRequest = WriteRequest(title, content, responseListener)
+>>>>>>> parent of 65318ca (merged)
 =======
             val writeRequest = WriteRequest(title, content, responseListener)
 >>>>>>> parent of 65318ca (merged)

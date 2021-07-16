@@ -2,9 +2,12 @@ package kr.ac.castcommunity.cc.models
 
 class Board {
 <<<<<<< HEAD
+<<<<<<< HEAD
     var bnum: Int? = null
     var byte : String? = null
 =======
+=======
+>>>>>>> parent of 65318ca (merged)
 
     var id: String? = null
     var title: String? = null
@@ -49,6 +52,9 @@ class Board {
 
     constructor(id: String, title: String, writer: String, contents: String, am: String, img: String) {
         this.id = id
+<<<<<<< HEAD
+>>>>>>> parent of 65318ca (merged)
+=======
 >>>>>>> parent of 65318ca (merged)
         this.title = title
         this.content = content

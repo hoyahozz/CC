@@ -9,6 +9,7 @@ import kr.ac.castcommunity.cc.Toolbar.BoardToolbarActivity
 import kr.ac.castcommunity.cc.adapters.BoardAdapter
 import kr.ac.castcommunity.cc.models.Board
 <<<<<<< HEAD
+<<<<<<< HEAD
 import android.os.Build.VERSION_CODES.O
 import kr.ac.castcommunity.cc.BoardActivity
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
@@ -16,6 +17,9 @@ import androidx.core.content.ContextCompat.getSystemService
 import kotlinx.android.synthetic.main.board.*
 import kotlinx.android.synthetic.main.item_board.*
 
+=======
+import java.util.ArrayList
+>>>>>>> parent of 65318ca (merged)
 =======
 import java.util.ArrayList
 >>>>>>> parent of 65318ca (merged)
@@ -30,6 +34,7 @@ class BoardActivity : BoardToolbarActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.board)
+<<<<<<< HEAD
 <<<<<<< HEAD
         // Log.d("oncreate", "oncreate Start")
 
@@ -133,6 +138,25 @@ class BoardActivity : BoardToolbarActivity() {
         }
 
     }
+=======
+
+        mPostRecyclerView = findViewById(R.id.recyclerView)
+        mDatas.add(Board("1", "title", "contents", "writer", "time"))
+        mDatas.add(Board("2", "title", "contents", "writer", "time"))
+        mDatas.add(Board("3", "title", "contents", "writer", "time"))
+        mDatas.add(Board("4", "title", "contents", "writer", "time"))
+        mDatas.add(Board("5", "title", "contents", "writer", "time"))
+        // Adapter 연결
+        mAdpater = BoardAdapter(this, mDatas)
+        mPostRecyclerView!!.adapter = mAdpater
+
+        mPostRecyclerView!!.addItemDecoration(BoardDecoration(20))
+
+
+        val lm = LinearLayoutManager(this)
+        mPostRecyclerView!!.layoutManager = lm
+        mPostRecyclerView!!.setHasFixedSize(true)
+>>>>>>> parent of 65318ca (merged)
 =======
 
         mPostRecyclerView = findViewById(R.id.recyclerView)

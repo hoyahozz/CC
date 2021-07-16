@@ -26,7 +26,10 @@ class LoginActivity : AppCompatActivity() {
             val id = login_id.text.toString()
             val password = login_password.text.toString()
 <<<<<<< HEAD
+<<<<<<< HEAD
             val pref : SharedPreferences = getSharedPreferences("mine",MODE_PRIVATE) // SharedPreferences 초기화
+=======
+>>>>>>> parent of 65318ca (merged)
 =======
 >>>>>>> parent of 65318ca (merged)
 
@@ -35,6 +38,7 @@ class LoginActivity : AppCompatActivity() {
                     val jsonObject = JSONObject(response)
                     val success = jsonObject.getBoolean("success")
                     if (success == true) {// 로그인에 성공한 경우
+<<<<<<< HEAD
 <<<<<<< HEAD
                         val nickname = jsonObject.getString("nickname")
                         val name = jsonObject.getString("name")
@@ -54,6 +58,12 @@ class LoginActivity : AppCompatActivity() {
                         editor.putString("name",name)
                         editor.putString("role",role)
                         editor.commit()
+=======
+                        Toast.makeText(applicationContext, "로그인 성공!", Toast.LENGTH_LONG).show()
+                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        intent.putExtra("id",id)
+                        intent.putExtra("password",password)
+>>>>>>> parent of 65318ca (merged)
 =======
                         Toast.makeText(applicationContext, "로그인 성공!", Toast.LENGTH_LONG).show()
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)

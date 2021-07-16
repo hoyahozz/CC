@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
 <<<<<<< HEAD
+<<<<<<< HEAD
         android:usesCleartextTraffic="true">
         <activity android:name=".Toolbar.UpdateToolbarActivity"></activity>
         <activity android:name=".UpdateActivity" />
@@ -33,6 +34,11 @@
         <activity android:name=".Toolbar.DetailToolbarActivity" />
         <activity android:name=".DetailActivity" />
         <activity android:name=".Toolbar.WriteToolbarActivity" />
+=======
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network">
+        <activity android:name=".Toolbar.WriteToolbarActivity"></activity>
+>>>>>>> parent of 65318ca (merged)
 =======
         android:usesCleartextTraffic="true"
         android:networkSecurityConfig="@xml/network">

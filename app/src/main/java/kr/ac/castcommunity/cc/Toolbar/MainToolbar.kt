@@ -44,16 +44,16 @@ open class MainToolbar : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return true
-        menuInflater.inflate(R.menu.navi_menu, menu)
-        return true
     }
+
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
+
             R.id.main_search -> {
                 //검색 버튼 눌렀을 때
-                Toast.makeText(applicationContext, "검색 이벤트 실행!", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "검색 이벤트 실행", Toast.LENGTH_LONG).show()
                 return super.onOptionsItemSelected(item)
             }
             R.id.main_people -> {
@@ -62,11 +62,6 @@ open class MainToolbar : AppCompatActivity() {
                 startActivity(intent)
                 return true;
             }
-            R.id.third -> {
-                Toast.makeText(application,"쪽지함 이동",Toast.LENGTH_LONG).show()
-                return super.onOptionsItemSelected(item)
-            }
-
             else -> return super.onOptionsItemSelected(item)
         }
     }

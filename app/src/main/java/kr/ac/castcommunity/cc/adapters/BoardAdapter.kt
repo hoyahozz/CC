@@ -46,23 +46,11 @@ class BoardAdapter(val context: Context, val datas: ArrayList<Board>) :
     override fun onBindViewHolder(holder: BoardViewHolder, position: Int) {
         val data = datas[position]
         holder.title.text = data.title
-<<<<<<< HEAD
-<<<<<<< HEAD
         holder.contents.text = data.content
         holder.writer.text = data.writer
         holder.time.text = data.time
         holder.cnt.text = data.cnt.toString()
         holder.bind(data.bnum!!.toInt())
-=======
-        holder.contents.text = data.contents
-        holder.time.text = data.time
-=======
-        holder.contents.text = data.contents
-        holder.time.text = data.time
->>>>>>> parent of 65318ca (merged)
-        holder.writer.text = data.writer
-    }
->>>>>>> parent of 65318ca (merged)
 
         val commentListener = Response.Listener<String> { response ->
             try {

@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/item_board_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8sp"
         android:layout_marginLeft="8sp"
@@ -20,7 +20,7 @@
 
         <TextView
             android:id="@+id/item_board_content"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/colorGray"
             android:textSize="16sp"
@@ -48,7 +48,6 @@
             android:textColor="@color/colorGray"
             android:textSize="16sp"
             tools:text="Writer" />
-
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"

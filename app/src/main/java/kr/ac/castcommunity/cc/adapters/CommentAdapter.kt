@@ -28,7 +28,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import org.w3c.dom.Text
 
-class CommentAdapter(val context: Context, val datas: ArrayList<Comment>, val nickname: String) :
+class CommentAdapter(val context: Context, val datas: ArrayList<Comment>, val memId: String) :
 
 
     RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
@@ -51,11 +51,11 @@ class CommentAdapter(val context: Context, val datas: ArrayList<Comment>, val ni
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
 
         val data = datas[position]
-        holder.contents.text = data.contents
+        holder.contents.text = data.content
         holder.writer.text = data.writer
         holder.time.text = data.time
 
-        if (nickname == data.writer) {
+        if (memId == data.memId) {
             holder.delete.isVisible = true
         } else {
             holder.delete.isVisible = false
@@ -88,7 +88,7 @@ class CommentAdapter(val context: Context, val datas: ArrayList<Comment>, val ni
                 }
                 // 서버로 Volley를 이용해서 요청함.
                 val deleteRequest = CommentDeleteRequest(
-                    data.writer.toString(),
+                    data.memId.toString(),
                     data.commentid.toString(),
                     deleteListener
                 )

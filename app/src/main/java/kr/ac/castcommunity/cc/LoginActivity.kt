@@ -2,6 +2,7 @@ package kr.ac.castcommunity.cc
 
 import LoginRequest
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -25,29 +26,18 @@ class LoginActivity : AppCompatActivity() {
         Login.setOnClickListener {
             val id = login_id.text.toString()
             val password = login_password.text.toString()
-<<<<<<< HEAD
-<<<<<<< HEAD
             val pref : SharedPreferences = getSharedPreferences("mine",MODE_PRIVATE) // SharedPreferences 초기화
-=======
->>>>>>> parent of 65318ca (merged)
-=======
->>>>>>> parent of 65318ca (merged)
 
             val responseListener = Response.Listener<String> { response ->
                 try {
                     val jsonObject = JSONObject(response)
                     val success = jsonObject.getBoolean("success")
                     if (success == true) {// 로그인에 성공한 경우
-<<<<<<< HEAD
-<<<<<<< HEAD
                         val nickname = jsonObject.getString("nickname")
                         val name = jsonObject.getString("name")
                         val email = jsonObject.getString("email")
                         val role = jsonObject.getString("role")
-                        // Toast.makeText(applicationContext, "로그인 성공!", Toast.LENGTH_LONG).show()
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                        // intent.putExtra("id",id)
-                        // intent.putExtra("password",password)
                         val editor : SharedPreferences.Editor = pref.edit() //  SharedPreferences 의 데이터를 저장/편집하기 위한 Editor 변수 선언
 
                         // SharedPreferences 에 데이터 저장
@@ -58,18 +48,6 @@ class LoginActivity : AppCompatActivity() {
                         editor.putString("name",name)
                         editor.putString("role",role)
                         editor.commit()
-=======
-                        Toast.makeText(applicationContext, "로그인 성공!", Toast.LENGTH_LONG).show()
-                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                        intent.putExtra("id",id)
-                        intent.putExtra("password",password)
->>>>>>> parent of 65318ca (merged)
-=======
-                        Toast.makeText(applicationContext, "로그인 성공!", Toast.LENGTH_LONG).show()
-                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                        intent.putExtra("id",id)
-                        intent.putExtra("password",password)
->>>>>>> parent of 65318ca (merged)
                         startActivity(intent)
                     } else { // 로그인에 실패한 경우
                         Toast.makeText(applicationContext, "로그인 실패!", Toast.LENGTH_LONG).show()

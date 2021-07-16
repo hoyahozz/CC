@@ -8,7 +8,7 @@ import com.android.volley.Response.success
 import com.android.volley.toolbox.StringRequest
 import java.util.HashMap
 
-class BoardUpdateRequest(title : String, content : String, boardid: String, listener: Response.Listener<String>) :
+class BoardUpdateRequest(title : String, content : String, boardid: String, anonymous : String, listener: Response.Listener<String>) :
     StringRequest(Request.Method.POST, URL, listener, Response.ErrorListener { error ->
         Log.d("ERROR", "서버 Response 가져오기 실패: $error")
     }) {
@@ -23,6 +23,7 @@ class BoardUpdateRequest(title : String, content : String, boardid: String, list
         parameters["title"] = title
         parameters["content"] = content
         parameters["boardid"] = boardid
+        parameters["anonymous"] = anonymous
     }
 
     override fun getParams(): Map<String, String> {

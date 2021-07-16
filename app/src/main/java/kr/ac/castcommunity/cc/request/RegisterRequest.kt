@@ -16,11 +16,10 @@ class RegisterRequest(id: String, password: String, name: String, nickname:Strin
         Log.d("ERROR", "서버 Response 가져오기 실패: $error")
     }) {
     private val map: MutableMap<String, String>
+
     companion object {
-        private val URL = "http://192.168.1.93/cc/register.php"
-        //private val URL = "http://172.30.1.31/cc/register.php"
-        // private val URL = "http://192.168.100.251/cc/register.php"
-        //private val URL = "http://192.168.100.249/cc/register.php"
+        // const val URL = "http://192.168.100.251/cc/register.php"
+        const val URL = "http://192.168.0.4/cc/register.php"
     }
 
     init {

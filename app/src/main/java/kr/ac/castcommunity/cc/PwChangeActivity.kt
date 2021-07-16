@@ -24,22 +24,21 @@ class PwChangeActivity : AppCompatActivity() {
         var pref: SharedPreferences = getSharedPreferences("mine", Context.MODE_PRIVATE) // 초기화
         val userID = pref.getString("id", "").toString() // 저장한 값 불러오는 과정
         val my_pw = pref.getString("pw", "").toString()
-
+        val builder = AlertDialog.Builder(this@PwChangeActivity)
         var validate = false // 비밀번호 확인 결과
 
         pwChange_confirm.setOnClickListener {
             val password = pwChange_exist.text.toString()
-            val pref: SharedPreferences =
-                getSharedPreferences("mine", MODE_PRIVATE) // SharedPreferences 초기화
 
-            // 바꾸는 비밀번호와 현 비밀번호가 일치할 때
+            // 사용자의 현 비밀번호 확인
             val responseListener = Response.Listener<String> { response ->
                 try {
                     val jsonObject = JSONObject(response)
 
                     val success = jsonObject.getBoolean("success")
                     if (success == true) { // 현재 비밀번호가 맞을 경우
-                        Toast.makeText(applicationContext, "확인 완료!", Toast.LENGTH_LONG).show()
+                        builder.setMessage("비밀번호를 확인하였습니다.").setPositiveButton("확인", null).create()
+                        builder.show()
                         validate = true // 비밀번호 확인 결과 true
                     } else { // 현재 비밀번호가 아닌 경우
                         Toast.makeText(applicationContext, "일치하지 않습니다!", Toast.LENGTH_LONG).show()
@@ -57,7 +56,6 @@ class PwChangeActivity : AppCompatActivity() {
             queue.add(loginRequest)
         }
 
-        val builder = AlertDialog.Builder(this@PwChangeActivity)
         pwChange_btn.setOnClickListener {
 
             if (pwChange_pw1.text.toString() == "" || pwChange_pw2.text.toString() == "") {
@@ -85,6 +83,8 @@ class PwChangeActivity : AppCompatActivity() {
                                         val editor : SharedPreferences.Editor = pref.edit()
                                         editor.remove("pw") // 기존 패스워드를 지움
                                         editor.putString("pw",pw) // 새로운 패스워드 등록
+
+                                        editor.commit()
                                         finish()
                                     } else { // 비밀번호 변경 실패했을 때
                                         Toast.makeText(

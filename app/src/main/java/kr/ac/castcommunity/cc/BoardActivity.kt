@@ -1,28 +1,22 @@
 package kr.ac.castcommunity.cc
 
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Response
+import com.android.volley.toolbox.Volley
 import kr.ac.castcommunity.cc.Board.BoardDecoration
 import kr.ac.castcommunity.cc.Toolbar.BoardToolbarActivity
 import kr.ac.castcommunity.cc.adapters.BoardAdapter
+import kr.ac.castcommunity.cc.request.BoardListRequest
+import org.json.JSONArray
+import org.json.JSONException
+import java.util.ArrayList
 import kr.ac.castcommunity.cc.models.Board
-<<<<<<< HEAD
-<<<<<<< HEAD
-import android.os.Build.VERSION_CODES.O
-import kr.ac.castcommunity.cc.BoardActivity
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import androidx.core.content.ContextCompat.getSystemService
 import kotlinx.android.synthetic.main.board.*
-import kotlinx.android.synthetic.main.item_board.*
 
-=======
-import java.util.ArrayList
->>>>>>> parent of 65318ca (merged)
-=======
-import java.util.ArrayList
->>>>>>> parent of 65318ca (merged)
 
 class BoardActivity : BoardToolbarActivity() {
 
@@ -34,8 +28,6 @@ class BoardActivity : BoardToolbarActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.board)
-<<<<<<< HEAD
-<<<<<<< HEAD
         // Log.d("oncreate", "oncreate Start")
 
 
@@ -53,13 +45,17 @@ class BoardActivity : BoardToolbarActivity() {
                     val success = jobject.getBoolean("success")
                     val bnum = jobject.getInt("bnum")
                     val btype = jobject.getString("btype")
-                    val writer = jobject.getString("writer")
+                    var writer = jobject.getString("writer")
                     val title = jobject.getString("title")
                     val content = jobject.getString("content")
                     val date = jobject.getString("date")
                     val memId = jobject.getString("memId")
                     val cnt = jobject.getInt("cnt")
                     val anonymous = jobject.getInt("anonymous")
+
+                    if(anonymous == 1) { // 익명일 때 닉네임 익명으로 설정
+                        writer = "익명"
+                    }
 
                     if (success == true) { // 게시물을 받아오는데 성공했을 때
                         mDatas.add(Board(bnum, btype, writer, title, content, memId, date, cnt, anonymous)) // ArrayList 에 데이터 추가
@@ -106,10 +102,15 @@ class BoardActivity : BoardToolbarActivity() {
                         val title = jobject.getString("title")
                         val content = jobject.getString("content")
                         val date = jobject.getString("date")
-                        val writer = jobject.getString("writer")
+                        var writer = jobject.getString("writer")
                         val memId = jobject.getString("memId")
                         val cnt = jobject.getInt("cnt")
                         val anonymous = jobject.getInt("anonymous")
+
+                        if(anonymous == 1) { // 익명일 때 닉네임 익명으로 설정
+                            writer = "익명"
+                        }
+
 
                         if (success == true) { // 게시물을 받아오는데 성공했을 때
                             mDatas.add(Board(bnum, btype, writer, title, content, memId, date, cnt, anonymous)) // ArrayList 에 데이터 추가
@@ -138,46 +139,5 @@ class BoardActivity : BoardToolbarActivity() {
         }
 
     }
-=======
 
-        mPostRecyclerView = findViewById(R.id.recyclerView)
-        mDatas.add(Board("1", "title", "contents", "writer", "time"))
-        mDatas.add(Board("2", "title", "contents", "writer", "time"))
-        mDatas.add(Board("3", "title", "contents", "writer", "time"))
-        mDatas.add(Board("4", "title", "contents", "writer", "time"))
-        mDatas.add(Board("5", "title", "contents", "writer", "time"))
-        // Adapter 연결
-        mAdpater = BoardAdapter(this, mDatas)
-        mPostRecyclerView!!.adapter = mAdpater
-
-        mPostRecyclerView!!.addItemDecoration(BoardDecoration(20))
-
-
-        val lm = LinearLayoutManager(this)
-        mPostRecyclerView!!.layoutManager = lm
-        mPostRecyclerView!!.setHasFixedSize(true)
->>>>>>> parent of 65318ca (merged)
-=======
-
-        mPostRecyclerView = findViewById(R.id.recyclerView)
-        mDatas.add(Board("1", "title", "contents", "writer", "time"))
-        mDatas.add(Board("2", "title", "contents", "writer", "time"))
-        mDatas.add(Board("3", "title", "contents", "writer", "time"))
-        mDatas.add(Board("4", "title", "contents", "writer", "time"))
-        mDatas.add(Board("5", "title", "contents", "writer", "time"))
-        // Adapter 연결
-        mAdpater = BoardAdapter(this, mDatas)
-        mPostRecyclerView!!.adapter = mAdpater
-
-        mPostRecyclerView!!.addItemDecoration(BoardDecoration(20))
-
-
-        val lm = LinearLayoutManager(this)
-        mPostRecyclerView!!.layoutManager = lm
-        mPostRecyclerView!!.setHasFixedSize(true)
->>>>>>> parent of 65318ca (merged)
-
-        val decoration = DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
-        mPostRecyclerView!!.addItemDecoration(decoration)
-    }
 }

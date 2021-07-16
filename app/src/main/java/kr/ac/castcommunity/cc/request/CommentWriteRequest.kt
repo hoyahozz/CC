@@ -8,7 +8,7 @@ import com.android.volley.Response.success
 import com.android.volley.toolbox.StringRequest
 import java.util.HashMap
 
-class CommentWriteRequest(id : String, boardid: Int, writer: String, content : String, listener: Response.Listener<String>) :
+class CommentWriteRequest(id : String, boardid: Int, writer: String, content : String, anonymous : String, listener: Response.Listener<String>) :
     StringRequest(Request.Method.POST, URL, listener, Response.ErrorListener { error ->
         Log.d("ERROR", "서버 Response 가져오기 실패: $error")
     }) {
@@ -24,6 +24,7 @@ class CommentWriteRequest(id : String, boardid: Int, writer: String, content : S
         parameters["boardid"] = boardid.toString()
         parameters["writer"] = writer
         parameters["content"] = content
+        parameters["anonymous"] = anonymous
     }
 
     override fun getParams(): Map<String, String> {

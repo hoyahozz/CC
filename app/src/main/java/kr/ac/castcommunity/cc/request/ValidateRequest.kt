@@ -14,10 +14,8 @@ class ValidateRequest(id: String, listener: Response.Listener<String>):
     private val map: MutableMap<String, String>
 
     companion object {
-        private const val URL = "http://192.168.1.93/cc/validate.php"
-        //private const val URL = "http://172.30.1.31/cc/validate.php"
         // private const val URL = "http://192.168.100.251/cc/validate.php"
-        //private const val URL = "http://192.168.100.249/cc/validate.php"
+        private const val URL = "http://192.168.0.4/cc/validate.php"
     }
     init {
         map = HashMap()

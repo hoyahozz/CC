@@ -29,12 +29,8 @@ class WriteActivity : WriteToolbarActivity() {
         val writer = pref.getString("nickname","").toString()
         val my_id = pref.getString("id","").toString()
         val write_btn = write_btn
-        var anonymous = 0
 
         write_btn.setOnClickListener {
-            if (write_anonymous.isChecked) {
-                 anonymous = 1
-            }
             val title = write_title.text.toString()
             val content = write_content.text.toString()
             val responseListener = Response.Listener<String> { response ->
@@ -42,6 +38,7 @@ class WriteActivity : WriteToolbarActivity() {
                     val jsonObject = JSONObject(response)
                     val success = jsonObject.getBoolean("success")
                     if (success == true) {// 글 등록에 성공한 경우
+                        Toast.makeText(applicationContext, "글쓰기 성공!", Toast.LENGTH_LONG).show()
                         val intent = Intent(this@WriteActivity, BoardActivity::class.java)
                         startActivity(intent)
                     } else { // 글 등록에 실패한 경우
@@ -53,7 +50,7 @@ class WriteActivity : WriteToolbarActivity() {
                 }
             }
             //서버로 Volley를 이용해서 요청함.
-            val writeRequest = WriteRequest(my_id, title, content, writer, anonymous.toString(), responseListener)
+            val writeRequest = WriteRequest(my_id, title, content, writer, responseListener)
             val queue = Volley.newRequestQueue(this@WriteActivity)
             queue.add(writeRequest)
         }

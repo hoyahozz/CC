@@ -8,7 +8,7 @@ import com.android.volley.Response.success
 import com.android.volley.toolbox.StringRequest
 import java.util.HashMap
 
-class CommentDeleteRequest(memId: String, commentid : String, listener: Response.Listener<String>) :
+class CommentDeleteRequest(writer: String, commentid : String, listener: Response.Listener<String>) :
     StringRequest(Request.Method.POST, URL, listener, Response.ErrorListener { error ->
         Log.d("ERROR", "서버 Response 가져오기 실패: $error")
     }) {
@@ -20,7 +20,7 @@ class CommentDeleteRequest(memId: String, commentid : String, listener: Response
 
     init {
         parameters = HashMap()
-        parameters["memId"] = memId
+        parameters["writer"] = writer
         parameters["commentid"] = commentid
     }
 

@@ -24,23 +24,11 @@
     <EditText
         android:id="@+id/write_content"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:gravity="top"
-        android:hint="내용을 입력하세요."
+        android:layout_height="match_parent"
         android:textColor="@color/colorWhite"
-        android:textColorHint="@color/colorGray" />
-
-    <CheckBox
-        android:id="@+id/write_anonymous"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:theme="@style/CustomRadioButton"
-        android:layout_gravity="right"
-        android:layout_marginRight="10dp"
-        android:text="익명"
-        android:checked="true"
-        android:textColor="@color/colorGray"
-        android:layout_marginLeft="10dp"/>
+        android:textColorHint="@color/colorGray"
+        android:gravity="top"
+        android:hint="내용을 입력하세요." />
 
 
 </LinearLayout>

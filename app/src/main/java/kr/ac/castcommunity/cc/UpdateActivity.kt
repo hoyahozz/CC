@@ -31,6 +31,7 @@ class UpdateActivity : UpdateToolbarActivity() {
                 val title = jsonObject.getString("title")
                 val content = jsonObject.getString("content")
                 if (success == true) {
+                    Toast.makeText(applicationContext, "게시판 불러오기 성공!", Toast.LENGTH_LONG).show()
                     update_content.setText(content)
                     update_title.setText(title)
                 } else {
@@ -47,13 +48,10 @@ class UpdateActivity : UpdateToolbarActivity() {
         val queue = Volley.newRequestQueue(this)
         queue.add(detailRequest)
 
-        var anonymous = 0
+
         update_btn.setOnClickListener {
             val title = update_title.text.toString()
             val content = update_content.text.toString()
-            if(update_anonymous.isChecked) {
-                anonymous = 1
-            }
             val updateListener = Response.Listener<String> { response ->
                 try {
                     val jsonObject = JSONObject(response)
@@ -73,7 +71,7 @@ class UpdateActivity : UpdateToolbarActivity() {
                 }
             }
             // 서버로 Volley를 이용해서 요청함.
-            val updateRequest = BoardUpdateRequest(title, content, boardid.toString(), anonymous.toString(), updateListener)
+            val updateRequest = BoardUpdateRequest(title, content, boardid.toString(), updateListener)
             val queue = Volley.newRequestQueue(this)
             queue.add(updateRequest)
 

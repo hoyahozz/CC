@@ -143,6 +143,8 @@ class RegisterActivity : AppCompatActivity() {
                         //비밀번호가 같을 경우
                         if (password.equals(password2)) {
                             if (success == true) {// 회원가입 성공한 경우
+                                Toast.makeText(applicationContext, "회원가입 성공", Toast.LENGTH_LONG)
+                                    .show()
                                 val intent =
                                     Intent(this@RegisterActivity, LoginActivity::class.java)
                                 startActivity(intent)

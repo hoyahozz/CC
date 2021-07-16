@@ -15,7 +15,8 @@ class PwFindRequest(id: String, email: String, listener: Response.Listener<Strin
     private val parameters: MutableMap<String, String>
 
     companion object {
-        private val URL = "http://192.168.1.93/cc/pwfind.php"
+        private val URL = "http://192.168.0.4/cc/pwfind.php"
+        // private val URL = "http://192.168.1.93/cc/pwfind.php"
         //private val URL = "http://172.30.1.31/cc/pwfind.php"
     }
     init {

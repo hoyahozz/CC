@@ -58,6 +58,7 @@
         android:layout_marginLeft="20dp">
 
         <EditText
+            android:id="@+id/id"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -67,17 +68,17 @@
             android:background="@color/colorBlack"
             />
 
-        <Button
-            android:layout_marginTop="30dp"
-            android:layout_width="80dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="100dp"
-            android:background="@drawable/rounded_edittext"
-            android:text="중복확인" />
+<!--        <Button-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:layout_marginLeft="100dp"-->
+<!--            android:background="@drawable/rounded_edittext"-->
+<!--            android:text="중복확인" />-->
 
     </LinearLayout>
     <EditText
-
+        android:id="@+id/email"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -87,19 +88,21 @@
         android:textColorHint="@color/colorGray"
         android:background="@color/colorBlack" />
 
-    <EditText
-        android:id="@+id/pwFind"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="20dp"
-        android:textColor="@color/colorWhite"
-        android:hint="비밀번호를 입력하세요."
-        android:textColorHint="@color/colorGray"
-        android:background="@color/colorBlack" />
+<!--    <EditText-->
+
+<!--        android:id="@+id/pwFind"-->
+<!--        android:layout_width="200dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:textColor="@color/colorWhite"-->
+<!--        android:hint="비밀번호를 입력하세요."-->
+<!--        android:textColorHint="@color/colorGray"-->
+<!--        android:background="@color/colorBlack" />-->
 
 
     <Button
+        android:id="@+id/pwbtn"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

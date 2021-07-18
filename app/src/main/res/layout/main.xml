@@ -524,12 +524,14 @@
                         android:textColor="@color/colorGray"
                         android:textSize="12sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -537,6 +539,7 @@
                         android:text="제목"
                         android:textColor="@color/colorWhite"
                         android:textSize="15sp" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -546,12 +549,14 @@
                         android:textColor="@color/colorGray"
                         android:textSize="12sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -559,6 +564,7 @@
                         android:text="제목"
                         android:textColor="@color/colorWhite"
                         android:textSize="15sp" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -582,8 +588,7 @@
         app:itemIconTint="@drawable/menu_selector_color"
         app:itemTextColor="@drawable/menu_selector_color"
         app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/navi_menu">
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:menu="@menu/navi_menu"></com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
 </FrameLayout>

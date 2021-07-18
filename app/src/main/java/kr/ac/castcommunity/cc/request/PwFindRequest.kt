@@ -16,15 +16,18 @@ class PwFindRequest(id: String, email: String, listener: Response.Listener<Strin
 
     companion object {
         private val URL = "http://192.168.0.4/cc/pwfind.php"
+        // private val URL = "http://192.168.219.103/cc/pwfind.php"
         // private val URL = "http://192.168.1.93/cc/pwfind.php"
         //private val URL = "http://172.30.1.31/cc/pwfind.php"
     }
+
     init {
 
         parameters = HashMap()
         parameters["id"] = id
         parameters["email"] = email
     }
+
     @Throws(AuthFailureError::class)
     override fun getParams(): Map<String, String> {
         return parameters

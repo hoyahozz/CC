@@ -51,7 +51,7 @@ class UpdateActivity : UpdateToolbarActivity() {
         update_btn.setOnClickListener {
             val title = update_title.text.toString()
             val content = update_content.text.toString()
-            if(update_anonymous.isChecked) {
+            if (update_anonymous.isChecked) {
                 anonymous = 1
             }
             val updateListener = Response.Listener<String> { response ->
@@ -62,7 +62,7 @@ class UpdateActivity : UpdateToolbarActivity() {
                         Toast.makeText(applicationContext, "수정 완료!", Toast.LENGTH_LONG)
                             .show()
                         val intent = Intent(this, DetailActivity::class.java)
-                        intent.putExtra("bnum",boardid)
+                        intent.putExtra("bnum", boardid)
                         startActivity(intent)
                     } else { // 글 수정에 실패했을 때
                         Toast.makeText(applicationContext, "수정 실패!", Toast.LENGTH_LONG).show()
@@ -73,7 +73,13 @@ class UpdateActivity : UpdateToolbarActivity() {
                 }
             }
             // 서버로 Volley를 이용해서 요청함.
-            val updateRequest = BoardUpdateRequest(title, content, boardid.toString(), anonymous.toString(), updateListener)
+            val updateRequest = BoardUpdateRequest(
+                title,
+                content,
+                boardid.toString(),
+                anonymous.toString(),
+                updateListener
+            )
             val queue = Volley.newRequestQueue(this)
             queue.add(updateRequest)
 

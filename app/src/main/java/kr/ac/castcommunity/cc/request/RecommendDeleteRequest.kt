@@ -14,7 +14,8 @@ class RecommendDeleteRequest(boardid: String, id: String, listener: Response.Lis
 
     companion object {
         // private val URL = "http://192.168.100.251/cc/recommenddelete.php"
-         private val URL = "http://192.168.0.4/cc/recommenddelete.php"
+        // private val URL = "http://192.168.0.4/cc/recommenddelete.php"
+        private val URL = "http://192.168.219.103/cc/recommenddelete.php"
     }
 
     init {

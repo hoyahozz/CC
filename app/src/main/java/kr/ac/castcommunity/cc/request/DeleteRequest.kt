@@ -13,9 +13,11 @@ class DeleteRequest(id: String, listener: Response.Listener<String>) :
         Log.d("ERROR", "서버 Response 가져오기 실패: $error")
     }) {
     private val parameters: MutableMap<String, String>
+
     companion object {
         //private val URL = "http://192.168.100.251/cc/userdelete.php"
-         private val URL = "http://192.168.0.4/cc/userdelete.php"
+        // private val URL = "http://192.168.0.4/cc/userdelete.php"
+        private val URL = "http://192.168.219.103/cc/userdelete.php"
     }
 
     init {

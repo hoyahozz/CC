@@ -14,7 +14,8 @@ class RecommendAddRequest(boardid: String, id: String, listener: Response.Listen
 
     companion object {
         // private val URL = "http://192.168.100.251/cc/recommend.php"
-         private val URL = "http://192.168.0.4/cc/recommendadd.php"
+        // private val URL = "http://192.168.0.4/cc/recommendadd.php"
+        private val URL = "http://192.168.219.103/cc/recommendadd.php"
     }
 
     init {

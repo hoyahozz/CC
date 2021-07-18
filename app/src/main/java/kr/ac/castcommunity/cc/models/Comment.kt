@@ -4,11 +4,11 @@ class Comment {
 
     var boardid: Int? = null
     var commentid: Int? = null
-    var memId : String? = null
+    var memId: String? = null
     var writer: String? = null
     var content: String? = null
     var time: String? = null
-    var anonymous : Int? = null
+    var anonymous: Int? = null
 
     constructor(
         boardid: Int?,

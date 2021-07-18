@@ -72,7 +72,7 @@ class NickChangeActivity : AppCompatActivity() {
                 builder.setMessage("정보를 모두 입력해주세요.").setPositiveButton("확인", null).create()
                 builder.show()
             } else {
-                if(validate == true) { // 비밀번호가 현 비밀번호와 일치할 때만 실행
+                if (validate == true) { // 비밀번호가 현 비밀번호와 일치할 때만 실행
                     if (nickChange_pw.text.toString() == my_pw) { // 중복확인을 완료했을 때만 실행
                         val nickname = nickChange_exist.text.toString()
                         val changeListener = Response.Listener<String> { response ->
@@ -113,8 +113,7 @@ class NickChangeActivity : AppCompatActivity() {
                         builder.setMessage("비밀번호를 확인해주세요.").setPositiveButton("확인", null).create()
                         builder.show()
                     }
-                }
-                else {
+                } else {
                     // 중복확인 X
                     builder.setMessage("닉네임 중복확인을 실행해주세요.").setPositiveButton("확인", null).create()
                     builder.show()

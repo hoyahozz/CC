@@ -17,13 +17,15 @@ open class UpdateToolbarActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.update_toolbar)
     }
+
     override fun setContentView(layoutResID: Int) {
         val fullView = layoutInflater.inflate(R.layout.update_toolbar, null) as LinearLayout
         val activityContainer = fullView.findViewById<View>(R.id.activity_content) as FrameLayout
         layoutInflater.inflate(layoutResID, activityContainer, true)
         super.setContentView(fullView)
 
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.update_toolbar) //툴바 사용여부 결정(기본적으로 사용)
+        val toolbar =
+            findViewById<androidx.appcompat.widget.Toolbar>(R.id.update_toolbar) //툴바 사용여부 결정(기본적으로 사용)
         if (useToolbar()) {
             setSupportActionBar(toolbar)
             supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -45,7 +47,7 @@ open class UpdateToolbarActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             android.R.id.home -> {
                 finish()
                 return true;

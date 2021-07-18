@@ -13,10 +13,12 @@ import kr.ac.castcommunity.cc.Toolbar.NoteToolbarActivity
 
 class NoteActivity : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle? ):
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ):
             View? {
-                return inflater.inflate(R.layout.note, container, false)
+        return inflater.inflate(R.layout.note, container, false)
     }
 }

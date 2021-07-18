@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Toolbar.UpdateToolbarActivity"></activity>
+        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".Toolbar.UpdateToolbarActivity" />
         <activity android:name=".UpdateActivity" />
         <activity
             android:name=".PwChangeActivity"

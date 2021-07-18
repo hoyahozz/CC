@@ -21,7 +21,7 @@
             android:textColor="@color/colorBlack"
             android:textStyle="bold"
             android:gravity="center"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -51,7 +51,7 @@
             android:background="@null"
             android:text="확인"
             android:textStyle="bold"
-            android:textColor="@color/colorBlack"/>
+            android:textColor="@color/colorBlack" />
 
     </LinearLayout>
 
@@ -76,6 +76,7 @@
         android:inputType="textPassword"
         android:textColor="@color/colorBlack"
         android:textColorHint="@color/colorGray" />
+
     <Button
         android:id="@+id/pwChange_btn"
         android:layout_width="match_parent"
@@ -83,5 +84,5 @@
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:background="@color/colorMyBlue"
-        android:text="비밀번호 변경"/>
+        android:text="비밀번호 변경" />
 </LinearLayout>

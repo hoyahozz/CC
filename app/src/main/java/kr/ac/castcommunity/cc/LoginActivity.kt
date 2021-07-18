@@ -26,7 +26,8 @@ class LoginActivity : AppCompatActivity() {
         Login.setOnClickListener {
             val id = login_id.text.toString()
             val password = login_password.text.toString()
-            val pref : SharedPreferences = getSharedPreferences("mine",MODE_PRIVATE) // SharedPreferences 초기화
+            val pref: SharedPreferences =
+                getSharedPreferences("mine", MODE_PRIVATE) // SharedPreferences 초기화
 
             val responseListener = Response.Listener<String> { response ->
                 try {
@@ -38,15 +39,16 @@ class LoginActivity : AppCompatActivity() {
                         val email = jsonObject.getString("email")
                         val role = jsonObject.getString("role")
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                        val editor : SharedPreferences.Editor = pref.edit() //  SharedPreferences 의 데이터를 저장/편집하기 위한 Editor 변수 선언
+                        val editor: SharedPreferences.Editor =
+                            pref.edit() //  SharedPreferences 의 데이터를 저장/편집하기 위한 Editor 변수 선언
 
                         // SharedPreferences 에 데이터 저장
-                        editor.putString("nickname",nickname)
-                        editor.putString("pw",password)
-                        editor.putString("id",id)
-                        editor.putString("email",email)
-                        editor.putString("name",name)
-                        editor.putString("role",role)
+                        editor.putString("nickname", nickname)
+                        editor.putString("pw", password)
+                        editor.putString("id", id)
+                        editor.putString("email", email)
+                        editor.putString("name", name)
+                        editor.putString("role", role)
                         editor.commit()
                         startActivity(intent)
                     } else { // 로그인에 실패한 경우

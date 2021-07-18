@@ -7,7 +7,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import java.util.HashMap
 
-class ValidateRequest(id: String, listener: Response.Listener<String>):
+class ValidateRequest(id: String, listener: Response.Listener<String>) :
     StringRequest(Request.Method.POST, URL, listener, Response.ErrorListener { error ->
         Log.d("ERROR", "서버 Response 가져오기 실패: $error")
     }) {
@@ -15,12 +15,16 @@ class ValidateRequest(id: String, listener: Response.Listener<String>):
 
     companion object {
         // private const val URL = "http://192.168.100.251/cc/validate.php"
-        private const val URL = "http://192.168.0.4/cc/validate.php"
+        // private const val URL = "http://192.168.0.4/cc/validate.php"
+        private const val URL = "http://192.168.219.103/cc/validate.php"
+
     }
+
     init {
         map = HashMap()
         map["id"] = id
     }
+
     @Throws(AuthFailureError::class)
     override fun getParams(): Map<String, String> {
         return map

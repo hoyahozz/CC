@@ -1,5 +1,3 @@
-
-
 package kr.ac.castcommunity.cc.request
 
 import android.provider.ContactsContract
@@ -10,8 +8,10 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import java.util.HashMap
 
-class RegisterRequest(id: String, password: String, name: String, nickname:String, email:String,
-                      role:String, listener: Response.Listener<String>) :
+class RegisterRequest(
+    id: String, password: String, name: String, nickname: String, email: String,
+    role: String, listener: Response.Listener<String>
+) :
     StringRequest(Request.Method.POST, URL, listener, Response.ErrorListener { error ->
         Log.d("ERROR", "서버 Response 가져오기 실패: $error")
     }) {
@@ -19,7 +19,8 @@ class RegisterRequest(id: String, password: String, name: String, nickname:Strin
 
     companion object {
         // const val URL = "http://192.168.100.251/cc/register.php"
-        const val URL = "http://192.168.0.4/cc/register.php"
+        // const val URL = "http://192.168.0.4/cc/register.php"
+        const val URL = "http://192.168.219.103/cc/register.php"
     }
 
     init {
@@ -31,7 +32,7 @@ class RegisterRequest(id: String, password: String, name: String, nickname:Strin
         map["nickname"] = nickname
         map["email"] = email
         map["role"] = role
-        Log.d("RegisterRequest","START")
+        Log.d("RegisterRequest", "START")
 
     }
 

@@ -53,12 +53,24 @@ class BoardActivity : BoardToolbarActivity() {
                     val cnt = jobject.getInt("cnt")
                     val anonymous = jobject.getInt("anonymous")
 
-                    if(anonymous == 1) { // 익명일 때 닉네임 익명으로 설정
+                    if (anonymous == 1) { // 익명일 때 닉네임 익명으로 설정
                         writer = "익명"
                     }
 
                     if (success == true) { // 게시물을 받아오는데 성공했을 때
-                        mDatas.add(Board(bnum, btype, writer, title, content, memId, date, cnt, anonymous)) // ArrayList 에 데이터 추가
+                        mDatas.add(
+                            Board(
+                                bnum,
+                                btype,
+                                writer,
+                                title,
+                                content,
+                                memId,
+                                date,
+                                cnt,
+                                anonymous
+                            )
+                        ) // ArrayList 에 데이터 추가
                     } else {
                         return@Listener
                     }
@@ -107,13 +119,25 @@ class BoardActivity : BoardToolbarActivity() {
                         val cnt = jobject.getInt("cnt")
                         val anonymous = jobject.getInt("anonymous")
 
-                        if(anonymous == 1) { // 익명일 때 닉네임 익명으로 설정
+                        if (anonymous == 1) { // 익명일 때 닉네임 익명으로 설정
                             writer = "익명"
                         }
 
 
                         if (success == true) { // 게시물을 받아오는데 성공했을 때
-                            mDatas.add(Board(bnum, btype, writer, title, content, memId, date, cnt, anonymous)) // ArrayList 에 데이터 추가
+                            mDatas.add(
+                                Board(
+                                    bnum,
+                                    btype,
+                                    writer,
+                                    title,
+                                    content,
+                                    memId,
+                                    date,
+                                    cnt,
+                                    anonymous
+                                )
+                            ) // ArrayList 에 데이터 추가
                         } else { // 로그인에 실패한 경우
                             return@Listener
                         }

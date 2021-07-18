@@ -28,7 +28,7 @@ class MainActivity : MainToolbar() {
 
         main_bnv.run {
             setOnNavigationItemSelectedListener {
-                when(it.itemId) {
+                when (it.itemId) {
                     R.id.third -> {
                         //changeFragment(fragmentThree)
                         supportFragmentManager
@@ -43,17 +43,17 @@ class MainActivity : MainToolbar() {
 
 
     }
+
     private fun getList(): ArrayList<Int> {
-        return arrayListOf<Int>(R.drawable.exam2,R.drawable.exam3,R.drawable.exam4)
+        return arrayListOf<Int>(R.drawable.exam2, R.drawable.exam3, R.drawable.exam4)
     }
-    private fun changeFragment(fragment: Fragment)
-    {
+
+    private fun changeFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.main_container, fragment)
             .commit()
     }
-
 
 
 }

@@ -47,13 +47,12 @@ class DetailActivity : DetailToolbarActivity() {
     val mDatas: ArrayList<Comment> = ArrayList()
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail)
         var pref: SharedPreferences = getSharedPreferences("mine", Context.MODE_PRIVATE) // 초기화
         val nickname = pref.getString("nickname", "").toString() // 저장한 값 불러오는 과정
-        val my_id = pref.getString("id","").toString()
+        val my_id = pref.getString("id", "").toString()
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
 
         val boardid = intent.getIntExtra("bnum", 0)
@@ -83,7 +82,7 @@ class DetailActivity : DetailToolbarActivity() {
                     }
                     detail_date.text = date
                     detail_cnt.text = cnt.toString()
-                    if(my_id != memId) {
+                    if (my_id != memId) {
                         detail_recommend.isVisible = true
                     }
                 } else {
@@ -124,7 +123,17 @@ class DetailActivity : DetailToolbarActivity() {
                     }
 
                     if (success == true) {
-                        mDatas.add(Comment(boardid, commentid, memId, writer, content, date, anonymous))
+                        mDatas.add(
+                            Comment(
+                                boardid,
+                                commentid,
+                                memId,
+                                writer,
+                                content,
+                                date,
+                                anonymous
+                            )
+                        )
                     } else {
                         return@Listener
                     }
@@ -147,12 +156,11 @@ class DetailActivity : DetailToolbarActivity() {
         queue.add(commentRequest)
 
 
-
         val write_btn = comment_write_btn
 
         var com_anonymous = 0
         write_btn.setOnClickListener {
-            if(comment_anonymous.isChecked) {
+            if (comment_anonymous.isChecked) {
                 com_anonymous = 1
             }
             val content = comment_content.text.toString()
@@ -173,7 +181,14 @@ class DetailActivity : DetailToolbarActivity() {
                 }
             }
             //서버로 Volley를 이용해서 요청함.
-            val writeRequest = CommentWriteRequest(my_id, boardid, nickname, content, com_anonymous.toString(), commentWriteListener)
+            val writeRequest = CommentWriteRequest(
+                my_id,
+                boardid,
+                nickname,
+                content,
+                com_anonymous.toString(),
+                commentWriteListener
+            )
             queue.add(writeRequest)
         }
 
@@ -201,7 +216,17 @@ class DetailActivity : DetailToolbarActivity() {
                         }
 
                         if (success == true) {
-                            mDatas.add(Comment(boardid, commentid, memId, writer, content, date, anonymous))
+                            mDatas.add(
+                                Comment(
+                                    boardid,
+                                    commentid,
+                                    memId,
+                                    writer,
+                                    content,
+                                    date,
+                                    anonymous
+                                )
+                            )
                         } else {
                             return@Listener
                         }
@@ -225,70 +250,85 @@ class DetailActivity : DetailToolbarActivity() {
         }
 
         detail_recommend.setOnClickListener {
-                val recommendListener = Response.Listener<String> { response ->
-                    try {
-                        val jsonObject = JSONObject(response)
-                        val success = jsonObject.getBoolean("success")
-                        if (success == true) { // 해당 유저가 공감 버튼을 이미 눌렀을 때
+            val recommendListener = Response.Listener<String> { response ->
+                try {
+                    val jsonObject = JSONObject(response)
+                    val success = jsonObject.getBoolean("success")
+                    if (success == true) { // 해당 유저가 공감 버튼을 이미 눌렀을 때
 
-                            builder.setMessage("공감 삭제하시겠습니까?")
-                            builder.setPositiveButton("확인") { DialogInterface, i ->
-                                val recommendDeleteListener = Response.Listener<String> { response->
-                                    try {
-                                        val jsonObject = JSONObject(response)
-                                        val success = jsonObject.getBoolean("success")
-                                        if (success == true) {
-                                            Toast.makeText(applicationContext, "공감이 취소되었습니다!", Toast.LENGTH_LONG).show()
-                                            val intent = Intent(this@DetailActivity, DetailActivity::class.java)
-                                            intent.putExtra("bnum", boardid)
-                                            startActivity(intent)
-                                        }
-                                    } catch (e: JSONException) {
-                                        e.printStackTrace()
+                        builder.setMessage("공감 삭제하시겠습니까?")
+                        builder.setPositiveButton("확인") { DialogInterface, i ->
+                            val recommendDeleteListener = Response.Listener<String> { response ->
+                                try {
+                                    val jsonObject = JSONObject(response)
+                                    val success = jsonObject.getBoolean("success")
+                                    if (success == true) {
+                                        Toast.makeText(
+                                            applicationContext,
+                                            "공감이 취소되었습니다!",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                        val intent =
+                                            Intent(this@DetailActivity, DetailActivity::class.java)
+                                        intent.putExtra("bnum", boardid)
+                                        startActivity(intent)
                                     }
+                                } catch (e: JSONException) {
+                                    e.printStackTrace()
                                 }
-                                val recommendDeleteRequest = RecommendDeleteRequest(boardid.toString(),my_id,recommendDeleteListener)
-                                queue.add(recommendDeleteRequest)
                             }
-                            builder.setNegativeButton("취소") { DialogInterface, i ->
-
-                            }
-                            builder.show()
-
-
-                        } else { // 공감 버튼을 누르지 않았을 때
-                            builder.setMessage("공감하시겠습니까?")
-                            builder.setPositiveButton("확인") { DialogInterface, i ->
-                                val recommendAddListener = Response.Listener<String> { response->
-                                    try {
-                                        val jsonObject = JSONObject(response)
-                                        val success = jsonObject.getBoolean("success")
-                                        if (success == true) {
-                                            Toast.makeText(applicationContext, "공감 성공!", Toast.LENGTH_LONG).show()
-                                            val intent = Intent(this@DetailActivity, DetailActivity::class.java)
-                                            intent.putExtra("bnum", boardid)
-                                            startActivity(intent)
-                                        }
-                                    } catch (e: JSONException) {
-                                        e.printStackTrace()
-                                    }
-                                }
-                                val recommendAddRequest = RecommendAddRequest(boardid.toString(),my_id,recommendAddListener)
-                                queue.add(recommendAddRequest)
-                            }
-                            builder.setNegativeButton("취소") { DialogInterface, i ->
-
-                            }
-                            builder.show()
-                            return@Listener
+                            val recommendDeleteRequest = RecommendDeleteRequest(
+                                boardid.toString(),
+                                my_id,
+                                recommendDeleteListener
+                            )
+                            queue.add(recommendDeleteRequest)
                         }
-                    } catch (e: JSONException) {
-                        e.printStackTrace()
+                        builder.setNegativeButton("취소") { DialogInterface, i ->
+
+                        }
+                        builder.show()
+
+
+                    } else { // 공감 버튼을 누르지 않았을 때
+                        builder.setMessage("공감하시겠습니까?")
+                        builder.setPositiveButton("확인") { DialogInterface, i ->
+                            val recommendAddListener = Response.Listener<String> { response ->
+                                try {
+                                    val jsonObject = JSONObject(response)
+                                    val success = jsonObject.getBoolean("success")
+                                    if (success == true) {
+                                        Toast.makeText(
+                                            applicationContext,
+                                            "공감 성공!",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                        val intent =
+                                            Intent(this@DetailActivity, DetailActivity::class.java)
+                                        intent.putExtra("bnum", boardid)
+                                        startActivity(intent)
+                                    }
+                                } catch (e: JSONException) {
+                                    e.printStackTrace()
+                                }
+                            }
+                            val recommendAddRequest =
+                                RecommendAddRequest(boardid.toString(), my_id, recommendAddListener)
+                            queue.add(recommendAddRequest)
+                        }
+                        builder.setNegativeButton("취소") { DialogInterface, i ->
+
+                        }
+                        builder.show()
+                        return@Listener
                     }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
                 }
-                //서버로 Volley를 이용해서 요청함.
-                val recommendRequest = RecommendRequest(boardid.toString(),my_id,recommendListener)
-                queue.add(recommendRequest)
+            }
+            //서버로 Volley를 이용해서 요청함.
+            val recommendRequest = RecommendRequest(boardid.toString(), my_id, recommendListener)
+            queue.add(recommendRequest)
 
         }
     }
@@ -301,7 +341,7 @@ class DetailActivity : DetailToolbarActivity() {
         val boardid = intent.getIntExtra("bnum", 0)
         var pref: SharedPreferences = getSharedPreferences("mine", Context.MODE_PRIVATE) // 초기화
 
-        val my_id = pref.getString("id","").toString()
+        val my_id = pref.getString("id", "").toString()
 
         val DetailresponseListener = Response.Listener<String> { response ->
             try {
@@ -309,7 +349,7 @@ class DetailActivity : DetailToolbarActivity() {
                 val success = jsonObject.getBoolean("success")
                 val memId = jsonObject.getString("memId")
                 if (success == true) {
-                    if(my_id == memId) {
+                    if (my_id == memId) {
                         more?.setVisible(true)
                     } else {
                         more?.setVisible(false)
@@ -333,7 +373,7 @@ class DetailActivity : DetailToolbarActivity() {
 
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
 
-        when(item.itemId){
+        when (item.itemId) {
 
             R.id.action_change -> {
                 val intent = Intent(applicationContext, UpdateActivity::class.java)
@@ -356,7 +396,8 @@ class DetailActivity : DetailToolbarActivity() {
                                 val intent = Intent(this, BoardActivity::class.java)
                                 startActivity(intent)
                             } else { // 글 삭제에 실패했을 때
-                                Toast.makeText(applicationContext, "삭제 실패!", Toast.LENGTH_LONG).show()
+                                Toast.makeText(applicationContext, "삭제 실패!", Toast.LENGTH_LONG)
+                                    .show()
                                 return@Listener
                             }
                         } catch (e: JSONException) {

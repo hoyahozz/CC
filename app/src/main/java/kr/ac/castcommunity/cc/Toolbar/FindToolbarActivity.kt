@@ -25,7 +25,8 @@ open class FindToolbarActivity : AppCompatActivity() {
         layoutInflater.inflate(layoutResID, activityContainer, true)
         super.setContentView(fullView)
 
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.find_toolbar) //툴바 사용여부 결정(기본적으로 사용)
+        val toolbar =
+            findViewById<androidx.appcompat.widget.Toolbar>(R.id.find_toolbar) //툴바 사용여부 결정(기본적으로 사용)
         if (useToolbar()) {
             setSupportActionBar(toolbar)
             supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -47,9 +48,8 @@ open class FindToolbarActivity : AppCompatActivity() {
     }
 
 
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             /*
             R.id.action_search -> {
                 //검색 버튼 눌렀을 때

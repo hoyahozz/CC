@@ -67,7 +67,8 @@ class PwChangeActivity : AppCompatActivity() {
                     if (pwChange_pw1.text.toString().equals(pwChange_pw2.text.toString())) {
                         var pw = pwChange_pw1.text.toString()
                         if (pw.equals(my_pw)) {
-                            builder.setMessage("현재 비밀번호와 일치합니다.").setPositiveButton("확인", null).create()
+                            builder.setMessage("현재 비밀번호와 일치합니다.").setPositiveButton("확인", null)
+                                .create()
                             builder.show()
                         } else {
                             val changeListener = Response.Listener<String> { response ->
@@ -80,9 +81,9 @@ class PwChangeActivity : AppCompatActivity() {
                                             "변경 완료!",
                                             Toast.LENGTH_LONG
                                         ).show()
-                                        val editor : SharedPreferences.Editor = pref.edit()
+                                        val editor: SharedPreferences.Editor = pref.edit()
                                         editor.remove("pw") // 기존 패스워드를 지움
-                                        editor.putString("pw",pw) // 새로운 패스워드 등록
+                                        editor.putString("pw", pw) // 새로운 패스워드 등록
 
                                         editor.commit()
                                         finish()

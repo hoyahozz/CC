@@ -74,14 +74,14 @@ class CommentAdapter(val context: Context, val datas: ArrayList<Comment>, val me
                             Intent(context, DetailActivity::class.java).apply {
                                 putExtra("bnum", data.boardid)
                                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) // 기존 플래그에 새로운 플래그 추가, 새로운 태스크를 생성하여 태스크 안에 액티비티를 추가한다.
-                            } .run {
+                            }.run {
                                 context.startActivity(this)
                             }
                         } else {
-                                // 글 삭제에 실패했을 때
-                                Toast.makeText(context, "삭제 실패!", Toast.LENGTH_LONG).show()
-                                return@Listener
-                            }
+                            // 글 삭제에 실패했을 때
+                            Toast.makeText(context, "삭제 실패!", Toast.LENGTH_LONG).show()
+                            return@Listener
+                        }
                     } catch (e: JSONException) {
                         e.printStackTrace()
                     }

@@ -33,7 +33,8 @@ open class DetailToolbarActivity : AppCompatActivity() {
         layoutInflater.inflate(layoutResID, activityContainer, true)
         super.setContentView(fullView)
 
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.detail_toolbar) //툴바 사용여부 결정(기본적으로 사용)
+        val toolbar =
+            findViewById<androidx.appcompat.widget.Toolbar>(R.id.detail_toolbar) //툴바 사용여부 결정(기본적으로 사용)
         if (useToolbar()) {
             setSupportActionBar(toolbar)
             supportActionBar?.setDisplayShowTitleEnabled(false)

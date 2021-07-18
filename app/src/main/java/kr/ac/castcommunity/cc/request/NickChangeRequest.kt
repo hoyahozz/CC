@@ -6,7 +6,12 @@ import com.android.volley.Response
 
 import java.util.HashMap
 
-class NickChangeRequest(id: String, nickname: String, confirm : String, listener: Response.Listener<String>) :
+class NickChangeRequest(
+    id: String,
+    nickname: String,
+    confirm: String,
+    listener: Response.Listener<String>
+) :
     StringRequest(Request.Method.POST, URL, listener, Response.ErrorListener { error ->
         Log.d("ERROR", "서버 Response 가져오기 실패: $error")
     }) {
@@ -14,7 +19,8 @@ class NickChangeRequest(id: String, nickname: String, confirm : String, listener
 
     companion object {
         // private val URL = "http://192.168.100.251/cc/nickchange.php"
-         private val URL = "http://192.168.0.4/cc/nickchange.php"
+        // private val URL = "http://192.168.0.4/cc/nickchange.php"
+        private val URL = "http://192.168.219.103/cc/nickchange.php"
 
     }
 

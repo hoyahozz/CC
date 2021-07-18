@@ -7,10 +7,12 @@
     android:orientation="vertical"
     android:background="@color/colorBlack"
     tools:context=".WriteActivity">
+
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/colorGray" />
+
     <EditText
         android:id="@+id/write_content"
         android:layout_width="match_parent"

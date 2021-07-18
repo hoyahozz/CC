@@ -22,8 +22,8 @@ open class NoteToolbarActivity : AppCompatActivity() {
 
     }
 
-    override fun setContentView(layoutResID:Int){
-        val fullView = layoutInflater.inflate(R.layout.note_toolbar,null) as LinearLayout
+    override fun setContentView(layoutResID: Int) {
+        val fullView = layoutInflater.inflate(R.layout.note_toolbar, null) as LinearLayout
         val activityContainer = fullView.findViewById<View>(R.id.activity_content) as FrameLayout
         layoutInflater.inflate(layoutResID, activityContainer, true)
         super.setContentView(fullView)
@@ -31,18 +31,17 @@ open class NoteToolbarActivity : AppCompatActivity() {
         //Toolbar 사용여부 결정
 
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.note_toolbar)
-        if(useToolbar()){
+        if (useToolbar()) {
             setSupportActionBar(toolbar)
             supportActionBar?.setDisplayShowTitleEnabled(false)
             getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true);
             getSupportActionBar()!!.setHomeAsUpIndicator(R.drawable.leftback)
-        }
-        else{
+        } else {
             toolbar.visibility = View.GONE
         }
     }
 
-    protected fun useToolbar():Boolean{
+    protected fun useToolbar(): Boolean {
         return true
     }
 
@@ -52,7 +51,7 @@ open class NoteToolbarActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             android.R.id.home -> {
                 val intent = Intent(applicationContext, NoteActivity::class.java)
                 startActivity(intent)

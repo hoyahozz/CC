@@ -9,10 +9,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.Toast
-import kr.ac.castcommunity.cc.LoginActivity
-import kr.ac.castcommunity.cc.MainActivity
-import kr.ac.castcommunity.cc.WriteActivity
-import kr.ac.castcommunity.cc.R
+import kr.ac.castcommunity.cc.*
 
 open class BoardToolbarActivity : AppCompatActivity() {
 
@@ -29,8 +26,8 @@ open class BoardToolbarActivity : AppCompatActivity() {
         super.setContentView(fullView)
 
 
-
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.board_toolbar) //툴바 사용여부 결정(기본적으로 사용)
+        val toolbar =
+            findViewById<androidx.appcompat.widget.Toolbar>(R.id.board_toolbar) //툴바 사용여부 결정(기본적으로 사용)
         if (useToolbar()) {
             setSupportActionBar(toolbar)
             supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -52,13 +49,13 @@ open class BoardToolbarActivity : AppCompatActivity() {
     }
 
 
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
 
             R.id.action_search -> {
                 //검색 버튼 눌렀을 때
-                Toast.makeText(applicationContext, "검색 이벤트 실행", Toast.LENGTH_LONG).show()
+                val intent = Intent(applicationContext, SearchActivity::class.java)
+                startActivity(intent)
                 return super.onOptionsItemSelected(item)
             }
             R.id.action_write -> {

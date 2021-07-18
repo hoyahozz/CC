@@ -44,7 +44,8 @@ class IdFindActivity : FindToolbarActivity() {
             }
             //빈칸이 있을경우
             if (name.equals("") || email.equals("")) {
-                val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this@IdFindActivity)
+                val builder: android.app.AlertDialog.Builder =
+                    android.app.AlertDialog.Builder(this@IdFindActivity)
                 dialog = builder.setMessage("정보를 모두 입력해주세요").setNegativeButton("확인", null).create()
                 dialog!!.show()
                 return@setOnClickListener
@@ -53,12 +54,14 @@ class IdFindActivity : FindToolbarActivity() {
             val responseListener = Response.Listener<String> { response ->
                 try {
                     val jsonObject = JSONObject(response) // JSON 형태로 결과값을 받아온다.
-                    val success: Boolean = jsonObject.getBoolean("success") // 조건에 맞는 값이 있으면 PHP에서 'success' 를 true로 리턴한다.
+                    val success: Boolean =
+                        jsonObject.getBoolean("success") // 조건에 맞는 값이 있으면 PHP에서 'success' 를 true로 리턴한다.
                     if (success) { // 조건에 맞는 값이 있을 경우
                         val id: String = jsonObject.getString("id") // JSON 에서 조건에 맞는 id값을 찾아와 저장한다.
                         validate = true // 조건에 부합하니 true 설정
                         val builder = android.app.AlertDialog.Builder(this@IdFindActivity)
-                        builder.setMessage("아이디는 " + id + " 입니다").setPositiveButton("확인", null).create()
+                        builder.setMessage("아이디는 " + id + " 입니다").setPositiveButton("확인", null)
+                            .create()
                         builder.show()
 
                     } else { // 조건에 맞는 값이 없을 경우

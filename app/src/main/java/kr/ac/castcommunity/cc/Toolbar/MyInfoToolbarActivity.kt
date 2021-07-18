@@ -27,7 +27,8 @@ open class MyInfoToolbarActivity : AppCompatActivity() {
         layoutInflater.inflate(layoutResID, activityContainer, true)
         super.setContentView(fullView)
 
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.myinfo_toolbar) //툴바 사용여부 결정(기본적으로 사용)
+        val toolbar =
+            findViewById<androidx.appcompat.widget.Toolbar>(R.id.myinfo_toolbar) //툴바 사용여부 결정(기본적으로 사용)
         if (useToolbar()) {
             setSupportActionBar(toolbar)
             supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -48,9 +49,8 @@ open class MyInfoToolbarActivity : AppCompatActivity() {
     }
 
 
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             android.R.id.home -> {
                 val intent = Intent(applicationContext, MainActivity::class.java)
                 startActivity(intent)

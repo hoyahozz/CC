@@ -13,13 +13,20 @@ import org.json.JSONArray
 
 
 class BoardListRequest(listener: Response.Listener<JSONArray>) :
-    JsonArrayRequest(Request.Method.POST, URL, JSONArray(), listener, Response.ErrorListener { error ->
-        Log.d("ERROR", "Server Response Fail: $error")
-    }) {
+    JsonArrayRequest(
+        Request.Method.POST,
+        URL,
+        JSONArray(),
+        listener,
+        Response.ErrorListener { error ->
+            Log.d("ERROR", "Server Response Fail: $error")
+        }) {
     private val parameters: MutableMap<String, String>
+
     companion object {
-         // private val URL = "http://192.168.100.251/cc/boardlist.php"
-        private val URL = "http://192.168.0.4/cc/boardlist.php"
+        // private val URL = "http://192.168.100.251/cc/boardlist.php"
+        // private val URL = "http://192.168.0.4/cc/boardlist.php"
+        private val URL = "http://192.168.219.103/cc/boardlist.php"
     }
 
     init {

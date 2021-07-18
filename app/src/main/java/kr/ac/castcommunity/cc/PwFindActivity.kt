@@ -44,12 +44,15 @@ class PwFindActivity : FindToolbarActivity() {
             val responseListener = Response.Listener<String> { response ->
                 try {
                     val jsonObject = JSONObject(response) // JSON 형태로 결과값을 받아온다.
-                    val success: Boolean = jsonObject.getBoolean("success") // 조건에 맞는 값이 있으면 PHP에서 'success' 를 true로 리턴한다.
+                    val success: Boolean =
+                        jsonObject.getBoolean("success") // 조건에 맞는 값이 있으면 PHP에서 'success' 를 true로 리턴한다.
                     if (success) { // 조건에 맞는 값이 있을 경우
-                        val pw: String = jsonObject.getString("password") // JSON 에서 조건에 맞는 password값을 찾아와 저장한다.
+                        val pw: String =
+                            jsonObject.getString("password") // JSON 에서 조건에 맞는 password값을 찾아와 저장한다.
                         validate = true // 조건에 부합하니 true 설정
                         val builder = AlertDialog.Builder(this@PwFindActivity)
-                        builder.setMessage("비밀번호는 " + pw + " 입니다").setPositiveButton("확인", null).create()
+                        builder.setMessage("비밀번호는 " + pw + " 입니다").setPositiveButton("확인", null)
+                            .create()
                         builder.show()
 
                     } else { // 조건에 맞는 값이 없을 경우

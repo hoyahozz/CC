@@ -51,7 +51,7 @@ class NickChangeActivity : AppCompatActivity() {
                             builder.show()
                             validate = false
                         } else { // 중복 닉네임 존재 X
-                            Toast.makeText(applicationContext, "사용 가능한 아이디입니다!", Toast.LENGTH_LONG)
+                            Toast.makeText(applicationContext, "사용 가능한 닉네임입니다!", Toast.LENGTH_LONG)
                                 .show()
                             validate = true
                             return@Listener

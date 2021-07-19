@@ -5,29 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/layout_selector"
-    android:id="@+id/item_board">
+    android:id="@+id/hot_board">
 
     <TextView
-        android:id="@+id/item_board_title"
+        android:id="@+id/hot_board_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8sp"
         android:layout_marginLeft="8sp"
-        android:textSize="24sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         android:textColor="@color/colorWhite"
         tools:text="TITLE" />
-
-    <TextView
-        android:id="@+id/item_board_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorGray"
-        android:textSize="16sp"
-        android:layout_marginLeft="8sp"
-        android:maxLines="1"
-        android:ellipsize="end"
-        tools:text="Contents" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -35,22 +24,13 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/item_board_time"
+            android:id="@+id/hot_board_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:textColor="@color/colorGray"
-            android:textSize="16sp"
+            android:textSize="12sp"
             tools:text="Time" />
-
-        <TextView
-            android:id="@+id/item_board_writer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:textColor="@color/colorGray"
-            android:textSize="16sp"
-            tools:text="Writer" />
 
         <View
             android:layout_width="0dp"
@@ -60,31 +40,31 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/board_thumup" />
+            android:src="@drawable/hot_thumup" />
 
         <TextView
-            android:id="@+id/item_board_reCnt"
+            android:id="@+id/hot_board_reCnt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:text="20"
-            android:textSize="16sp"
+            android:text="0"
+            android:textSize="12sp"
             android:layout_marginRight="5dp"
             android:textColor="@color/colorWhite" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/board_chat" />
+            android:src="@drawable/hot_chat" />
 
         <TextView
-            android:id="@+id/item_board_coCnt"
+            android:id="@+id/hot_board_coCnt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:background="@null"
-            android:text="10"
-            android:textSize="16sp"
+            android:text="0"
+            android:textSize="12sp"
             android:textColor="@color/colorWhite" />
     </LinearLayout>
 

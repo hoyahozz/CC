@@ -12,7 +12,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import org.json.JSONArray
 
 
-class BoardListRequest(btype : String, listener: Response.Listener<String>) :
+class HotBoardListRequest(listener: Response.Listener<String>) :
     StringRequest(
         Request.Method.POST,
         URL,
@@ -25,12 +25,11 @@ class BoardListRequest(btype : String, listener: Response.Listener<String>) :
     companion object {
         // private val URL = "http://192.168.100.251/cc/boardlist.php"
         // private val URL = "http://192.168.0.4/cc/boardlist.php"
-        private val URL = "http://192.168.219.103/cc/boardlist.php"
+        private val URL = "http://192.168.219.103/cc/boardhotlist.php"
     }
 
     init {
         parameters = HashMap()
-        parameters["btype"] = btype
     }
 
     override fun getParams(): Map<String, String> {

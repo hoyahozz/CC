@@ -12,28 +12,26 @@ import com.android.volley.toolbox.JsonObjectRequest
 import org.json.JSONArray
 
 
-class BoardListRequest(btype : String, listener: Response.Listener<String>) :
-    StringRequest(
-        Request.Method.POST,
-        URL,
-        listener,
-        Response.ErrorListener { error ->
-            Log.d("ERROR", "Server Response Fail: $error")
-        }) {
+class SearchListRequest(query: String, listener: Response.Listener<String>) :
+    StringRequest(Request.Method.POST, URL, listener, Response.ErrorListener { error ->
+        Log.d("ERROR", "Server Response FAIL: $error")
+    }) {
     private val parameters: MutableMap<String, String>
 
     companion object {
-        // private val URL = "http://192.168.100.251/cc/boardlist.php"
-        // private val URL = "http://192.168.0.4/cc/boardlist.php"
-        private val URL = "http://192.168.219.103/cc/boardlist.php"
+        //private val URL = "http://192.168.100.251/cc/searchlist.php"
+        //private val URL = "http://192.168.0.4/cc/searchlist.php"
+        private val URL = "http://192.168.219.103/cc/searchlist.php"
     }
 
     init {
         parameters = HashMap()
-        parameters["btype"] = btype
+        parameters["query"] = query
     }
 
+
     override fun getParams(): Map<String, String> {
+
         return parameters
     }
 

@@ -14,6 +14,7 @@ class WriteRequest(
     content: String,
     writer: String,
     anonymous: String,
+    btype : String,
     listener: Response.Listener<String>
 ) :
     StringRequest(Request.Method.POST, URL, listener, Response.ErrorListener { error ->
@@ -34,6 +35,7 @@ class WriteRequest(
         parameters["content"] = content
         parameters["writer"] = writer
         parameters["anonymous"] = anonymous
+        parameters["btype"] = btype
     }
 
     override fun getParams(): Map<String, String> {

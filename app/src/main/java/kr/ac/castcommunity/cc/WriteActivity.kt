@@ -26,8 +26,10 @@ class WriteActivity : WriteToolbarActivity() {
         setContentView(R.layout.write)
 
         var pref: SharedPreferences = getSharedPreferences("mine", Context.MODE_PRIVATE)
+        var pref2: SharedPreferences = getSharedPreferences("board", Context.MODE_PRIVATE)
         val writer = pref.getString("nickname", "").toString()
         val my_id = pref.getString("id", "").toString()
+        val this_btype = pref2.getString("btype","").toString()
         val write_btn = write_btn
         var anonymous = 0
 
@@ -54,7 +56,7 @@ class WriteActivity : WriteToolbarActivity() {
             }
             //서버로 Volley를 이용해서 요청함.
             val writeRequest =
-                WriteRequest(my_id, title, content, writer, anonymous.toString(), responseListener)
+                WriteRequest(my_id, title, content, writer, anonymous.toString(), this_btype, responseListener)
             val queue = Volley.newRequestQueue(this@WriteActivity)
             queue.add(writeRequest)
         }

@@ -8,18 +8,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Response
 import com.android.volley.toolbox.Volley
-import kr.ac.castcommunity.cc.BoardActivity
 import kr.ac.castcommunity.cc.DetailActivity
 
 import kr.ac.castcommunity.cc.R
+import kr.ac.castcommunity.cc.SearchActivity
 import kr.ac.castcommunity.cc.models.Board
 import kr.ac.castcommunity.cc.request.CommentCountRequest
 import org.json.JSONException
 import org.json.JSONObject
 
-class BoardAdapter(val context: BoardActivity, val datas: ArrayList<Board>) :
+class SearchAdapter(val context: SearchActivity, val datas: ArrayList<Board>) :
 
-    RecyclerView.Adapter<BoardAdapter.BoardViewHolder>() {
+    RecyclerView.Adapter<SearchAdapter.BoardViewHolder>() {
 
     // RecyclerView 에 표시될 Item View 를 생성하는 역할을 담당하는 Adapter 구현
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardViewHolder {

@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Response
 import com.android.volley.toolbox.Volley
-import kr.ac.castcommunity.cc.BoardActivity
 import kr.ac.castcommunity.cc.DetailActivity
+import kr.ac.castcommunity.cc.MainActivity
 
 import kr.ac.castcommunity.cc.R
 import kr.ac.castcommunity.cc.models.Board
@@ -17,16 +17,16 @@ import kr.ac.castcommunity.cc.request.CommentCountRequest
 import org.json.JSONException
 import org.json.JSONObject
 
-class BoardAdapter(val context: BoardActivity, val datas: ArrayList<Board>) :
+class HotAdapter(val context: MainActivity, val datas: ArrayList<Board>) :
 
-    RecyclerView.Adapter<BoardAdapter.BoardViewHolder>() {
+    RecyclerView.Adapter<HotAdapter.BoardViewHolder>() {
 
     // RecyclerView 에 표시될 Item View 를 생성하는 역할을 담당하는 Adapter 구현
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardViewHolder {
         // ViewHolder 를 생성
         return BoardViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.item_board,
+                R.layout.hot_board,
                 parent,
                 false
             )
@@ -41,8 +41,6 @@ class BoardAdapter(val context: BoardActivity, val datas: ArrayList<Board>) :
     override fun onBindViewHolder(holder: BoardViewHolder, position: Int) {
         val data = datas[position]
         holder.title.text = data.title
-        holder.contents.text = data.content
-        holder.writer.text = data.writer
         holder.time.text = data.time
         holder.cnt.text = data.cnt.toString()
         holder.bind(data.bnum!!.toInt())
@@ -71,12 +69,10 @@ class BoardAdapter(val context: BoardActivity, val datas: ArrayList<Board>) :
 
     inner class BoardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         // 해당 TextView 변수 지정
-        val title = itemView.findViewById<TextView>(R.id.item_board_title)
-        val contents = itemView.findViewById<TextView>(R.id.item_board_content)
-        val writer = itemView.findViewById<TextView>(R.id.item_board_writer)
-        val time = itemView.findViewById<TextView>(R.id.item_board_time)
-        val cnt = itemView.findViewById<TextView>(R.id.item_board_reCnt)
-        val comment = itemView.findViewById<TextView>(R.id.item_board_coCnt)
+        val title = itemView.findViewById<TextView>(R.id.hot_board_title)
+        val time = itemView.findViewById<TextView>(R.id.hot_board_time)
+        val cnt = itemView.findViewById<TextView>(R.id.hot_board_reCnt)
+        val comment = itemView.findViewById<TextView>(R.id.hot_board_coCnt)
 
         fun bind(position: Int) {
             itemView.setOnClickListener {

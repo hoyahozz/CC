@@ -9,10 +9,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.Toast
-import kr.ac.castcommunity.cc.LoginActivity
-import kr.ac.castcommunity.cc.MyInfoActivity
-import kr.ac.castcommunity.cc.R
-import kr.ac.castcommunity.cc.WriteActivity
+import kr.ac.castcommunity.cc.*
 
 open class MainToolbar : AppCompatActivity() {
 
@@ -53,8 +50,9 @@ open class MainToolbar : AppCompatActivity() {
 
             R.id.main_search -> {
                 //검색 버튼 눌렀을 때
-                Toast.makeText(applicationContext, "검색 이벤트 실행", Toast.LENGTH_LONG).show()
-                return super.onOptionsItemSelected(item)
+                val intent = Intent(applicationContext, SearchActivity::class.java)
+                startActivity(intent)
+                return true;
             }
             R.id.main_people -> {
                 //내 정보 눌렀을 때

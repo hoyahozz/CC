@@ -56,19 +56,19 @@ open class BoardToolbarActivity : AppCompatActivity() {
                 //검색 버튼 눌렀을 때
                 val intent = Intent(applicationContext, SearchActivity::class.java)
                 startActivity(intent)
-                return super.onOptionsItemSelected(item)
+                return true
             }
             R.id.action_write -> {
                 //글쓰기 버튼 눌렀을 때
 
                 val intent = Intent(applicationContext, WriteActivity::class.java)
                 startActivity(intent)
-                return true;
+                return true
             }
             android.R.id.home -> {
                 val intent = Intent(applicationContext, MainActivity::class.java)
                 startActivity(intent)
-                return true;
+                return true
             }
             else -> return super.onOptionsItemSelected(item)
         }

@@ -1,5 +1,7 @@
 package kr.ac.castcommunity.cc
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -16,13 +18,14 @@ import org.json.JSONException
 import java.util.ArrayList
 import kr.ac.castcommunity.cc.models.Board
 import kotlinx.android.synthetic.main.board.*
+import kotlinx.android.synthetic.main.board_toolbar.*
 
 
 class BoardActivity : BoardToolbarActivity() {
 
     private var mPostRecyclerView: RecyclerView? = null
 
-    private var mAdpater: BoardAdapter? = null // Adapter 변수
+    private var mAdapter: BoardAdapter? = null // Adapter 변수
     val mDatas: ArrayList<Board> = ArrayList() // 데이터를 담을 ArrayList
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,18 +33,24 @@ class BoardActivity : BoardToolbarActivity() {
         setContentView(R.layout.board)
         // Log.d("oncreate", "oncreate Start")
 
+        val pref: SharedPreferences =
+            getSharedPreferences("board", MODE_PRIVATE) // SharedPreferences 초기화
+        var this_btype =  pref.getString("btype", "").toString() // 저장한 값 불러오는 과정
 
+        board_name.text = this_btype // 게시판 이름 설정
+
+        Log.d("this_btype", this_btype)
         // RecyclerView 선언
         mPostRecyclerView = recyclerView
 
 
         // MariaDB - PHP - Android 연동
-        val responseListener = Response.Listener<JSONArray> { response ->
+        val responseListener = Response.Listener<String> { response ->
             try {
                 // Log.d("response", "response Start")
-                // val jsonarray = response.getJSONArray("result")
-                for (i in 0 until response.length()) { // 받아온 데이터의 길이만큼 계속 받아옴
-                    val jobject = response.getJSONObject(i)
+                val jsonarray = JSONArray(response)
+                for (i in 0 until jsonarray.length()) { // 받아온 데이터의 길이만큼 계속 받아옴
+                    val jobject = jsonarray.getJSONObject(i)
                     val success = jobject.getBoolean("success")
                     val bnum = jobject.getInt("bnum")
                     val btype = jobject.getString("btype")
@@ -75,8 +84,8 @@ class BoardActivity : BoardToolbarActivity() {
                         return@Listener
                     }
                 }
-                mAdpater = BoardAdapter(this, mDatas) // 게시물 어댑터 연결, 데이터를 보냄
-                mPostRecyclerView!!.adapter = mAdpater
+                mAdapter = BoardAdapter(this@BoardActivity, mDatas) // 게시물 어댑터 연결, 데이터를 보냄
+                mPostRecyclerView!!.adapter = mAdapter
 
                 mPostRecyclerView!!.addItemDecoration(BoardDecoration(20)) // 아이템간 구분자 지정
                 val lm = LinearLayoutManager(this)
@@ -95,7 +104,7 @@ class BoardActivity : BoardToolbarActivity() {
         }
         //서버로 Volley 를 이용해서 요청함.
 
-        val BoardRequest = BoardListRequest(responseListener)
+        val BoardRequest = BoardListRequest(this_btype.toString(), responseListener)
         val queue = Volley.newRequestQueue(this@BoardActivity)
         queue.add(BoardRequest)
 
@@ -103,11 +112,11 @@ class BoardActivity : BoardToolbarActivity() {
 
         board_swipe.setOnRefreshListener { // 새로고침했을 때 반응
             mDatas.clear() // 데이터를 다시 지워줌
-            val responseListener = Response.Listener<JSONArray> { response ->
+            val responseListener = Response.Listener<String> { response ->
                 try { // 데이터를 확인하고 다시 넣는 과정
-                    Log.d("response", "response Start")
-                    for (i in 0 until response.length()) {
-                        val jobject = response.getJSONObject(i)
+                    val jsonarray = JSONArray(response)
+                    for (i in 0 until jsonarray.length()) { // 받아온 데이터의 길이만큼 계속 받아옴
+                        val jobject = jsonarray.getJSONObject(i)
                         val success = jobject.getBoolean("success")
                         val bnum = jobject.getInt("bnum")
                         val btype = jobject.getString("btype")
@@ -123,8 +132,7 @@ class BoardActivity : BoardToolbarActivity() {
                             writer = "익명"
                         }
 
-
-                        if (success == true) { // 게시물을 받아오는데 성공했을 때
+                        if (success == true && btype == this_btype) { // 게시물을 받아오는데 성공했을 때
                             mDatas.add(
                                 Board(
                                     bnum,
@@ -142,8 +150,8 @@ class BoardActivity : BoardToolbarActivity() {
                             return@Listener
                         }
                     }
-                    mAdpater = BoardAdapter(this, mDatas)
-                    mPostRecyclerView!!.adapter = mAdpater
+                    mAdapter = BoardAdapter(this, mDatas)
+                    mPostRecyclerView!!.adapter = mAdapter
                     val lm = LinearLayoutManager(this)
                     lm.reverseLayout = true // 출력 역순으로
                     lm.stackFromEnd = true
@@ -155,7 +163,7 @@ class BoardActivity : BoardToolbarActivity() {
                 }
             }
             //서버로 Volley를 이용해서 요청함.
-            val BoardRequest = BoardListRequest(responseListener)
+            val BoardRequest = BoardListRequest(this_btype.toString(), responseListener)
             val queue = Volley.newRequestQueue(this@BoardActivity)
             queue.add(BoardRequest)
             board_swipe.isRefreshing = false

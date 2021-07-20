@@ -3,13 +3,12 @@ package kr.ac.castcommunity.cc
 import LoginRequest
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Response
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.login.*
-import kr.ac.castcommunity.cc.request.WriteRequest
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -51,6 +50,7 @@ class LoginActivity : AppCompatActivity() {
                         editor.putString("role", role)
                         editor.commit()
                         startActivity(intent)
+                        finish()
                     } else { // 로그인에 실패한 경우
                         Toast.makeText(applicationContext, "로그인 실패!", Toast.LENGTH_LONG).show()
                         return@Listener
@@ -74,6 +74,27 @@ class LoginActivity : AppCompatActivity() {
         Find.setOnClickListener {
             val intent = Intent(applicationContext, IdFindActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    private var backKeyPressedTime: Long = 0
+    private var toast: Toast? = null
+
+    override fun onBackPressed() { // 뒤로가기 금지
+        // super.onBackPressed()
+
+        if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            backKeyPressedTime = System.currentTimeMillis();
+            toast = Toast.makeText(this, "\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
+            toast?.show();
+            return;
+        }
+        // 마지막으로 뒤로가기 버튼을 눌렀던 시간에 2초를 더해 현재시간과 비교 후
+        // 마지막으로 뒤로가기 버튼을 눌렀던 시간이 2초가 지나지 않았으면 종료
+        // 현재 표시된 Toast 취소
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            finish();
+            toast?.cancel();
         }
     }
 }

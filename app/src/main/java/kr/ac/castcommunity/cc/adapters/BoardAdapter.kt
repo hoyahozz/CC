@@ -80,14 +80,9 @@ class BoardAdapter(val context: BoardActivity, val datas: ArrayList<Board>) :
 
         fun bind(position: Int) {
             itemView.setOnClickListener {
-                // 리사이클러뷰에서는 setOnItemClickListener 존재 X 직접 지정이 필요
-                Intent(context, DetailActivity::class.java).apply {
-                    putExtra("bnum", position)
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) // 기존 플래그에 새로운 플래그 추가, 새로운 태스크를 생성하여 태스크 안에 액티비티를 추가한다.
-
-                }.run {
-                    context.startActivity(this)
-                }
+                val intent = Intent(context, DetailActivity::class.java)
+                intent.putExtra("bnum", position)
+                context.startActivity(intent)
             }
         }
     }

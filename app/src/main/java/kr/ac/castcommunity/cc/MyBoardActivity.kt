@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Response
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.my_board.*
+import kotlinx.android.synthetic.main.my_board_toolbar.*
 import kr.ac.castcommunity.cc.Board.BoardDecoration
 import kr.ac.castcommunity.cc.Toolbar.MyBoardToolbarActivity
 import kr.ac.castcommunity.cc.adapters.MyBoardAdapter
@@ -31,9 +32,22 @@ class MyBoardActivity : MyBoardToolbarActivity() {
         // MariaDB - PHP - Android 연동
         var pref: SharedPreferences = getSharedPreferences("mine", Context.MODE_PRIVATE)
         val my_id = pref.getString("id", "").toString()
+        var type = intent.getStringExtra("type").toString()
 
+        if(type == "board") {
+            my_board_name.text = "내가 쓴 글"
+        } else {
+            my_board_name.text = "댓글 단 글"
+        }
         mBoardRecyclerView = my_board_recyclerView
 
+        my_board_list(my_id, type)
+        my_board_swipe(my_id, type)
+
+    }
+
+
+    fun my_board_list(my_id : String, type : String) {
         val responseListener = Response.Listener<String> { response ->
             try {
                 // Log.d("response", "response Start")
@@ -92,13 +106,14 @@ class MyBoardActivity : MyBoardToolbarActivity() {
             }
         }
         //서버로 Volley 를 이용해서 요청함.
-
-        val BoardRequest = MyBoardListRequest(my_id, responseListener)
+        val BoardRequest = MyBoardListRequest(my_id, type, responseListener)
         val queue = Volley.newRequestQueue(this@MyBoardActivity)
         queue.add(BoardRequest)
+    }
 
-        // 리사이클러뷰에서는 setOnItemClickListener 존재 X )
+    // 리사이클러뷰에서는 setOnItemClickListener 존재 X )
 
+    fun my_board_swipe(my_id: String, type : String) {
         my_board_swipe.setOnRefreshListener { // 새로고침했을 때 반응
             mDatas.clear() // 데이터를 다시 지워줌
             val responseListener = Response.Listener<String> { response ->
@@ -152,11 +167,10 @@ class MyBoardActivity : MyBoardToolbarActivity() {
                 }
             }
             //서버로 Volley를 이용해서 요청함.
-            val BoardRequest = MyBoardListRequest(my_id, responseListener)
+            val BoardRequest = MyBoardListRequest(my_id, type, responseListener)
             val queue = Volley.newRequestQueue(this@MyBoardActivity)
             queue.add(BoardRequest)
             my_board_swipe.isRefreshing = false
         }
-
     }
 }

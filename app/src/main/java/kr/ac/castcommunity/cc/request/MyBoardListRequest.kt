@@ -7,7 +7,7 @@ import com.android.volley.toolbox.StringRequest
 import java.util.*
 
 
-class MyBoardListRequest(memId: String, listener: Response.Listener<String>) :
+class MyBoardListRequest(memId: String, type : String, listener: Response.Listener<String>) :
     StringRequest(
         Request.Method.POST,
         URL,
@@ -26,6 +26,7 @@ class MyBoardListRequest(memId: String, listener: Response.Listener<String>) :
     init {
         parameters = HashMap()
         parameters["memId"] = memId
+        parameters["type"] = type
     }
 
     override fun getParams(): Map<String, String> {

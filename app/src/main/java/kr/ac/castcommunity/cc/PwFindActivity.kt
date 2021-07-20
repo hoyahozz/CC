@@ -4,13 +4,11 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.Toast
 import com.android.volley.Response
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.pwfind.*
 import kr.ac.castcommunity.cc.Toolbar.FindToolbarActivity
 import kr.ac.castcommunity.cc.request.PwFindRequest
-import kr.ac.castcommunity.cc.request.RegisterRequest
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -23,6 +21,7 @@ class PwFindActivity : FindToolbarActivity() {
         val idFind = findViewById<Button>(R.id.findTo_id)
         //아이디 찾기 클릭으로 이동
         idFind.setOnClickListener {
+            finish()
             val intent = Intent(applicationContext, IdFindActivity::class.java)
             startActivity(intent)
         }

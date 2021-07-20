@@ -19,7 +19,7 @@ open class DetailToolbarActivity : AppCompatActivity() {
 
     override fun setContentView(layoutResID: Int) {
         val fullView = layoutInflater.inflate(R.layout.detail_toolbar, null) as LinearLayout
-        val activityContainer = fullView.findViewById<View>(R.id.activity_content) as FrameLayout
+        val activityContainer = fullView.findViewById<View>(R.id.detail_layout) as FrameLayout
         layoutInflater.inflate(layoutResID, activityContainer, true)
         super.setContentView(fullView)
 
@@ -39,72 +39,10 @@ open class DetailToolbarActivity : AppCompatActivity() {
     protected fun useToolbar(): Boolean {
         return true
     }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                return true
-            }
+
             else -> return super.onOptionsItemSelected(item)
         }
     }
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.board_menu, menu)
-//        return true
-//    }
-
-
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        when(item.itemId){
-//
-//            R.id.action_change -> {
-//                val intent = Intent(applicationContext, BoardActivity::class.java)
-//                startActivity(intent)
-//                return true
-//            }
-//
-//            R.id.action_delete -> {
-//                builder.setMessage("정말로 삭제하시겠습니까?")
-//                builder.setPositiveButton("확인") { DialogInterface, i ->
-//                    val deleteListener = Response.Listener<String> { response ->
-//                        try {
-//                            val jsonObject = JSONObject(response)
-//                            val success = jsonObject.getBoolean("success")
-//                            if (success == true) { // 글 삭제에 성공했을 때
-//                                Toast.makeText(applicationContext, "삭제 완료!", Toast.LENGTH_LONG)
-//                                    .show()
-//                                val intent = Intent(this, BoardActivity::class.java)
-//                                startActivity(intent)
-//                            } else { // 글 삭제에 실패했을 때
-//                                Toast.makeText(applicationContext, "삭제 실패!", Toast.LENGTH_LONG).show()
-//                                return@Listener
-//                            }
-//                        } catch (e: JSONException) {
-//                            e.printStackTrace()
-//                        }
-//                    }
-//                    //서버로 Volley를 이용해서 요청함.
-//                    //val deleteRequest = DeleteRequest(boardid.toString(), deleteListener)
-//                    //val queue = Volley.newRequestQueue(this)
-//                    //gqueue.add(deleteRequest)
-//                }
-//                builder.setNegativeButton("취소") { DialogInterface, i ->
-//
-//                }
-//                builder.show()
-//
-//                val intent = Intent(applicationContext, BoardActivity::class.java)
-//                startActivity(intent)
-//                return true
-//            }
-//
-//            android.R.id.home -> {
-//                val intent = Intent(applicationContext, BoardActivity::class.java)
-//                startActivity(intent)
-//                return true
-//            }
-//            else -> return super.onOptionsItemSelected(item)
-//        }
-//    }
 }

@@ -27,7 +27,7 @@ class SearchActivity : AppCompatActivity() {
         setContentView(R.layout.search)
 
         mSearchRecyclerView = search_recyclerView
-        mSearchRecyclerView!!.addItemDecoration(BoardDecoration(20)) // 아이템간 구분자 지정
+        mSearchRecyclerView!!.addItemDecoration(BoardDecoration(1)) // 아이템간 구분자 지정
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean { // 텍스트가 바뀔 때

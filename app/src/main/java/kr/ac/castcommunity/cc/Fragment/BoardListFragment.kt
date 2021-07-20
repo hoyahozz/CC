@@ -19,7 +19,10 @@ class BoardListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val pref: SharedPreferences? = this.activity?.getSharedPreferences("board", Context.MODE_PRIVATE) // SharedPreferences 초기화
+        val pref: SharedPreferences? = this.activity?.getSharedPreferences(
+            "board",
+            Context.MODE_PRIVATE
+        ) // SharedPreferences 초기화
         val editor: SharedPreferences.Editor =
             pref!!.edit() //  SharedPreferences 의 데이터를 저장/편집하기 위한 Editor 변수 선언
         editor.clear()
@@ -36,6 +39,13 @@ class BoardListFragment : Fragment() {
 
         list_board1.setOnClickListener {
             val intent = Intent(this.activity, MyBoardActivity::class.java)
+            intent.putExtra("type","board")
+            startActivity(intent)
+        }
+
+        list_board2.setOnClickListener {
+            val intent = Intent(this.activity, MyBoardActivity::class.java)
+            intent.putExtra("type","comment")
             startActivity(intent)
         }
 

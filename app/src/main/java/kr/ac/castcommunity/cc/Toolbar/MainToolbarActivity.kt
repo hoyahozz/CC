@@ -1,5 +1,6 @@
 package kr.ac.castcommunity.cc.Toolbar
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -7,30 +8,29 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import kr.ac.castcommunity.cc.MyInfoActivity
 import kr.ac.castcommunity.cc.R
+import kr.ac.castcommunity.cc.SearchActivity
 
-open class FindToolbarActivity : AppCompatActivity() {
+open class MainToolbarActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.find_toolbar)
+        setContentView(R.layout.main_toolbar)
         // 액션바에 표시되는 제목의 표시 유무 설정(False -> 이름이 화면에 보이게 됨)
     }
 
     override fun setContentView(layoutResID: Int) {
-        val fullView = layoutInflater.inflate(R.layout.find_toolbar, null) as LinearLayout
-        val activityContainer = fullView.findViewById<View>(R.id.activity_content) as FrameLayout
+        val fullView = layoutInflater.inflate(R.layout.main_toolbar, null) as LinearLayout
+        val activityContainer = fullView.findViewById<View>(R.id.main_content) as FrameLayout
         layoutInflater.inflate(layoutResID, activityContainer, true)
         super.setContentView(fullView)
 
         val toolbar =
-            findViewById<androidx.appcompat.widget.Toolbar>(R.id.find_toolbar) //툴바 사용여부 결정(기본적으로 사용)
+            findViewById<androidx.appcompat.widget.Toolbar>(R.id.main_toolbar) //툴바 사용여부 결정(기본적으로 사용)
         if (useToolbar()) {
             setSupportActionBar(toolbar)
             supportActionBar?.setDisplayShowTitleEnabled(false)
-            getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar()!!.setHomeAsUpIndicator(R.drawable.leftback)
-
         } else {
             toolbar.visibility = View.GONE
         }
@@ -41,27 +41,24 @@ open class FindToolbarActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        // menuInflater.inflate(R.menu.toolbar_menu, menu)
+        menuInflater.inflate(R.menu.main_menu, menu)
         return true
     }
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            /*
-            R.id.action_search -> {
+
+            R.id.main_search -> {
                 //검색 버튼 눌렀을 때
-                Toast.makeText(applicationContext, "검색 이벤트 실행", Toast.LENGTH_LONG).show()
-                return super.onOptionsItemSelected(item)
+                val intent = Intent(applicationContext, SearchActivity::class.java)
+                startActivity(intent)
+                return true;
             }
-            R.id.action_share -> {
-                //공유 버튼 눌렀을 때
-                Toast.makeText(applicationContext, "공유 이벤트 실행", Toast.LENGTH_LONG).show()
-                return super.onOptionsItemSelected(item)
-            }
-            */
-            android.R.id.home -> {
-                finish()
+            R.id.main_people -> {
+                //내 정보 눌렀을 때
+                val intent = Intent(applicationContext, MyInfoActivity::class.java)
+                startActivity(intent)
                 return true;
             }
             else -> return super.onOptionsItemSelected(item)

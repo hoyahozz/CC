@@ -26,7 +26,7 @@ class SearchAdapter(val context: SearchActivity, val datas: ArrayList<Board>) :
         // ViewHolder 를 생성
         return BoardViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.item_board,
+                R.layout.item_my_board,
                 parent,
                 false
             )
@@ -45,6 +45,7 @@ class SearchAdapter(val context: SearchActivity, val datas: ArrayList<Board>) :
         holder.writer.text = data.writer
         holder.time.text = data.time
         holder.cnt.text = data.cnt.toString()
+        holder.bType.text = data.btype
         holder.bind(data.bnum!!.toInt())
 
         val commentListener = Response.Listener<String> { response ->
@@ -71,12 +72,13 @@ class SearchAdapter(val context: SearchActivity, val datas: ArrayList<Board>) :
 
     inner class BoardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         // 해당 TextView 변수 지정
-        val title = itemView.findViewById<TextView>(R.id.item_board_title)
-        val contents = itemView.findViewById<TextView>(R.id.item_board_content)
-        val writer = itemView.findViewById<TextView>(R.id.item_board_writer)
-        val time = itemView.findViewById<TextView>(R.id.item_board_time)
-        val cnt = itemView.findViewById<TextView>(R.id.item_board_reCnt)
-        val comment = itemView.findViewById<TextView>(R.id.item_board_coCnt)
+        val title = itemView.findViewById<TextView>(R.id.my_item_board_title)
+        val contents = itemView.findViewById<TextView>(R.id.my_item_board_content)
+        val writer = itemView.findViewById<TextView>(R.id.my_item_board_writer)
+        val time = itemView.findViewById<TextView>(R.id.my_item_board_time)
+        val cnt = itemView.findViewById<TextView>(R.id.my_item_board_reCnt)
+        val comment = itemView.findViewById<TextView>(R.id.my_item_board_coCnt)
+        val bType = itemView.findViewById<TextView>(R.id.my_item_board_bType)
 
         fun bind(position: Int) {
             itemView.setOnClickListener {

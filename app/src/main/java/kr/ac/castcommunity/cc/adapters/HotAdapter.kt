@@ -25,7 +25,7 @@ class HotAdapter(val context: FragmentActivity?, val datas: ArrayList<Board>) :
         // ViewHolder 를 생성
         return BoardViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.hot_board,
+                R.layout.item_hot_board,
                 parent,
                 false
             )
@@ -42,6 +42,7 @@ class HotAdapter(val context: FragmentActivity?, val datas: ArrayList<Board>) :
         holder.title.text = data.title
         holder.time.text = data.time
         holder.cnt.text = data.cnt.toString()
+        holder.btype.text = data.btype
         holder.bind(data.bnum!!.toInt())
 
         val commentListener = Response.Listener<String> { response ->
@@ -72,6 +73,7 @@ class HotAdapter(val context: FragmentActivity?, val datas: ArrayList<Board>) :
         val time = itemView.findViewById<TextView>(R.id.hot_board_time)
         val cnt = itemView.findViewById<TextView>(R.id.hot_board_reCnt)
         val comment = itemView.findViewById<TextView>(R.id.hot_board_coCnt)
+        val btype = itemView.findViewById<TextView>(R.id.hot_board_btype)
 
         fun bind(position: Int) {
             itemView.setOnClickListener {

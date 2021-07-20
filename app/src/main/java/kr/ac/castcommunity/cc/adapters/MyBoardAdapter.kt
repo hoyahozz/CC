@@ -44,7 +44,7 @@ class MyBoardAdapter(val context: MyBoardActivity, val datas: ArrayList<Board>) 
         holder.writer.text = data.writer
         holder.time.text = data.time
         holder.cnt.text = data.cnt.toString()
-        holder.bType.text = data.byte
+        holder.bType.text = data.btype
         holder.bind(data.bnum!!.toInt())
 
         val commentListener = Response.Listener<String> { response ->

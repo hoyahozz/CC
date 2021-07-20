@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import kr.ac.castcommunity.cc.MainActivity
 import kr.ac.castcommunity.cc.R
 import kr.ac.castcommunity.cc.SearchActivity
 import kr.ac.castcommunity.cc.WriteActivity
@@ -69,8 +68,6 @@ open class BoardToolbarActivity : AppCompatActivity() {
             }
             android.R.id.home -> {
                 finish()
-                val intent = Intent(applicationContext, MainActivity::class.java)
-                startActivity(intent)
                 return true
             }
             else -> return super.onOptionsItemSelected(item)

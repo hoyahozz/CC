@@ -2,20 +2,12 @@ package kr.ac.castcommunity.cc
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
-import android.widget.EditText
-import androidx.appcompat.app.AlertDialog
-import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.idfind.*
-import kotlinx.android.synthetic.main.pwfind.*
-import kotlinx.android.synthetic.main.register.*
 import kr.ac.castcommunity.cc.Toolbar.FindToolbarActivity
 import kr.ac.castcommunity.cc.request.IdFindRequest
-import kr.ac.castcommunity.cc.request.PwFindRequest
-import kr.ac.castcommunity.cc.request.RegisterRequest
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -30,6 +22,7 @@ class IdFindActivity : FindToolbarActivity() {
         val pwfind = findViewById<Button>(R.id.findTo_pw)
         //비밀번호 찾기 클릭시 이동
         pwfind.setOnClickListener {
+            finish()
             val intent = Intent(applicationContext, PwFindActivity::class.java)
             startActivity(intent)
         }

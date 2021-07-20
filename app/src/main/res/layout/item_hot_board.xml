@@ -24,10 +24,19 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/hot_board_btype"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:textColor="@color/colorGray"
+            android:textSize="12sp"
+            tools:text="bType" />
+
+        <TextView
             android:id="@+id/hot_board_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="10dp"
             android:textColor="@color/colorGray"
             android:textSize="12sp"
             tools:text="Time" />

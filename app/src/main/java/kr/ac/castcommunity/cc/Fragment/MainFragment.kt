@@ -40,7 +40,10 @@ class MainFragment : Fragment() {
         // Inflate the layout for this fragment
         val view: View = inflater!!.inflate(R.layout.fragment_main, container, false)
 
-        val pref: SharedPreferences? = this.activity?.getSharedPreferences("board", Context.MODE_PRIVATE) // SharedPreferences 초기화
+        val pref: SharedPreferences? = this.activity?.getSharedPreferences(
+            "board",
+            Context.MODE_PRIVATE
+        ) // SharedPreferences 초기화
         val editor: SharedPreferences.Editor =
             pref!!.edit() //  SharedPreferences 의 데이터를 저장/편집하기 위한 Editor 변수 선언
         editor.clear()
@@ -104,7 +107,7 @@ class MainFragment : Fragment() {
 
         val main_viewPager = view.findViewById<ViewPager2>(R.id.main_viewPager)
 
-       main_viewPager.adapter = ViewPagerAdapter(getList())
+        main_viewPager.adapter = ViewPagerAdapter(getList())
 
 
         val main_board1 = view.findViewById<Button>(R.id.main_board1)
@@ -127,21 +130,21 @@ class MainFragment : Fragment() {
             startActivity(intent)
         }
 
-        main_board3.setOnClickListener {view ->
+        main_board3.setOnClickListener { view ->
             editor.putString("btype", main_board3.text.toString())
             editor.commit()
             val intent = Intent(this.activity, BoardActivity::class.java)
             startActivity(intent)
         }
 
-        main_board4.setOnClickListener {view ->
+        main_board4.setOnClickListener { view ->
             editor.putString("btype", main_board4.text.toString())
             editor.commit()
             val intent = Intent(this.activity, BoardActivity::class.java)
             startActivity(intent)
         }
 
-        main_board5.setOnClickListener {view ->
+        main_board5.setOnClickListener { view ->
             editor.putString("btype", main_board5.text.toString())
             editor.commit()
             val intent = Intent(this.activity, BoardActivity::class.java)
@@ -193,75 +196,8 @@ class MainFragment : Fragment() {
         queue.add(boardTypeRequest)
     }
 
-//    fun hotBoardList(View view) {
-//        val hot_recyclerView = view.findViewById<RecyclerView>(R.id.hot_recyclerView)
-//        mHotRecyclerView = hot_recyclerView
-//        mHotRecyclerView?.addItemDecoration(BoardDecoration(5)) // 아이템간 구분자 지정
-//
-//        // MariaDB - PHP - Android 연동
-//        val responseListener = Response.Listener<String> { response ->
-//            try {
-//                // Log.d("response", "response Start")
-//                val jsonarray = JSONArray(response)
-//                for (i in 0 until jsonarray.length()) { // 받아온 데이터의 길이만큼 계속 받아옴
-//                    val jobject = jsonarray.getJSONObject(i)
-//                    val success = jobject.getBoolean("success")
-//                    val bnum = jobject.getInt("bnum")
-//                    val btype = jobject.getString("btype")
-//                    var writer = jobject.getString("writer")
-//                    val title = jobject.getString("title")
-//                    val content = jobject.getString("content")
-//                    val date = jobject.getString("date")
-//                    val memId = jobject.getString("memId")
-//                    val cnt = jobject.getInt("cnt")
-//                    val anonymous = jobject.getInt("anonymous")
-//
-//                    if (anonymous == 1) { // 익명일 때 닉네임 익명으로 설정
-//                        writer = "익명"
-//                    }
-//
-//                    if (success == true) { // 게시물을 받아오는데 성공했을 때
-//                        mDatas.add(
-//                            Board(
-//                                bnum,
-//                                btype,
-//                                writer,
-//                                title,
-//                                content,
-//                                memId,
-//                                date,
-//                                cnt,
-//                                anonymous
-//                            )
-//                        ) // ArrayList 에 데이터 추가
-//                    } else {
-//                        return@Listener
-//                    }
-//                }
-//                mAdapter = HotAdapter(activity, mDatas) // 게시물 어댑터 연결, 데이터를 보냄
-//                mHotRecyclerView?.adapter = mAdapter
-//
-//                val lm = LinearLayoutManager(activity)
-//                lm.reverseLayout = true // 출력 역순으로
-//                lm.stackFromEnd = true // xml에서도 지정이 가능함
-//                mHotRecyclerView?.layoutManager = lm
-//                mHotRecyclerView?.setHasFixedSize(true)
-//
-//            } catch (e: JSONException) {
-//                e.printStackTrace()
-//            }
-//        }
-//        //서버로 Volley 를 이용해서 요청함.
-//
-//        val BoardRequest = HotBoardListRequest(responseListener)
-//        val queue = Volley.newRequestQueue(this.activity)
-//        queue.add(BoardRequest)
-//    }
-
-
-    
     companion object {
-        fun newInstance() : MainFragment {
+        fun newInstance(): MainFragment {
             return MainFragment()
         }
     }

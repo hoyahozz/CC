@@ -1,21 +1,16 @@
 package kr.ac.castcommunity.cc
 
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.android.volley.Response
 import com.android.volley.toolbox.Volley
-import kotlinx.android.synthetic.main.detail.*
 import kotlinx.android.synthetic.main.myinfo.*
-import kotlinx.android.synthetic.main.write.*
 import kr.ac.castcommunity.cc.Toolbar.MyInfoToolbarActivity
 import kr.ac.castcommunity.cc.request.DeleteRequest
-import kr.ac.castcommunity.cc.request.WriteRequest
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -67,7 +62,10 @@ class MyInfoActivity : MyInfoToolbarActivity() {
                         if (success == true) {// 글 등록에 성공한 경우
                             Toast.makeText(applicationContext, "탈퇴되었습니다. 감사합니다.", Toast.LENGTH_LONG)
                                 .show()
+
+                            finish()
                             val intent = Intent(this@MyInfoActivity, LoginActivity::class.java)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                             startActivity(intent)
                         } else { // 글 등록에 실패한 경우
                             Toast.makeText(applicationContext, "탈퇴 실패!", Toast.LENGTH_LONG).show()
@@ -96,7 +94,10 @@ class MyInfoActivity : MyInfoToolbarActivity() {
                 val editor: SharedPreferences.Editor = pref.edit()
                 editor.clear(); // 세션 데이터 모두 초기화 후 초기화면으로 이동
                 editor.commit();
+
+                finish()
                 val intent = Intent(applicationContext, LoginActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 startActivity(intent)
             }
             builder.setNegativeButton("취소") { DialogInterface, i ->

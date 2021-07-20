@@ -1,5 +1,4 @@
 package kr.ac.castcommunity.cc
-
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -18,7 +17,6 @@ import kr.ac.castcommunity.cc.request.BoardListRequest
 import org.json.JSONArray
 import org.json.JSONException
 import java.util.*
-
 
 class BoardActivity : BoardToolbarActivity() {
 
@@ -165,9 +163,6 @@ class BoardActivity : BoardToolbarActivity() {
             val queue = Volley.newRequestQueue(this@BoardActivity)
             queue.add(BoardRequest)
             board_swipe.isRefreshing = false
-
         }
-
     }
-
 }

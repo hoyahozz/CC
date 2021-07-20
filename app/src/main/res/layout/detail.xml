@@ -37,7 +37,7 @@
                 android:gravity="center"
                 android:text="2021-07-08"
                 android:textColor="@color/colorGray"
-                android:textSize="10sp" />
+                android:textSize="12sp" />
 
             <View
                 android:layout_width="0dp"

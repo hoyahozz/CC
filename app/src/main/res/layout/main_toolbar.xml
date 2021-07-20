@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="75dp"
     android:orientation="vertical"
-    tools:context=".Toolbar.MainToolbar">
+    tools:context=".Toolbar.MainToolbarActivity">
 
 
     <!-- 왼쪽 아이콘 빈공간 없애기 (contentinsetStart)-->

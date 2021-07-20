@@ -1,17 +1,13 @@
 package kr.ac.castcommunity.cc
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import com.android.volley.Response
 import com.android.volley.toolbox.Volley
-import kotlinx.android.synthetic.main.detail.*
 import kotlinx.android.synthetic.main.update.*
 import kotlinx.android.synthetic.main.update_toolbar.*
 import kr.ac.castcommunity.cc.Toolbar.UpdateToolbarActivity
-import kr.ac.castcommunity.cc.request.BoardDeleteRequest
 import kr.ac.castcommunity.cc.request.BoardUpdateRequest
 import kr.ac.castcommunity.cc.request.DetailRequest
 import org.json.JSONException
@@ -61,6 +57,7 @@ class UpdateActivity : UpdateToolbarActivity() {
                     if (success == true) { // 글 수정에 성공했을 때
                         Toast.makeText(applicationContext, "수정 완료!", Toast.LENGTH_LONG)
                             .show()
+                        finish()
                         val intent = Intent(this, DetailActivity::class.java)
                         intent.putExtra("bnum", boardid)
                         startActivity(intent)

@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Response
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.detail.*
+import kotlinx.android.synthetic.main.detail_toolbar.*
 import kr.ac.castcommunity.cc.Board.MainBoardDecoration
 import kr.ac.castcommunity.cc.DetailActivity
 import kr.ac.castcommunity.cc.Toolbar.DetailToolbarActivity
@@ -64,6 +65,7 @@ class DetailActivity : DetailToolbarActivity() {
                 val memId = jsonObject.getString("memId")
                 val cnt = jsonObject.getInt("cnt")
                 val anonymous = jsonObject.getInt("anonymous")
+                val btype = jsonObject.getString("btype")
 
                 if (success == true) {
                     detail_content.text = content
@@ -76,6 +78,7 @@ class DetailActivity : DetailToolbarActivity() {
                     }
                     detail_date.text = date
                     detail_cnt.text = cnt.toString()
+                    detail_board_name.text = btype
                     if (my_id != memId) {
                         detail_recommend.isVisible = true
                     }
@@ -163,6 +166,7 @@ class DetailActivity : DetailToolbarActivity() {
                     val jsonObject = JSONObject(response)
                     val success = jsonObject.getBoolean("success")
                     if (success == true) {// 글 등록에 성공한 경우
+                        finish()
                         val intent = Intent(this@DetailActivity, DetailActivity::class.java)
                         intent.putExtra("bnum", boardid)
                         startActivity(intent)
@@ -262,6 +266,7 @@ class DetailActivity : DetailToolbarActivity() {
                                             "공감이 취소되었습니다!",
                                             Toast.LENGTH_LONG
                                         ).show()
+                                        finish()
                                         val intent =
                                             Intent(this@DetailActivity, DetailActivity::class.java)
                                         intent.putExtra("bnum", boardid)
@@ -297,6 +302,7 @@ class DetailActivity : DetailToolbarActivity() {
                                             "공감 성공!",
                                             Toast.LENGTH_LONG
                                         ).show()
+                                        finish()
                                         val intent =
                                             Intent(this@DetailActivity, DetailActivity::class.java)
                                         intent.putExtra("bnum", boardid)
@@ -370,6 +376,7 @@ class DetailActivity : DetailToolbarActivity() {
         when (item.itemId) {
 
             R.id.action_change -> {
+                finish()
                 val intent = Intent(applicationContext, UpdateActivity::class.java)
                 intent.putExtra("boardid", boardid)
                 startActivity(intent)
@@ -387,7 +394,9 @@ class DetailActivity : DetailToolbarActivity() {
                             if (success == true) { // 글 삭제에 성공했을 때
                                 Toast.makeText(applicationContext, "삭제 완료!", Toast.LENGTH_LONG)
                                     .show()
+                                finish()
                                 val intent = Intent(this, BoardActivity::class.java)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                                 startActivity(intent)
                             } else { // 글 삭제에 실패했을 때
                                 Toast.makeText(applicationContext, "삭제 실패!", Toast.LENGTH_LONG)
@@ -411,8 +420,7 @@ class DetailActivity : DetailToolbarActivity() {
             }
 
             android.R.id.home -> {
-                val intent = Intent(applicationContext, BoardActivity::class.java)
-                startActivity(intent)
+                finish()
                 return true
             }
             else -> return super.onOptionsItemSelected(item)

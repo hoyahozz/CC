@@ -1,25 +1,22 @@
 package kr.ac.castcommunity.cc
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-
 import android.widget.Toast
-import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.Volley
-import kotlinx.android.synthetic.main.login.*
 import kotlinx.android.synthetic.main.register.*
+import kr.ac.castcommunity.cc.Toolbar.RegisterToolbarActivity
 import kr.ac.castcommunity.cc.request.NickValidateRequest
 import kr.ac.castcommunity.cc.request.RegisterRequest
 import kr.ac.castcommunity.cc.request.ValidateRequest
 import org.json.JSONException
 import org.json.JSONObject
 
-class RegisterActivity : AppCompatActivity() {
+class RegisterActivity : RegisterToolbarActivity() {
 
     private var dialog: AlertDialog? = null
 
@@ -139,14 +136,16 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             //회원가입 진행
-            val responseListener = Response.Listener<String> { response ->
-                try {
-                    val jsonObject = JSONObject(response)
-                    val success = jsonObject.getBoolean("success")
+            if (password.equals(password2)) {
+                val responseListener = Response.Listener<String> { response ->
+                    try {
+                        val jsonObject = JSONObject(response)
+                        val success = jsonObject.getBoolean("success")
 
-                    //비밀번호가 같을 경우
-                    if (password.equals(password2)) {
+                        //비밀번호가 같을 경우
+
                         if (success == true) {// 회원가입 성공한 경우
+                            finish()
                             val intent =
                                 Intent(this@RegisterActivity, LoginActivity::class.java)
                             startActivity(intent)
@@ -155,26 +154,25 @@ class RegisterActivity : AppCompatActivity() {
                                 .show()
                             return@Listener
                         }
-                    } else { //비밀번호 입력이 다를경우
-                        val builder: AlertDialog.Builder =
-                            AlertDialog.Builder(this@RegisterActivity)
-                        dialog =
-                            builder.setMessage("비밀번호가 동일하지 않습니다.").setNegativeButton("확인", null)
-                                .create()
-                        dialog!!.show()
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
                     }
-                } catch (e: JSONException) {
-                    e.printStackTrace()
                 }
-
+                // Volley 라이브러리를 이용해 실제 서버와 통신을 구현하는 부분
+                val registerRequest =
+                    RegisterRequest(id, password, name, nickname, email, role, responseListener)
+                val queue = Volley.newRequestQueue(this@RegisterActivity)
+                queue.add(registerRequest)
             }
 
-            // Volley 라이브러리를 이용해 실제 서버와 통신을 구현하는 부분
-            val registerRequest =
-                RegisterRequest(id, password, name, nickname, email, role, responseListener)
-            val queue = Volley.newRequestQueue(this@RegisterActivity)
-            queue.add(registerRequest)
-
+            else { //비밀번호 입력이 다를경우
+                val builder: AlertDialog.Builder =
+                    AlertDialog.Builder(this@RegisterActivity)
+                dialog =
+                    builder.setMessage("비밀번호가 동일하지 않습니다.").setNegativeButton("확인", null)
+                        .create()
+                dialog!!.show()
+            }
         }
     }
 }

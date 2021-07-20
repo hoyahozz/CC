@@ -39,7 +39,9 @@ class WriteActivity : WriteToolbarActivity() {
                     val jsonObject = JSONObject(response)
                     val success = jsonObject.getBoolean("success")
                     if (success == true) {// 글 등록에 성공한 경우
+                        finish()
                         val intent = Intent(this@WriteActivity, BoardActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         startActivity(intent)
                     } else { // 글 등록에 실패한 경우
                         Toast.makeText(applicationContext, "글쓰기 실패!", Toast.LENGTH_LONG).show()

@@ -1,12 +1,11 @@
 package kr.ac.castcommunity.cc.request
 
 import android.util.Log
-import com.android.volley.toolbox.StringRequest
 import com.android.volley.AuthFailureError
 import com.android.volley.Request
 import com.android.volley.Response
-
-import java.util.HashMap
+import com.android.volley.toolbox.StringRequest
+import java.util.*
 
 class PwFindRequest(id: String, email: String, listener: Response.Listener<String>) :
     StringRequest(Request.Method.POST, URL, listener, Response.ErrorListener { error ->
@@ -15,8 +14,8 @@ class PwFindRequest(id: String, email: String, listener: Response.Listener<Strin
     private val parameters: MutableMap<String, String>
 
     companion object {
-        private val URL = "http://192.168.0.4/cc/pwfind.php"
-        // private val URL = "http://192.168.219.103/cc/pwfind.php"
+        // private val URL = "http://192.168.0.4/cc/pwfind.php"
+        private val URL = "http://192.168.219.103/cc/pwfind.php"
         // private val URL = "http://192.168.1.93/cc/pwfind.php"
         //private val URL = "http://172.30.1.31/cc/pwfind.php"
     }

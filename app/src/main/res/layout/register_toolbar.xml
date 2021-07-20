@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Toolbar.FindToolbarActivity">
+    tools:context=".Toolbar.RegisterToolbarActivity">
 
 
     <!-- 왼쪽 아이콘 빈공간 없애기 (contentinsetStart)-->
@@ -15,10 +15,10 @@
         app:titleTextColor="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/colorBlack">
+        android:background="@color/colorBlack"
+        >
 
         <TextView
-            android:id="@+id/bar_findText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="회원가입"

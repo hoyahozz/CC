@@ -2,7 +2,7 @@ package kr.ac.castcommunity.cc.models
 
 class Board {
     var bnum: Int? = null
-    var byte: String? = null
+    var btype: String? = null
     var writer: String? = null
     var title: String? = null
     var content: String? = null
@@ -13,7 +13,7 @@ class Board {
 
     constructor(
         bnum: Int?,
-        byte: String?,
+        btype: String?,
         writer: String?,
         title: String?,
         content: String?,
@@ -23,7 +23,7 @@ class Board {
         anonymous: Int?
     ) {
         this.bnum = bnum
-        this.byte = byte
+        this.btype = btype
         this.writer = writer
         this.title = title
         this.content = content
@@ -34,7 +34,7 @@ class Board {
     }
 
     override fun toString(): String {
-        return "Board(bnum=$bnum, byte=$byte, writer=$writer, title=$title, content=$content, memId=$memId, time=$time, cnt=$cnt, anonymous=$anonymous)"
+        return "Board(bnum=$bnum, btype=$btype, writer=$writer, title=$title, content=$content, memId=$memId, time=$time, cnt=$cnt, anonymous=$anonymous)"
     }
 
 

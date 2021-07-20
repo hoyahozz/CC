@@ -2,7 +2,6 @@ package kr.ac.castcommunity.cc.adapters
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,23 +9,16 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Response
 import com.android.volley.toolbox.Volley
-import kr.ac.castcommunity.cc.BoardActivity
 import kr.ac.castcommunity.cc.DetailActivity
-import kr.ac.castcommunity.cc.MainActivity
-
 import kr.ac.castcommunity.cc.R
-import kr.ac.castcommunity.cc.models.Board
 import kr.ac.castcommunity.cc.models.Comment
-import kr.ac.castcommunity.cc.request.BoardDeleteRequest
 import kr.ac.castcommunity.cc.request.CommentDeleteRequest
 import org.json.JSONException
 import org.json.JSONObject
-import org.w3c.dom.Text
 
 class CommentAdapter(val context: Context, val datas: ArrayList<Comment>, val memId: String) :
 
@@ -73,6 +65,7 @@ class CommentAdapter(val context: Context, val datas: ArrayList<Comment>, val me
                                 .show()
                             Intent(context, DetailActivity::class.java).apply {
                                 putExtra("bnum", data.boardid)
+                                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) // 기존 플래그에 새로운 플래그 추가, 새로운 태스크를 생성하여 태스크 안에 액티비티를 추가한다.
                             }.run {
                                 context.startActivity(this)

@@ -1,22 +1,12 @@
 package kr.ac.castcommunity.cc.Toolbar
 
-import android.content.Intent
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import com.android.volley.Response
-import com.android.volley.toolbox.Volley
-import kr.ac.castcommunity.cc.*
-import kr.ac.castcommunity.cc.request.DeleteRequest
-import org.json.JSONException
-import org.json.JSONObject
+import androidx.appcompat.app.AppCompatActivity
+import kr.ac.castcommunity.cc.R
 
 open class DetailToolbarActivity : AppCompatActivity() {
 
@@ -48,6 +38,16 @@ open class DetailToolbarActivity : AppCompatActivity() {
 
     protected fun useToolbar(): Boolean {
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
     }
 //    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 //        menuInflater.inflate(R.menu.board_menu, menu)

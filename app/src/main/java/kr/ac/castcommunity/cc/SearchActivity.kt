@@ -1,23 +1,21 @@
 package kr.ac.castcommunity.cc
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.SearchView
-import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Response
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.search.*
 import kr.ac.castcommunity.cc.Board.BoardDecoration
-import kr.ac.castcommunity.cc.adapters.BoardAdapter
 import kr.ac.castcommunity.cc.adapters.SearchAdapter
 import kr.ac.castcommunity.cc.models.Board
 import kr.ac.castcommunity.cc.request.SearchListRequest
 import org.json.JSONArray
 import org.json.JSONException
-import java.util.ArrayList
+import java.util.*
 
 class SearchActivity : AppCompatActivity() {
 
@@ -30,7 +28,7 @@ class SearchActivity : AppCompatActivity() {
 
         mSearchRecyclerView = search_recyclerView
         mSearchRecyclerView!!.addItemDecoration(BoardDecoration(20)) // 아이템간 구분자 지정
-        searchView.setOnQueryTextListener(object :  SearchView.OnQueryTextListener,
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean { // 텍스트가 바뀔 때
                 return false

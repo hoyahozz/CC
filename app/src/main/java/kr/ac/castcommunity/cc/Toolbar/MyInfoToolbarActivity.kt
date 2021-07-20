@@ -1,16 +1,12 @@
 package kr.ac.castcommunity.cc.Toolbar
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
-import kr.ac.castcommunity.cc.BoardActivity
-import kr.ac.castcommunity.cc.LoginActivity
-import kr.ac.castcommunity.cc.MainActivity
+import androidx.appcompat.app.AppCompatActivity
 import kr.ac.castcommunity.cc.R
 
 open class MyInfoToolbarActivity : AppCompatActivity() {
@@ -52,8 +48,7 @@ open class MyInfoToolbarActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                val intent = Intent(applicationContext, MainActivity::class.java)
-                startActivity(intent)
+                finish()
                 return true;
             }
             else -> return super.onOptionsItemSelected(item)

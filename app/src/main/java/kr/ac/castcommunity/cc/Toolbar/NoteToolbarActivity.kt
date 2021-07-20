@@ -2,16 +2,13 @@ package kr.ac.castcommunity.cc.Toolbar
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import kr.ac.castcommunity.cc.BoardActivity
-import kr.ac.castcommunity.cc.NoteActivity
+import kr.ac.castcommunity.cc.Fragment.NoteFragment
 import kr.ac.castcommunity.cc.R
 
 open class NoteToolbarActivity : AppCompatActivity() {
@@ -53,7 +50,7 @@ open class NoteToolbarActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                val intent = Intent(applicationContext, NoteActivity::class.java)
+                val intent = Intent(applicationContext, NoteFragment::class.java)
                 startActivity(intent)
                 return true;
             }

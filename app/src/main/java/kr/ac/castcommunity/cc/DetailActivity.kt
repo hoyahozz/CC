@@ -6,38 +6,32 @@ import RecommendRequest
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Response
 import com.android.volley.toolbox.Volley
-import kotlinx.android.synthetic.main.board.*
 import kotlinx.android.synthetic.main.detail.*
-import kotlinx.android.synthetic.main.write.*
-import kr.ac.castcommunity.cc.Board.BoardDecoration
+import kr.ac.castcommunity.cc.Board.MainBoardDecoration
+import kr.ac.castcommunity.cc.DetailActivity
 import kr.ac.castcommunity.cc.Toolbar.DetailToolbarActivity
-import kr.ac.castcommunity.cc.adapters.BoardAdapter
 import kr.ac.castcommunity.cc.adapters.CommentAdapter
-import kr.ac.castcommunity.cc.models.Board
 import kr.ac.castcommunity.cc.models.Comment
-import kr.ac.castcommunity.cc.request.*
+import kr.ac.castcommunity.cc.request.BoardDeleteRequest
+import kr.ac.castcommunity.cc.request.CommentRequest
+import kr.ac.castcommunity.cc.request.CommentWriteRequest
+import kr.ac.castcommunity.cc.request.DetailRequest
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
-import java.util.ArrayList
-import android.os.Build.VERSION_CODES.O
-import kr.ac.castcommunity.cc.DetailActivity
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.view.Menu
-import android.view.MenuItem
-import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
+import java.util.*
 
 
 class DetailActivity : DetailToolbarActivity() {
@@ -140,7 +134,7 @@ class DetailActivity : DetailToolbarActivity() {
                 }
                 mAdpater = CommentAdapter(this, mDatas, my_id)
                 mCommentRecyclerView!!.adapter = mAdpater
-                mCommentRecyclerView!!.addItemDecoration(BoardDecoration(20))
+                mCommentRecyclerView!!.addItemDecoration(MainBoardDecoration(20))
                 val lm = LinearLayoutManager(this)
                 lm.reverseLayout = true // 출력 역순으로
                 lm.stackFromEnd = true

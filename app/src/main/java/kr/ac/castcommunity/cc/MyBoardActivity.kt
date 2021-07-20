@@ -1,48 +1,39 @@
 package kr.ac.castcommunity.cc
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Response
 import com.android.volley.toolbox.Volley
-import kotlinx.android.synthetic.main.board.*
-import kotlinx.android.synthetic.main.board_toolbar.*
+import kotlinx.android.synthetic.main.my_board.*
 import kr.ac.castcommunity.cc.Board.BoardDecoration
-import kr.ac.castcommunity.cc.Toolbar.BoardToolbarActivity
-import kr.ac.castcommunity.cc.adapters.BoardAdapter
+import kr.ac.castcommunity.cc.Toolbar.MyBoardToolbarActivity
+import kr.ac.castcommunity.cc.adapters.MyBoardAdapter
 import kr.ac.castcommunity.cc.models.Board
-import kr.ac.castcommunity.cc.request.BoardListRequest
+import kr.ac.castcommunity.cc.request.MyBoardListRequest
 import org.json.JSONArray
 import org.json.JSONException
 import java.util.*
 
+class MyBoardActivity : MyBoardToolbarActivity() {
 
-class BoardActivity : BoardToolbarActivity() {
+    private var mBoardRecyclerView: RecyclerView? = null
 
-    private var mPostRecyclerView: RecyclerView? = null
-
-    private var mAdapter: BoardAdapter? = null // Adapter 변수
+    private var mAdapter: MyBoardAdapter? = null // Adapter 변수
     val mDatas: ArrayList<Board> = ArrayList() // 데이터를 담을 ArrayList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.board)
-
-        val pref: SharedPreferences =
-            getSharedPreferences("board", MODE_PRIVATE) // SharedPreferences 초기화
-        var this_btype = pref.getString("btype", "").toString() // 저장한 값 불러오는 과정
-
-        board_name.text = this_btype // 게시판 이름 설정
-
-        Log.d("this_btype", this_btype)
-        // RecyclerView 선언
-        mPostRecyclerView = recyclerView
-
-
+        setContentView(R.layout.my_board)
         // MariaDB - PHP - Android 연동
+        var pref: SharedPreferences = getSharedPreferences("mine", Context.MODE_PRIVATE)
+        val my_id = pref.getString("id", "").toString()
+
+        mBoardRecyclerView = my_board_recyclerView
+
         val responseListener = Response.Listener<String> { response ->
             try {
                 // Log.d("response", "response Start")
@@ -82,19 +73,19 @@ class BoardActivity : BoardToolbarActivity() {
                         return@Listener
                     }
                 }
-                mAdapter = BoardAdapter(this@BoardActivity, mDatas) // 게시물 어댑터 연결, 데이터를 보냄
-                mPostRecyclerView!!.adapter = mAdapter
+                mAdapter = MyBoardAdapter(this, mDatas) // 게시물 어댑터 연결, 데이터를 보냄
+                mBoardRecyclerView!!.adapter = mAdapter
 
-                mPostRecyclerView!!.addItemDecoration(BoardDecoration(1)) // 아이템간 구분자 지정
+                mBoardRecyclerView!!.addItemDecoration(BoardDecoration(1)) // 아이템간 구분자 지정
                 val lm = LinearLayoutManager(this)
                 lm.reverseLayout = true // 출력 역순으로
                 lm.stackFromEnd = true // xml에서도 지정이 가능함
-                mPostRecyclerView!!.layoutManager = lm
-                mPostRecyclerView!!.setHasFixedSize(true)
+                mBoardRecyclerView!!.layoutManager = lm
+                mBoardRecyclerView!!.setHasFixedSize(true)
                 // 아이템 항목을 추가할 때마다 RecyclerView의 크기 변경이 일정하다는 것을 확인
                 // 고정된 Size를 가지는 RecyclerView일 경우 setHasFixedSize를 사용하면서 불필요한 리소스를 아낄 수 있다.
                 val decoration = DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
-                mPostRecyclerView!!.addItemDecoration(decoration) // 아이템 수직 정렬하게 지정
+                mBoardRecyclerView!!.addItemDecoration(decoration) // 아이템 수직 정렬하게 지정
 
             } catch (e: JSONException) {
                 e.printStackTrace()
@@ -102,13 +93,13 @@ class BoardActivity : BoardToolbarActivity() {
         }
         //서버로 Volley 를 이용해서 요청함.
 
-        val BoardRequest = BoardListRequest(this_btype.toString(), responseListener)
-        val queue = Volley.newRequestQueue(this@BoardActivity)
+        val BoardRequest = MyBoardListRequest(my_id, responseListener)
+        val queue = Volley.newRequestQueue(this@MyBoardActivity)
         queue.add(BoardRequest)
 
         // 리사이클러뷰에서는 setOnItemClickListener 존재 X )
 
-        board_swipe.setOnRefreshListener { // 새로고침했을 때 반응
+        my_board_swipe.setOnRefreshListener { // 새로고침했을 때 반응
             mDatas.clear() // 데이터를 다시 지워줌
             val responseListener = Response.Listener<String> { response ->
                 try { // 데이터를 확인하고 다시 넣는 과정
@@ -130,7 +121,7 @@ class BoardActivity : BoardToolbarActivity() {
                             writer = "익명"
                         }
 
-                        if (success == true && btype == this_btype) { // 게시물을 받아오는데 성공했을 때
+                        if (success == true) { // 게시물을 받아오는데 성공했을 때
                             mDatas.add(
                                 Board(
                                     bnum,
@@ -148,26 +139,24 @@ class BoardActivity : BoardToolbarActivity() {
                             return@Listener
                         }
                     }
-                    mAdapter = BoardAdapter(this, mDatas)
-                    mPostRecyclerView!!.adapter = mAdapter
+                    mAdapter = MyBoardAdapter(this, mDatas)
+                    mBoardRecyclerView!!.adapter = mAdapter
                     val lm = LinearLayoutManager(this)
                     lm.reverseLayout = true // 출력 역순으로
                     lm.stackFromEnd = true
-                    mPostRecyclerView!!.layoutManager = lm
-                    mPostRecyclerView!!.setHasFixedSize(true)
+                    mBoardRecyclerView!!.layoutManager = lm
+                    mBoardRecyclerView!!.setHasFixedSize(true)
 
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             }
             //서버로 Volley를 이용해서 요청함.
-            val BoardRequest = BoardListRequest(this_btype.toString(), responseListener)
-            val queue = Volley.newRequestQueue(this@BoardActivity)
+            val BoardRequest = MyBoardListRequest(my_id, responseListener)
+            val queue = Volley.newRequestQueue(this@MyBoardActivity)
             queue.add(BoardRequest)
-            board_swipe.isRefreshing = false
-
+            my_board_swipe.isRefreshing = false
         }
 
     }
-
 }

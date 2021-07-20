@@ -14,7 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SearchActivity"></activity>
+        <activity
+            android:name=".MyBoardActivity"
+            android:label="@string/title_activity_my_board"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Toolbar.MyBoardToolbarActivity" />
+        <activity android:name=".SearchActivity" />
         <activity android:name=".Toolbar.UpdateToolbarActivity" />
         <activity android:name=".UpdateActivity" />
         <activity

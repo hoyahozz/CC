@@ -1,15 +1,17 @@
 package kr.ac.castcommunity.cc.Toolbar
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
-import android.widget.Toast
-import kr.ac.castcommunity.cc.*
+import androidx.appcompat.app.AppCompatActivity
+import kr.ac.castcommunity.cc.MainActivity
+import kr.ac.castcommunity.cc.R
+import kr.ac.castcommunity.cc.SearchActivity
+import kr.ac.castcommunity.cc.WriteActivity
 
 open class BoardToolbarActivity : AppCompatActivity() {
 
@@ -66,6 +68,7 @@ open class BoardToolbarActivity : AppCompatActivity() {
                 return true
             }
             android.R.id.home -> {
+                finish()
                 val intent = Intent(applicationContext, MainActivity::class.java)
                 startActivity(intent)
                 return true

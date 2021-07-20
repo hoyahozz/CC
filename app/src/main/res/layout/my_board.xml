@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBlack"
+    tools:context=".MyBoardActivity">
+
+    <!-- 자동으로 리로드하게 하는 SwipeRefreshLayout 설정 -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/my_board_swipe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/my_board_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:stackFromEnd="true"
+            app:reverseLayout="true"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        <!-- 화면에 보이게 하는 layoutManager 설정 -->
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

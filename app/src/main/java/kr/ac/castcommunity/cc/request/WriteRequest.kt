@@ -14,7 +14,7 @@ class WriteRequest(
     content: String,
     writer: String,
     anonymous: String,
-    btype : String,
+    btype: String,
     listener: Response.Listener<String>
 ) :
     StringRequest(Request.Method.POST, URL, listener, Response.ErrorListener { error ->

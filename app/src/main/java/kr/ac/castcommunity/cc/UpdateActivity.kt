@@ -8,8 +8,8 @@ import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.update.*
 import kotlinx.android.synthetic.main.update_toolbar.*
 import kr.ac.castcommunity.cc.Toolbar.UpdateToolbarActivity
-import kr.ac.castcommunity.cc.request.BoardUpdateRequest
-import kr.ac.castcommunity.cc.request.DetailRequest
+import kr.ac.castcommunity.cc.Request.BoardUpdateRequest
+import kr.ac.castcommunity.cc.Request.DetailRequest
 import org.json.JSONException
 import org.json.JSONObject
 

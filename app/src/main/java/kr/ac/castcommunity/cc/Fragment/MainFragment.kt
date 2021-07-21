@@ -16,13 +16,13 @@ import androidx.viewpager2.widget.ViewPager2
 import com.android.volley.Response
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.fragment_main.*
-import kr.ac.castcommunity.cc.Board.MainBoardDecoration
+import kr.ac.castcommunity.cc.Decoration.MainBoardDecoration
 import kr.ac.castcommunity.cc.BoardActivity
 import kr.ac.castcommunity.cc.R
-import kr.ac.castcommunity.cc.adapters.HotAdapter
-import kr.ac.castcommunity.cc.models.Board
-import kr.ac.castcommunity.cc.request.BoardTypeRequest
-import kr.ac.castcommunity.cc.request.HotBoardListRequest
+import kr.ac.castcommunity.cc.Adapters.HotAdapter
+import kr.ac.castcommunity.cc.Models.Board
+import kr.ac.castcommunity.cc.Request.BoardTypeRequest
+import kr.ac.castcommunity.cc.Request.HotBoardListRequest
 import org.json.JSONArray
 import org.json.JSONException
 

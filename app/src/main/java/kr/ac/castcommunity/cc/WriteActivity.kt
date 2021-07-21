@@ -10,7 +10,7 @@ import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.write.*
 import kotlinx.android.synthetic.main.write_toolbar.*
 import kr.ac.castcommunity.cc.Toolbar.WriteToolbarActivity
-import kr.ac.castcommunity.cc.request.WriteRequest
+import kr.ac.castcommunity.cc.Request.WriteRequest
 import org.json.JSONException
 import org.json.JSONObject
 

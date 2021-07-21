@@ -10,7 +10,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.myinfo.*
 import kr.ac.castcommunity.cc.Toolbar.MyInfoToolbarActivity
-import kr.ac.castcommunity.cc.request.DeleteRequest
+import kr.ac.castcommunity.cc.Request.DeleteRequest
 import org.json.JSONException
 import org.json.JSONObject
 

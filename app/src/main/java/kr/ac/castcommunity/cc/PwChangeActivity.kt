@@ -2,7 +2,6 @@ package kr.ac.castcommunity.cc
 
 import LoginRequest
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,9 +9,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.android.volley.Response
 import com.android.volley.toolbox.Volley
-import kotlinx.android.synthetic.main.login.*
 import kotlinx.android.synthetic.main.pwchange.*
-import kr.ac.castcommunity.cc.request.PwChangeRequest
+import kr.ac.castcommunity.cc.Request.PwChangeRequest
 import org.json.JSONException
 import org.json.JSONObject
 

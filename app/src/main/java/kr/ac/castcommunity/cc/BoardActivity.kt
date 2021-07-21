@@ -9,11 +9,11 @@ import com.android.volley.Response
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.board.*
 import kotlinx.android.synthetic.main.board_toolbar.*
-import kr.ac.castcommunity.cc.Board.BoardDecoration
+import kr.ac.castcommunity.cc.Decoration.BoardDecoration
 import kr.ac.castcommunity.cc.Toolbar.BoardToolbarActivity
-import kr.ac.castcommunity.cc.adapters.BoardAdapter
-import kr.ac.castcommunity.cc.models.Board
-import kr.ac.castcommunity.cc.request.BoardListRequest
+import kr.ac.castcommunity.cc.Adapters.BoardAdapter
+import kr.ac.castcommunity.cc.Models.Board
+import kr.ac.castcommunity.cc.Request.BoardListRequest
 import org.json.JSONArray
 import org.json.JSONException
 import java.util.*

@@ -2,7 +2,6 @@ package kr.ac.castcommunity.cc
 
 import NickChangeRequest
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,8 +10,6 @@ import androidx.appcompat.app.AlertDialog
 import com.android.volley.Response
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.nickchange.*
-import kotlinx.android.synthetic.main.pwchange.*
-import kr.ac.castcommunity.cc.request.PwChangeRequest
 import org.json.JSONException
 import org.json.JSONObject
 

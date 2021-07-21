@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Response
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.search.*
-import kr.ac.castcommunity.cc.Board.BoardDecoration
-import kr.ac.castcommunity.cc.adapters.SearchAdapter
-import kr.ac.castcommunity.cc.models.Board
-import kr.ac.castcommunity.cc.request.SearchListRequest
+import kr.ac.castcommunity.cc.Decoration.BoardDecoration
+import kr.ac.castcommunity.cc.Adapters.SearchAdapter
+import kr.ac.castcommunity.cc.Models.Board
+import kr.ac.castcommunity.cc.Request.SearchListRequest
 import org.json.JSONArray
 import org.json.JSONException
 import java.util.*

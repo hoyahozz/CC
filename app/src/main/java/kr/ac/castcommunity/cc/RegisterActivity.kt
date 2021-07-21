@@ -1,6 +1,5 @@
 package kr.ac.castcommunity.cc
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -10,9 +9,9 @@ import com.android.volley.Response
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.register.*
 import kr.ac.castcommunity.cc.Toolbar.RegisterToolbarActivity
-import kr.ac.castcommunity.cc.request.NickValidateRequest
-import kr.ac.castcommunity.cc.request.RegisterRequest
-import kr.ac.castcommunity.cc.request.ValidateRequest
+import kr.ac.castcommunity.cc.Request.NickValidateRequest
+import kr.ac.castcommunity.cc.Request.RegisterRequest
+import kr.ac.castcommunity.cc.Request.ValidateRequest
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -146,9 +145,6 @@ class RegisterActivity : RegisterToolbarActivity() {
 
                         if (success == true) {// 회원가입 성공한 경우
                             finish()
-                            val intent =
-                                Intent(this@RegisterActivity, LoginActivity::class.java)
-                            startActivity(intent)
                         } else { // 회원가입 실패한 경우
                             Toast.makeText(applicationContext, "회원가입 실패", Toast.LENGTH_LONG)
                                 .show()

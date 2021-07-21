@@ -7,7 +7,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.idfind.*
 import kr.ac.castcommunity.cc.Toolbar.FindToolbarActivity
-import kr.ac.castcommunity.cc.request.IdFindRequest
+import kr.ac.castcommunity.cc.Request.IdFindRequest
 import org.json.JSONException
 import org.json.JSONObject
 

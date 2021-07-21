@@ -9,15 +9,6 @@
     android:id="@+id/note_container"
     tools:context=".Fragment.NoteFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Hello World"
-        android:textSize="39dp"
-        android:textColor="@color/colorWhite"
-        android:textStyle="bold" />
-
     <!-- 자동으로 리로드하게 하는 SwipeRefreshLayout 설정 -->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/note_swipe"

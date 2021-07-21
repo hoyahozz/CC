@@ -14,6 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".NoteSendActivity"/>
+        <activity android:name=".Toolbar.NoteToolbarActivity"/>
         <activity
             android:name=".MyBoardActivity"
             android:label="@string/title_activity_my_board"

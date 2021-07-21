@@ -8,19 +8,20 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import kr.ac.castcommunity.cc.Fragment.NoteFragment
+import kr.ac.castcommunity.cc.MainActivity
 import kr.ac.castcommunity.cc.R
+import kr.ac.castcommunity.cc.NoteSendActivity
 
 open class NoteToolbarActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.note_toolbar)
+        setContentView(R.layout.note_detail_toolbar)
 
     }
 
     override fun setContentView(layoutResID: Int) {
-        val fullView = layoutInflater.inflate(R.layout.note_toolbar, null) as LinearLayout
+        val fullView = layoutInflater.inflate(R.layout.note_detail_toolbar, null) as LinearLayout
         val activityContainer = fullView.findViewById<View>(R.id.activity_content) as FrameLayout
         layoutInflater.inflate(layoutResID, activityContainer, true)
         super.setContentView(fullView)
@@ -43,16 +44,30 @@ open class NoteToolbarActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        menuInflater.inflate(R.menu.note_menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> {
-                val intent = Intent(applicationContext, NoteFragment::class.java)
+
+            R.id.action_send -> {
+                //보내기 버튼 눌렀을 때
+                val intent = Intent(applicationContext, NoteSendActivity ::class.java)
                 startActivity(intent)
-                return true;
+                return true
+            }
+//            R.id.action_menu -> {
+//                //메뉴 버튼 눌렀을 때
+//                val intent = Intent(applicationContext, Activity::class.java)
+//                startActivity(intent)
+//                return true
+//            }
+            android.R.id.home -> {
+                finish()
+                val intent = Intent(applicationContext, MainActivity::class.java)
+                startActivity(intent)
+                return true
             }
             else -> return super.onOptionsItemSelected(item)
         }

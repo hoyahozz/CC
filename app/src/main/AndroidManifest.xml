@@ -14,12 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".NoteSendActivity"/>
-        <activity android:name=".Toolbar.NoteToolbarActivity"/>
+        <activity android:name=".Toolbar.MessageSendToolbarActivity"></activity>
+        <activity android:name=".MessageDetailActivity" />
+        <activity android:name=".MessageSendActivity" />
+        <activity android:name=".Toolbar.MessageDetailToolbarActivity" />
         <activity
             android:name=".MyBoardActivity"
             android:label="@string/title_activity_my_board"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Toolbar.MyBoardToolbarActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".Toolbar.UpdateToolbarActivity" />

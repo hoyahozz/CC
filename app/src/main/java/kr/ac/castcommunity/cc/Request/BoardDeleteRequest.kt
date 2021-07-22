@@ -16,7 +16,8 @@ class BoardDeleteRequest(boardid: String, listener: Response.Listener<String>) :
     companion object {
         //private val URL = "http://192.168.100.251/cc/boarddelete.php"
         //private val URL = "http://192.168.0.4/cc/boarddelete.php"
-        private val URL = "http://192.168.219.103/cc/boarddelete.php"
+        //private val URL = "http://192.168.219.103/cc/boarddelete.php"
+        private val URL = "http://172.30.1.50/cc/boarddelete.php"
     }
 
     init {

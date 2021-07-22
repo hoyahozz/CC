@@ -7,7 +7,7 @@ import com.android.volley.toolbox.StringRequest
 import java.util.*
 
 
-class MyBoardListRequest(memId: String, type : String, listener: Response.Listener<String>) :
+class MessageSendRequest(my_nick: String, other_nick : String, content : String, listener: Response.Listener<String>) :
     StringRequest(
         Request.Method.POST,
         URL,
@@ -18,15 +18,16 @@ class MyBoardListRequest(memId: String, type : String, listener: Response.Listen
     private val parameters: MutableMap<String, String>
 
     companion object {
-        private val URL = "http://172.30.1.50/cc/myboardlist.php"
-        // private val URL = "http://192.168.0.4/cc/boardlist.php"
-        // private val URL = "http://192.168.219.103/cc/myboardlist.php"
+        private val URL = "http://172.30.1.50/cc/messagesend.php"
+        // private val URL = "http://192.168.0.4/cc/messagesend.php"
+        // private val URL = "http://192.168.219.103/cc/messagesend.php"
     }
 
     init {
         parameters = HashMap()
-        parameters["memId"] = memId
-        parameters["type"] = type
+        parameters["my_nick"] = my_nick
+        parameters["other_nick"] = other_nick
+        parameters["content"] = content
     }
 
     override fun getParams(): Map<String, String> {

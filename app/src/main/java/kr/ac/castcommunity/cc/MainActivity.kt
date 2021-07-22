@@ -5,7 +5,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.main.*
 import kr.ac.castcommunity.cc.Fragment.BoardListFragment
 import kr.ac.castcommunity.cc.Fragment.MainFragment
-import kr.ac.castcommunity.cc.Fragment.NoteFragment
+import kr.ac.castcommunity.cc.Fragment.MessageFragment
 import kr.ac.castcommunity.cc.Toolbar.MainToolbarActivity
 
 class MainActivity : MainToolbarActivity() {
@@ -13,7 +13,7 @@ class MainActivity : MainToolbarActivity() {
 
     private val fragmentFirst by lazy { MainFragment() }
     private val fragmentSecond by lazy { BoardListFragment() }
-    private val fragmentThree by lazy { NoteFragment() }
+    private val fragmentThree by lazy { MessageFragment() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

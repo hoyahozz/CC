@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorBlack"
-    tools:context=".WriteActivity">
+    tools:context=".MessageSendActivity">
 
     <View
         android:layout_width="match_parent"
@@ -14,11 +14,12 @@
         android:background="@color/colorGray" />
 
     <EditText
-        android:id="@+id/write_content"
+        android:id="@+id/message_send_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textColor="@color/colorWhite"
-        android:textColorHint="@color/colorGray"
         android:gravity="top"
-        android:hint="내용을 입력하세요." />
+        android:hint="내용을 입력하세요."
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorGray"/>
+
 </LinearLayout>

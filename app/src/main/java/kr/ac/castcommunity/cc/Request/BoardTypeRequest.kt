@@ -18,9 +18,9 @@ class BoardTypeRequest(listener: Response.Listener<String>) :
     private val parameters: MutableMap<String, String>
 
     companion object {
-        // private val URL = "http://192.168.100.251/cc/boardtype.php"
+        private val URL = "http://172.30.1.50/cc/boardtype.php"
         // private val URL = "http://192.168.0.4/cc/boardtype.php"
-        private val URL = "http://192.168.219.103/cc/boardtype.php"
+        // private val URL = "http://192.168.219.103/cc/boardtype.php"
     }
 
     init {

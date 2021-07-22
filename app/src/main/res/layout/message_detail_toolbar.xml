@@ -5,18 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Toolbar.NoteToolbarActivity">
+    tools:context=".Toolbar.MessageDetailToolbarActivity">
 
     <!-- 왼쪽 아이콘 빈공간 없애기 (contentinsetStart)-->
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/note_toolbar"
+        android:id="@+id/message_detail_toolbar"
         app:contentInsetStart="0dp"
         app:titleTextColor="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="@color/colorBlack">
         <TextView
-            android:id="@+id/note_nickname"
+            android:id="@+id/message_detail_toolbar_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="익명"
@@ -26,7 +26,7 @@
             android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
     <FrameLayout
-        android:id="@+id/activity_content"
+        android:id="@+id/message_detail_toolbar_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

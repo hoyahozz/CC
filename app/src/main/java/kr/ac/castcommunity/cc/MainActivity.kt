@@ -19,6 +19,8 @@ class MainActivity : MainToolbarActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main)
 
+        val number = intent.getIntExtra("number",0)
+
         main_bnv.run {
             setOnNavigationItemSelectedListener {
                 when (it.itemId) {
@@ -46,7 +48,11 @@ class MainActivity : MainToolbarActivity() {
                 }
                 true
             }
-            selectedItemId = R.id.first
+            if (number == 3) {
+                selectedItemId = R.id.third
+            } else {
+                selectedItemId = R.id.first
+            }
         }
 
 

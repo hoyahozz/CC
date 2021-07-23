@@ -14,9 +14,9 @@ Common Area
 
 Android
 - Apache 2.4
-- PHP 5 & 7
+- PHP 7
 - Wampserver
-- Android Studio
+- Android Studio 4.1.2
 - Kotlin
 
 Front-end
@@ -33,25 +33,20 @@ Back-end
 - MyBatis
 
 
-CC 구현 기술 목록
+기술 구현 목록
 
 - ANDROID - PHP - MARIADB 연동(Volley)
--> 로그인, 회원가입, 게시판,댓글 목록 출력, 게시판 글,댓글쓰기 
-- RecyclerView 구현
-- ViewPager 구현
-- ToolBar 구현
-- ScrollView 구현
-- SharedPrefernces 를 통한 세션 관리
-- SwipeRefreshlayout 을 통한 새로고침
+- RecyclerView
+- ViewPager
+- ToolBar
+- ScrollView
+- SharedPrefernces
+- SwipeRefreshlayout
+- BottomNavigationView
 
-앞으로 해야할 것
-- 게시판 글 상세보기 구현 (끝)
-- 게시판 댓글 구현 (끝)
-- 게시판 추천 구현
-- 아이디/비밀번호 찾기 구현(진행 중)
+- 메인 페이지 구현
+- 게시판 구현(익명 기능 구현)
+- 기본적인 회원가입 기능 구현
 - 내 정보 확인 및 수정 기능
--  쪽지 기능 구현
--  메인페이지에 게시판 글 올라오게 구현
--  플래그 관리
-
+- 쪽지 기능 구현
 

@@ -15,9 +15,9 @@ class IdFindRequest(name: String, email: String, listener: Response.Listener<Str
 
     companion object {
         //private val URL = "http://192.168.1.93/cc/pwfind.php"
-        //private val URL = "http://192.168.0.4/cc/idfind.php"
+        private val URL = "http://192.168.0.4/cc/idfind.php"
         //private val URL = "http://192.168.219.103/cc/idfind.php"
-        private val URL = "http://172.30.1.50/cc/idfind.php"
+        //private val URL = "http://172.30.1.50/cc/idfind.php"
         //private val URL = "http://192.168.100.249/idfind.php"
     }
 

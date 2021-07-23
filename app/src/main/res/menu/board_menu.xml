@@ -4,6 +4,11 @@
 
 
     <item
+        android:id="@+id/action_board_send"
+        android:title="전송"
+        android:icon="@drawable/menu_send"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_more"
         android:title="메뉴"
         android:icon="@drawable/menu_more"

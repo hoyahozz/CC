@@ -35,11 +35,18 @@ class MessageSendActivity : MessageSendToolbarActivity() {
                     val jsonObject = JSONObject(response)
                     val success = jsonObject.getBoolean("success")
                     if (success == true) {// 글 등록에 성공한 경우
-                        finish()
-                        val intent = Intent(this, MessageDetailActivity::class.java)
-                        intent.putExtra("messageroom", messageroom)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        startActivity(intent)
+                        if(messageroom != 0) {
+                            finish()
+                            val intent = Intent(this, MessageDetailActivity::class.java)
+                            intent.putExtra("messageroom", messageroom)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            startActivity(intent)
+                        } else {
+                            finish()
+                            val intent = Intent(this, MainActivity::class.java)
+                            intent.putExtra("number",3)
+                            startActivity(intent)
+                        }
                     } else { // 글 등록에 실패한 경우
                         Toast.makeText(applicationContext, "쪽지 보내기 실패!", Toast.LENGTH_LONG).show()
                         return@Listener

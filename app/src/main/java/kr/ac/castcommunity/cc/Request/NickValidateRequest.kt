@@ -14,8 +14,8 @@ class NickValidateRequest(nickname: String, listener: Response.Listener<String>)
     private val map: MutableMap<String, String>
 
     companion object {
-        private const val URL = "http://172.30.1.50/cc/nickvalidate.php"
-        //private const val URL = "http://192.168.0.4/cc/nickvalidate.php"
+        // private const val URL = "http://172.30.1.50/cc/nickvalidate.php"
+        private const val URL = "http://192.168.0.4/cc/nickvalidate.php"
         // private const val URL = "http://192.168.219.103/cc/nickvalidate.php"
     }
 

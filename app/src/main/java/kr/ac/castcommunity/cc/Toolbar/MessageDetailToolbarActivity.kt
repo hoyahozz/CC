@@ -1,15 +1,12 @@
 package kr.ac.castcommunity.cc.Toolbar
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import kr.ac.castcommunity.cc.R
-import kr.ac.castcommunity.cc.MessageSendActivity
 
 open class MessageDetailToolbarActivity : AppCompatActivity() {
 
@@ -43,7 +40,7 @@ open class MessageDetailToolbarActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.note_menu, menu)
+        menuInflater.inflate(R.menu.message_menu, menu)
         return true
     }
 }

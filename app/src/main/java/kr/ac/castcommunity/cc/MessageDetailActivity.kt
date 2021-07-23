@@ -5,7 +5,10 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Response
@@ -15,16 +18,20 @@ import kotlinx.android.synthetic.main.message_detail_toolbar.*
 import kr.ac.castcommunity.cc.Adapters.MessageDetailAdapter
 import kr.ac.castcommunity.cc.Decoration.BoardDecoration
 import kr.ac.castcommunity.cc.Models.Message
+import kr.ac.castcommunity.cc.Request.BoardDeleteRequest
+import kr.ac.castcommunity.cc.Request.MessageDeleteRequest
 import kr.ac.castcommunity.cc.Request.MessageDetailRequest
 import kr.ac.castcommunity.cc.Toolbar.MessageDetailToolbarActivity
 import org.json.JSONArray
 import org.json.JSONException
+import org.json.JSONObject
 
 class MessageDetailActivity : MessageDetailToolbarActivity() {
 
     private var mMessageDetailRecyclerView: RecyclerView? = null
     val mDatas: java.util.ArrayList<Message> = java.util.ArrayList() // 데이터를 담을 ArrayList
     private var mAdapter: MessageDetailAdapter? = null // Adapter 변수
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +42,8 @@ class MessageDetailActivity : MessageDetailToolbarActivity() {
             Context.MODE_PRIVATE
         ) // SharedPreferences 초기화
 
-        val messageroom = intent.getIntExtra("messageroom",0)
 
+        val messageroom = intent.getIntExtra("messageroom",0)
         val my_nick = pref?.getString("nickname", "").toString()
 
         mMessageDetailRecyclerView = message_detail_recyclerView
@@ -100,6 +107,7 @@ class MessageDetailActivity : MessageDetailToolbarActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val messageroom = intent.getIntExtra("messageroom",0)
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         when (item.itemId) {
 
             R.id.action_send -> {
@@ -110,12 +118,41 @@ class MessageDetailActivity : MessageDetailToolbarActivity() {
                 startActivity(intent)
                 return true
             }
-//            R.id.action_menu -> {
-//                //메뉴 버튼 눌렀을 때
-//                val intent = Intent(applicationContext, Activity::class.java)
-//                startActivity(intent)
-//                return true
-//            }
+            R.id.action_message_delete -> {
+                //메뉴 버튼 눌렀을 때
+                builder.setMessage("정말로 삭제하시겠습니까?")
+                builder.setPositiveButton("확인") { DialogInterface, i ->
+                    val deleteListener = Response.Listener<String> { response ->
+                        try {
+                            val jsonObject = JSONObject(response)
+                            val success = jsonObject.getBoolean("success")
+                            if (success == true) { // 글 삭제에 성공했을 때
+                                Toast.makeText(applicationContext, "삭제 완료!", Toast.LENGTH_LONG)
+                                    .show()
+                                finish()
+                                val intent = Intent(this, MainActivity::class.java)
+                                intent.putExtra("number",3)
+                                startActivity(intent)
+                            } else { // 글 삭제에 실패했을 때
+                                Toast.makeText(applicationContext, "삭제 실패!", Toast.LENGTH_LONG)
+                                    .show()
+                                return@Listener
+                            }
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+                    }
+                    // 서버로 Volley를 이용해서 요청함.
+                    val deleteRequest = MessageDeleteRequest(messageroom.toString(), deleteListener)
+                    val queue = Volley.newRequestQueue(this)
+                    queue.add(deleteRequest)
+                }
+                builder.setNegativeButton("취소") { DialogInterface, i ->
+
+                }
+                builder.show()
+                return true
+            }
             android.R.id.home -> {
                 finish()
                 return true

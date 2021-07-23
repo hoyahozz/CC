@@ -40,7 +40,7 @@ class DetailActivity : DetailToolbarActivity() {
     private var mAdpater: CommentAdapter? = null
     val mDatas: ArrayList<Comment> = ArrayList()
 
-
+    var other_nick : String = "hello"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail)
@@ -49,7 +49,7 @@ class DetailActivity : DetailToolbarActivity() {
         val my_id = pref.getString("id", "").toString()
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
 
-        val boardid = intent.getIntExtra("bnum", 0)
+        var boardid = intent.getIntExtra("bnum", 0)
         // 저장 값이 없으면 ""(공백)으로 불러옴
 
 
@@ -69,6 +69,7 @@ class DetailActivity : DetailToolbarActivity() {
                 if (success == true) {
                     detail_content.text = content
                     detail_title.text = title
+                    other_nick = writer
 
                     if (anonymous == 1) {
                         detail_writer.text = "익명"
@@ -337,6 +338,7 @@ class DetailActivity : DetailToolbarActivity() {
         Log.d("onPrepareOptionsMenu", "START")
         menuInflater.inflate(R.menu.board_menu, menu)
         val more = menu?.findItem(R.id.action_more)
+        val send = menu?.findItem(R.id.action_board_send)
         val boardid = intent.getIntExtra("bnum", 0)
         var pref: SharedPreferences = getSharedPreferences("mine", Context.MODE_PRIVATE) // 초기화
 
@@ -350,8 +352,10 @@ class DetailActivity : DetailToolbarActivity() {
                 if (success == true) {
                     if (my_id == memId) {
                         more?.setVisible(true)
+                        send?.setVisible(false)
                     } else {
                         more?.setVisible(false)
+                        send?.setVisible(true)
                     }
                 } else { // 로그인에 실패한 경우
                     return@Listener
@@ -373,6 +377,13 @@ class DetailActivity : DetailToolbarActivity() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
 
         when (item.itemId) {
+
+            R.id.action_board_send -> {
+                val intent = Intent(applicationContext, MessageSendActivity::class.java)
+                intent.putExtra("other_nick", other_nick)
+                startActivity(intent)
+                return true
+            }
 
             R.id.action_change -> {
                 finish()

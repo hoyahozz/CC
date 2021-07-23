@@ -14,8 +14,8 @@ class DeleteRequest(id: String, listener: Response.Listener<String>) :
     private val parameters: MutableMap<String, String>
 
     companion object {
-         private val URL = "http://172.30.1.50/cc/userdelete.php"
-        // private val URL = "http://192.168.0.4/cc/userdelete.php"
+        // private val URL = "http://172.30.1.50/cc/userdelete.php"
+        private val URL = "http://192.168.0.4/cc/userdelete.php"
         // private val URL = "http://192.168.219.103/cc/userdelete.php"
     }
 

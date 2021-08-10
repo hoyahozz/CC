@@ -7,19 +7,19 @@
 많은 인원들임에도 불구하고 소통 수단이 없다는 것에 주목, 여러 정보를 주고 받고
 친목 도모를 장려하기 위해 해당 어플 및 웹사이트를 생성하려고 함
 
-**Programming Language and Tools**
+## Programming Language and Tools
 
-Common Area
+### Common Area
 - MariaDB 10.4.13
 
-**Android
+### Android
 - Apache 2.4
 - PHP 7
 - Wampserver
 - Android Studio 4.1.2
 - Kotlin
 
-**Front-end
+### Front-end
 - Visual Studio
 - React
 - HTML, CSS
@@ -27,13 +27,13 @@ Common Area
 - Styled-commponents
 - axios
 
-**Back-end
+### Back-end
 - STS(SpringBoot)
 - Spring(Java)
 - MyBatis
 
 
-**기술 구현 목록**
+## 기술 구현 목록
 
 - ANDROID - PHP - MARIADB 연동(Volley)
 - RecyclerView

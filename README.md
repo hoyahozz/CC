@@ -12,14 +12,14 @@
 Common Area
 - MariaDB 10.4.13
 
-Android
+**Android
 - Apache 2.4
 - PHP 7
 - Wampserver
 - Android Studio 4.1.2
 - Kotlin
 
-Front-end
+**Front-end
 - Visual Studio
 - React
 - HTML, CSS
@@ -27,13 +27,13 @@ Front-end
 - Styled-commponents
 - axios
 
-Back-end
+**Back-end
 - STS(SpringBoot)
 - Spring(Java)
 - MyBatis
 
 
-기술 구현 목록
+**기술 구현 목록**
 
 - ANDROID - PHP - MARIADB 연동(Volley)
 - RecyclerView

@@ -32,7 +32,6 @@
 - Spring(Java)
 - MyBatis
 
-------------------
 
 ## 기술 구현 목록
 
@@ -51,12 +50,9 @@
 - 내 정보 확인 및 수정 기능
 - 쪽지 기능 구현
 
-------------------
-
 
 ## Implementation Screen
 
-------------------
 
 ![CC](https://user-images.githubusercontent.com/85336456/126779614-0e3213e3-b5f1-4d48-b31d-d211dd33ea4a.jpg)
 

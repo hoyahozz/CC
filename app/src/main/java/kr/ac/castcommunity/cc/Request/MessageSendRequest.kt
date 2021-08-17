@@ -18,9 +18,7 @@ class MessageSendRequest(my_nick: String, other_nick : String, content : String,
     private val parameters: MutableMap<String, String>
 
     companion object {
-        // private val URL = "http://172.30.1.50/cc/messagesend.php"
-        private val URL = "http://192.168.0.4/cc/messagesend.php"
-        // private val URL = "http://192.168.219.103/cc/messagesend.php"
+        private val URL = "http://myIP/cc/messagesend.php"
     }
 
     init {

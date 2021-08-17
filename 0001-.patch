@@ -1,0 +1,879 @@
+From 3967da335ee0de48269a2548c477ef93377eb48d Mon Sep 17 00:00:00 2001
+From: hoyahozz <85336456+hoyahozz@users.noreply.github.com>
+Date: Fri, 23 Jul 2021 18:30:00 +0900
+Subject: [PATCH] =?UTF-8?q?=EB=A7=88=EA=B0=90?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ README.md                                     | 35 ++++++-------
+ .../kr/ac/castcommunity/cc/DetailActivity.kt  | 15 +++++-
+ .../kr/ac/castcommunity/cc/MainActivity.kt    |  8 ++-
+ .../castcommunity/cc/MessageDetailActivity.kt | 51 ++++++++++++++++---
+ .../castcommunity/cc/MessageSendActivity.kt   | 17 +++++--
+ .../cc/Request/BoardDeleteRequest.kt          |  4 +-
+ .../cc/Request/BoardListRequest.kt            |  4 +-
+ .../cc/Request/BoardTypeRequest.kt            |  4 +-
+ .../cc/Request/BoardUpdateRequest.kt          |  4 +-
+ .../cc/Request/CommentCountRequest.kt         |  4 +-
+ .../cc/Request/CommentDeleteRequest.kt        |  4 +-
+ .../cc/Request/CommentRequest.kt              |  4 +-
+ .../cc/Request/CommentWriteRequest.kt         |  4 +-
+ .../castcommunity/cc/Request/DeleteRequest.kt |  4 +-
+ .../castcommunity/cc/Request/DetailRequest.kt |  4 +-
+ .../cc/Request/EmailChangeRequest.kt          |  4 +-
+ .../cc/Request/HotBoardListRequest.kt         |  4 +-
+ .../castcommunity/cc/Request/IdFindRequest.kt |  4 +-
+ .../castcommunity/cc/Request/LoginRequest.kt  |  4 +-
+ .../cc/Request/MessageDeleteRequest.kt        | 33 ++++++++++++
+ .../cc/Request/MessageDetailRequest.kt        |  4 +-
+ .../cc/Request/MessageRoomRequest.kt          |  4 +-
+ .../cc/Request/MessageSendRequest.kt          |  4 +-
+ .../cc/Request/MyBoardListRequest.kt          |  4 +-
+ .../cc/Request/NickChangeRequest.kt           |  4 +-
+ .../cc/Request/NickValidateRequest.kt         |  4 +-
+ .../cc/Request/PwChangeRequest.kt             |  4 +-
+ .../castcommunity/cc/Request/PwFindRequest.kt |  4 +-
+ .../cc/Request/RecommendAddRequest.kt         |  4 +-
+ .../cc/Request/RecommendDeleteRequest.kt      |  4 +-
+ .../cc/Request/RecommendRequest.kt            |  4 +-
+ .../cc/Request/RegisterRequest.kt             |  4 +-
+ .../cc/Request/SearchListRequest.kt           |  4 +-
+ .../cc/Request/ValidateRequest.kt             |  4 +-
+ .../castcommunity/cc/Request/WriteRequest.kt  |  4 +-
+ .../Toolbar/MessageDetailToolbarActivity.kt   |  5 +-
+ app/src/main/res/menu/board_menu.xml          |  5 ++
+ .../menu/{note_menu.xml => message_menu.xml}  | 10 +++-
+ 38 files changed, 196 insertions(+), 99 deletions(-)
+ create mode 100644 app/src/main/java/kr/ac/castcommunity/cc/Request/MessageDeleteRequest.kt
+ rename app/src/main/res/menu/{note_menu.xml => message_menu.xml} (64%)
+
+diff --git a/README.md b/README.md
+index 81a713e..cd2025e 100644
+--- a/README.md
++++ b/README.md
+@@ -14,9 +14,9 @@ Common Area
+ 
+ Android
+ - Apache 2.4
+-- PHP 5 & 7
++- PHP 7
+ - Wampserver
+-- Android Studio
++- Android Studio 4.1.2
+ - Kotlin
+ 
+ Front-end
+@@ -33,25 +33,20 @@ Back-end
+ - MyBatis
+ 
+ 
+-CC 구현 기술 목록
++기술 구현 목록
+ 
+ - ANDROID - PHP - MARIADB 연동(Volley)
+--> 로그인, 회원가입, 게시판,댓글 목록 출력, 게시판 글,댓글쓰기 
+-- RecyclerView 구현
+-- ViewPager 구현
+-- ToolBar 구현
+-- ScrollView 구현
+-- SharedPrefernces 를 통한 세션 관리
+-- SwipeRefreshlayout 을 통한 새로고침
+-
+-앞으로 해야할 것
+-- 게시판 글 상세보기 구현 (끝)
+-- 게시판 댓글 구현 (끝)
+-- 게시판 추천 구현
+-- 아이디/비밀번호 찾기 구현(진행 중)
++- RecyclerView
++- ViewPager
++- ToolBar
++- ScrollView
++- SharedPrefernces
++- SwipeRefreshlayout
++- BottomNavigationView
++
++- 메인 페이지 구현
++- 게시판 구현(익명 기능 구현)
++- 기본적인 회원가입 기능 구현
+ - 내 정보 확인 및 수정 기능
+--  쪽지 기능 구현
+--  메인페이지에 게시판 글 올라오게 구현
+--  플래그 관리
+-
++- 쪽지 기능 구현
+ 
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/DetailActivity.kt b/app/src/main/java/kr/ac/castcommunity/cc/DetailActivity.kt
+index 2214f3c..8461373 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/DetailActivity.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/DetailActivity.kt
+@@ -40,7 +40,7 @@ class DetailActivity : DetailToolbarActivity() {
+     private var mAdpater: CommentAdapter? = null
+     val mDatas: ArrayList<Comment> = ArrayList()
+ 
+-
++    var other_nick : String = "hello"
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         setContentView(R.layout.detail)
+@@ -49,7 +49,7 @@ class DetailActivity : DetailToolbarActivity() {
+         val my_id = pref.getString("id", "").toString()
+         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+ 
+-        val boardid = intent.getIntExtra("bnum", 0)
++        var boardid = intent.getIntExtra("bnum", 0)
+         // 저장 값이 없으면 ""(공백)으로 불러옴
+ 
+ 
+@@ -69,6 +69,7 @@ class DetailActivity : DetailToolbarActivity() {
+                 if (success == true) {
+                     detail_content.text = content
+                     detail_title.text = title
++                    other_nick = writer
+ 
+                     if (anonymous == 1) {
+                         detail_writer.text = "익명"
+@@ -337,6 +338,7 @@ class DetailActivity : DetailToolbarActivity() {
+         Log.d("onPrepareOptionsMenu", "START")
+         menuInflater.inflate(R.menu.board_menu, menu)
+         val more = menu?.findItem(R.id.action_more)
++        val send = menu?.findItem(R.id.action_board_send)
+         val boardid = intent.getIntExtra("bnum", 0)
+         var pref: SharedPreferences = getSharedPreferences("mine", Context.MODE_PRIVATE) // 초기화
+ 
+@@ -350,8 +352,10 @@ class DetailActivity : DetailToolbarActivity() {
+                 if (success == true) {
+                     if (my_id == memId) {
+                         more?.setVisible(true)
++                        send?.setVisible(false)
+                     } else {
+                         more?.setVisible(false)
++                        send?.setVisible(true)
+                     }
+                 } else { // 로그인에 실패한 경우
+                     return@Listener
+@@ -374,6 +378,13 @@ class DetailActivity : DetailToolbarActivity() {
+ 
+         when (item.itemId) {
+ 
++            R.id.action_board_send -> {
++                val intent = Intent(applicationContext, MessageSendActivity::class.java)
++                intent.putExtra("other_nick", other_nick)
++                startActivity(intent)
++                return true
++            }
++
+             R.id.action_change -> {
+                 finish()
+                 val intent = Intent(applicationContext, UpdateActivity::class.java)
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/MainActivity.kt b/app/src/main/java/kr/ac/castcommunity/cc/MainActivity.kt
+index 14deca9..86a13e2 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/MainActivity.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/MainActivity.kt
+@@ -19,6 +19,8 @@ class MainActivity : MainToolbarActivity() {
+         super.onCreate(savedInstanceState)
+         setContentView(R.layout.main)
+ 
++        val number = intent.getIntExtra("number",0)
++
+         main_bnv.run {
+             setOnNavigationItemSelectedListener {
+                 when (it.itemId) {
+@@ -46,7 +48,11 @@ class MainActivity : MainToolbarActivity() {
+                 }
+                 true
+             }
+-            selectedItemId = R.id.first
++            if (number == 3) {
++                selectedItemId = R.id.third
++            } else {
++                selectedItemId = R.id.first
++            }
+         }
+ 
+ 
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/MessageDetailActivity.kt b/app/src/main/java/kr/ac/castcommunity/cc/MessageDetailActivity.kt
+index 938ab30..ea37dd7 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/MessageDetailActivity.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/MessageDetailActivity.kt
+@@ -5,7 +5,10 @@ import android.content.Intent
+ import android.content.SharedPreferences
+ import androidx.appcompat.app.AppCompatActivity
+ import android.os.Bundle
++import android.util.Log
+ import android.view.MenuItem
++import android.widget.Toast
++import androidx.appcompat.app.AlertDialog
+ import androidx.recyclerview.widget.LinearLayoutManager
+ import androidx.recyclerview.widget.RecyclerView
+ import com.android.volley.Response
+@@ -15,10 +18,13 @@ import kotlinx.android.synthetic.main.message_detail_toolbar.*
+ import kr.ac.castcommunity.cc.Adapters.MessageDetailAdapter
+ import kr.ac.castcommunity.cc.Decoration.BoardDecoration
+ import kr.ac.castcommunity.cc.Models.Message
++import kr.ac.castcommunity.cc.Request.BoardDeleteRequest
++import kr.ac.castcommunity.cc.Request.MessageDeleteRequest
+ import kr.ac.castcommunity.cc.Request.MessageDetailRequest
+ import kr.ac.castcommunity.cc.Toolbar.MessageDetailToolbarActivity
+ import org.json.JSONArray
+ import org.json.JSONException
++import org.json.JSONObject
+ 
+ class MessageDetailActivity : MessageDetailToolbarActivity() {
+ 
+@@ -26,6 +32,7 @@ class MessageDetailActivity : MessageDetailToolbarActivity() {
+     val mDatas: java.util.ArrayList<Message> = java.util.ArrayList() // 데이터를 담을 ArrayList
+     private var mAdapter: MessageDetailAdapter? = null // Adapter 변수
+ 
++
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         setContentView(R.layout.message_detail)
+@@ -35,8 +42,8 @@ class MessageDetailActivity : MessageDetailToolbarActivity() {
+             Context.MODE_PRIVATE
+         ) // SharedPreferences 초기화
+ 
+-        val messageroom = intent.getIntExtra("messageroom",0)
+ 
++        val messageroom = intent.getIntExtra("messageroom",0)
+         val my_nick = pref?.getString("nickname", "").toString()
+ 
+         mMessageDetailRecyclerView = message_detail_recyclerView
+@@ -100,6 +107,7 @@ class MessageDetailActivity : MessageDetailToolbarActivity() {
+ 
+     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+         val messageroom = intent.getIntExtra("messageroom",0)
++        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+         when (item.itemId) {
+ 
+             R.id.action_send -> {
+@@ -110,12 +118,41 @@ class MessageDetailActivity : MessageDetailToolbarActivity() {
+                 startActivity(intent)
+                 return true
+             }
+-//            R.id.action_menu -> {
+-//                //메뉴 버튼 눌렀을 때
+-//                val intent = Intent(applicationContext, Activity::class.java)
+-//                startActivity(intent)
+-//                return true
+-//            }
++            R.id.action_message_delete -> {
++                //메뉴 버튼 눌렀을 때
++                builder.setMessage("정말로 삭제하시겠습니까?")
++                builder.setPositiveButton("확인") { DialogInterface, i ->
++                    val deleteListener = Response.Listener<String> { response ->
++                        try {
++                            val jsonObject = JSONObject(response)
++                            val success = jsonObject.getBoolean("success")
++                            if (success == true) { // 글 삭제에 성공했을 때
++                                Toast.makeText(applicationContext, "삭제 완료!", Toast.LENGTH_LONG)
++                                    .show()
++                                finish()
++                                val intent = Intent(this, MainActivity::class.java)
++                                intent.putExtra("number",3)
++                                startActivity(intent)
++                            } else { // 글 삭제에 실패했을 때
++                                Toast.makeText(applicationContext, "삭제 실패!", Toast.LENGTH_LONG)
++                                    .show()
++                                return@Listener
++                            }
++                        } catch (e: JSONException) {
++                            e.printStackTrace()
++                        }
++                    }
++                    // 서버로 Volley를 이용해서 요청함.
++                    val deleteRequest = MessageDeleteRequest(messageroom.toString(), deleteListener)
++                    val queue = Volley.newRequestQueue(this)
++                    queue.add(deleteRequest)
++                }
++                builder.setNegativeButton("취소") { DialogInterface, i ->
++
++                }
++                builder.show()
++                return true
++            }
+             android.R.id.home -> {
+                 finish()
+                 return true
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/MessageSendActivity.kt b/app/src/main/java/kr/ac/castcommunity/cc/MessageSendActivity.kt
+index 9b82c96..bf9d18c 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/MessageSendActivity.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/MessageSendActivity.kt
+@@ -35,11 +35,18 @@ class MessageSendActivity : MessageSendToolbarActivity() {
+                     val jsonObject = JSONObject(response)
+                     val success = jsonObject.getBoolean("success")
+                     if (success == true) {// 글 등록에 성공한 경우
+-                        finish()
+-                        val intent = Intent(this, MessageDetailActivity::class.java)
+-                        intent.putExtra("messageroom", messageroom)
+-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+-                        startActivity(intent)
++                        if(messageroom != 0) {
++                            finish()
++                            val intent = Intent(this, MessageDetailActivity::class.java)
++                            intent.putExtra("messageroom", messageroom)
++                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
++                            startActivity(intent)
++                        } else {
++                            finish()
++                            val intent = Intent(this, MainActivity::class.java)
++                            intent.putExtra("number",3)
++                            startActivity(intent)
++                        }
+                     } else { // 글 등록에 실패한 경우
+                         Toast.makeText(applicationContext, "쪽지 보내기 실패!", Toast.LENGTH_LONG).show()
+                         return@Listener
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/BoardDeleteRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/BoardDeleteRequest.kt
+index f478f9d..0d06806 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/BoardDeleteRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/BoardDeleteRequest.kt
+@@ -15,9 +15,9 @@ class BoardDeleteRequest(boardid: String, listener: Response.Listener<String>) :
+ 
+     companion object {
+         //private val URL = "http://192.168.100.251/cc/boarddelete.php"
+-        //private val URL = "http://192.168.0.4/cc/boarddelete.php"
++        private val URL = "http://192.168.0.4/cc/boarddelete.php"
+         //private val URL = "http://192.168.219.103/cc/boarddelete.php"
+-        private val URL = "http://172.30.1.50/cc/boarddelete.php"
++        //private val URL = "http://172.30.1.50/cc/boarddelete.php"
+     }
+ 
+     init {
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/BoardListRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/BoardListRequest.kt
+index 3bb3f1b..299d05b 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/BoardListRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/BoardListRequest.kt
+@@ -18,8 +18,8 @@ class BoardListRequest(btype: String, listener: Response.Listener<String>) :
+     private val parameters: MutableMap<String, String>
+ 
+     companion object {
+-        private val URL = "http://172.30.1.50/cc/boardlist.php"
+-        // private val URL = "http://192.168.0.4/cc/boardlist.php"
++        //private val URL = "http://172.30.1.50/cc/boardlist.php"
++         private val URL = "http://192.168.0.4/cc/boardlist.php"
+         // private val URL = "http://192.168.219.103/cc/boardlist.php"
+     }
+ 
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/BoardTypeRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/BoardTypeRequest.kt
+index 9b566a4..542f54c 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/BoardTypeRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/BoardTypeRequest.kt
+@@ -18,8 +18,8 @@ class BoardTypeRequest(listener: Response.Listener<String>) :
+     private val parameters: MutableMap<String, String>
+ 
+     companion object {
+-        private val URL = "http://172.30.1.50/cc/boardtype.php"
+-        // private val URL = "http://192.168.0.4/cc/boardtype.php"
++        //private val URL = "http://172.30.1.50/cc/boardtype.php"
++        private val URL = "http://192.168.0.4/cc/boardtype.php"
+         // private val URL = "http://192.168.219.103/cc/boardtype.php"
+     }
+ 
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/BoardUpdateRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/BoardUpdateRequest.kt
+index 7c8546f..6aaea43 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/BoardUpdateRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/BoardUpdateRequest.kt
+@@ -20,8 +20,8 @@ class BoardUpdateRequest(
+     private val parameters: MutableMap<String, String>
+ 
+     companion object {
+-        private val URL = "http://172.30.1.50/cc/boardupdate.php"
+-        //private val URL = "http://192.168.0.4/cc/boardupdate.php"
++        //private val URL = "http://172.30.1.50/cc/boardupdate.php"
++        private val URL = "http://192.168.0.4/cc/boardupdate.php"
+         // private val URL = "http://192.168.219.103/cc/boardupdate.php"
+ 
+     }
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/CommentCountRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/CommentCountRequest.kt
+index 9864771..a688b67 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/CommentCountRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/CommentCountRequest.kt
+@@ -14,8 +14,8 @@ class CommentCountRequest(boardid: Int, listener: Response.Listener<String>) :
+     private val parameters: MutableMap<String, String>
+ 
+     companion object {
+-        private val URL = "http://172.30.1.50/cc/commentcount.php"
+-        //private val URL = "http://192.168.0.4/cc/commentcount.php"
++        //private val URL = "http://172.30.1.50/cc/commentcount.php"
++        private val URL = "http://192.168.0.4/cc/commentcount.php"
+         //private val URL = "http://192.168.219.103/cc/commentcount.php"
+     }
+ 
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/CommentDeleteRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/CommentDeleteRequest.kt
+index 11e0116..e3dee8f 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/CommentDeleteRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/CommentDeleteRequest.kt
+@@ -14,8 +14,8 @@ class CommentDeleteRequest(memId: String, commentid: String, listener: Response.
+     private val parameters: MutableMap<String, String>
+ 
+     companion object {
+-        private val URL = "http://172.30.1.50/cc/commentdelete.php"
+-        // private val URL = "http://192.168.0.4/cc/commentdelete.php"
++        //private val URL = "http://172.30.1.50/cc/commentdelete.php"
++        private val URL = "http://192.168.0.4/cc/commentdelete.php"
+         //private val URL = "http://192.168.219.103/cc/commentdelete.php"
+     }
+ 
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/CommentRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/CommentRequest.kt
+index 907ba41..c736787 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/CommentRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/CommentRequest.kt
+@@ -14,8 +14,8 @@ class CommentRequest(boardid: Int, listener: Response.Listener<String>) :
+     private val parameters: MutableMap<String, String>
+ 
+     companion object {
+-        private val URL = "http://172.30.1.50/cc/commentlist.php"
+-        //private val URL = "http://192.168.0.4/cc/commentlist.php"
++        //private val URL = "http://172.30.1.50/cc/commentlist.php"
++        private val URL = "http://192.168.0.4/cc/commentlist.php"
+         //private val URL = "http://192.168.219.103/cc/commentlist.php"
+     }
+ 
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/CommentWriteRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/CommentWriteRequest.kt
+index c6192d0..ba909b2 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/CommentWriteRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/CommentWriteRequest.kt
+@@ -21,8 +21,8 @@ class CommentWriteRequest(
+     private val parameters: MutableMap<String, String>
+ 
+     companion object {
+-        private val URL = "http://172.30.1.50/cc/commentwrite.php"
+-        //private val URL = "http://192.168.0.4/cc/commentwrite.php"
++        //private val URL = "http://172.30.1.50/cc/commentwrite.php"
++        private val URL = "http://192.168.0.4/cc/commentwrite.php"
+         //private val URL = "http://192.168.219.103/cc/commentwrite.php"
+     }
+ 
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/DeleteRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/DeleteRequest.kt
+index 232be7e..7ac5059 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/DeleteRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/DeleteRequest.kt
+@@ -14,8 +14,8 @@ class DeleteRequest(id: String, listener: Response.Listener<String>) :
+     private val parameters: MutableMap<String, String>
+ 
+     companion object {
+-         private val URL = "http://172.30.1.50/cc/userdelete.php"
+-        // private val URL = "http://192.168.0.4/cc/userdelete.php"
++        // private val URL = "http://172.30.1.50/cc/userdelete.php"
++        private val URL = "http://192.168.0.4/cc/userdelete.php"
+         // private val URL = "http://192.168.219.103/cc/userdelete.php"
+     }
+ 
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/DetailRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/DetailRequest.kt
+index 971b787..60d8d9f 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/DetailRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/DetailRequest.kt
+@@ -14,8 +14,8 @@ class DetailRequest(bnum: Int, listener: Response.Listener<String>) :
+     private val parameters: MutableMap<String, String>
+ 
+     companion object {
+-         private val URL = "http://172.30.1.50/cc/boarddetail.php"
+-        // private val URL = "http://192.168.0.4/cc/boarddetail.php"
++        // private val URL = "http://172.30.1.50/cc/boarddetail.php"
++         private val URL = "http://192.168.0.4/cc/boarddetail.php"
+         // private val URL = "http://192.168.219.103/cc/boarddetail.php"
+     }
+ 
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/EmailChangeRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/EmailChangeRequest.kt
+index 799758d..f4c8411 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/EmailChangeRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/EmailChangeRequest.kt
+@@ -13,8 +13,8 @@ class EmailChangeRequest(id: String, email: String, listener: Response.Listener<
+     private val parameters: MutableMap<String, String>
+ 
+     companion object {
+-        private val URL = "http://172.30.1.50/cc/emailchange.php"
+-        // private val URL = "http://192.168.0.4/cc/emailchange.php"
++        //private val URL = "http://172.30.1.50/cc/emailchange.php"
++         private val URL = "http://192.168.0.4/cc/emailchange.php"
+         // private val URL = "http://192.168.219.103/cc/emailchange.php"
+ 
+     }
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/HotBoardListRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/HotBoardListRequest.kt
+index 3fffb5a..1195c7b 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/HotBoardListRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/HotBoardListRequest.kt
+@@ -18,8 +18,8 @@ class HotBoardListRequest(listener: Response.Listener<String>) :
+     private val parameters: MutableMap<String, String>
+ 
+     companion object {
+-        private val URL = "http://172.30.1.50/cc/boardhotlist.php"
+-        // private val URL = "http://192.168.0.4/cc/boardlist.php"
++        //private val URL = "http://172.30.1.50/cc/boardhotlist.php"
++         private val URL = "http://192.168.0.4/cc/boardhotlist.php"
+         // private val URL = "http://192.168.219.103/cc/boardhotlist.php"
+     }
+ 
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/IdFindRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/IdFindRequest.kt
+index 5c09116..ba5f7d5 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/IdFindRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/IdFindRequest.kt
+@@ -15,9 +15,9 @@ class IdFindRequest(name: String, email: String, listener: Response.Listener<Str
+ 
+     companion object {
+         //private val URL = "http://192.168.1.93/cc/pwfind.php"
+-        //private val URL = "http://192.168.0.4/cc/idfind.php"
++        private val URL = "http://192.168.0.4/cc/idfind.php"
+         //private val URL = "http://192.168.219.103/cc/idfind.php"
+-        private val URL = "http://172.30.1.50/cc/idfind.php"
++        //private val URL = "http://172.30.1.50/cc/idfind.php"
+         //private val URL = "http://192.168.100.249/idfind.php"
+     }
+ 
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/LoginRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/LoginRequest.kt
+index 8a0053f..484ee5f 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/LoginRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/LoginRequest.kt
+@@ -13,8 +13,8 @@ class LoginRequest(id: String, password: String, listener: Response.Listener<Str
+     private val parameters: MutableMap<String, String>
+ 
+     companion object {
+-        private val URL = "http://172.30.1.50/cc/login.php"
+-        // private val URL = "http://192.168.0.4/cc/login.php"
++        // private val URL = "http://172.30.1.50/cc/login.php"
++         private val URL = "http://192.168.0.4/cc/login.php"
+         // private val URL = "http://192.168.219.103/cc/login.php"
+ 
+     }
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/MessageDeleteRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/MessageDeleteRequest.kt
+new file mode 100644
+index 0000000..0fb46cd
+--- /dev/null
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/MessageDeleteRequest.kt
+@@ -0,0 +1,33 @@
++package kr.ac.castcommunity.cc.Request
++
++
++import android.util.Log
++import com.android.volley.Request
++import com.android.volley.Response
++import com.android.volley.toolbox.StringRequest
++import java.util.HashMap
++
++class MessageDeleteRequest(messageroom: String, listener: Response.Listener<String>) :
++    StringRequest(Request.Method.POST, URL, listener, Response.ErrorListener { error ->
++        Log.d("ERROR", "서버 Response 가져오기 실패: $error")
++    }) {
++    private val parameters: MutableMap<String, String>
++
++    companion object {
++        //private val URL = "http://192.168.100.251/cc/messagedelete.php"
++        private val URL = "http://192.168.0.4/cc/messagedelete.php"
++        //private val URL = "http://192.168.219.103/cc/messagedelete.php"
++        //private val URL = "http://172.30.1.50/cc/messagedelete.php"
++    }
++
++    init {
++        parameters = HashMap()
++        parameters["messageroom"] = messageroom
++    }
++
++    override fun getParams(): Map<String, String> {
++        return parameters
++    }
++
++
++}
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/MessageDetailRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/MessageDetailRequest.kt
+index f18b64a..01ce645 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/MessageDetailRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/MessageDetailRequest.kt
+@@ -18,8 +18,8 @@ class MessageDetailRequest(messageroom : String, my_nick: String, listener: Resp
+     private val parameters: MutableMap<String, String>
+ 
+     companion object {
+-        private val URL = "http://172.30.1.50/cc/messagedetaillist.php"
+-        // private val URL = "http://192.168.0.4/cc/messagedetaillist.php"
++        // private val URL = "http://172.30.1.50/cc/messagedetaillist.php"
++        private val URL = "http://192.168.0.4/cc/messagedetaillist.php"
+         // private val URL = "http://192.168.219.103/cc/messagedetaillist.php"
+     }
+ 
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/MessageRoomRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/MessageRoomRequest.kt
+index 9adc73b..baa91e1 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/MessageRoomRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/MessageRoomRequest.kt
+@@ -18,8 +18,8 @@ class MessageRoomRequest(my_nick: String, listener: Response.Listener<String>) :
+     private val parameters: MutableMap<String, String>
+ 
+     companion object {
+-        private val URL = "http://172.30.1.50/cc/messageroomlist.php"
+-        // private val URL = "http://192.168.0.4/cc/messageroomlist.php"
++        // private val URL = "http://172.30.1.50/cc/messageroomlist.php"
++        private val URL = "http://192.168.0.4/cc/messageroomlist.php"
+         // private val URL = "http://192.168.219.103/cc/messageroomlist.php"
+     }
+ 
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/MessageSendRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/MessageSendRequest.kt
+index 23eda83..4d3fa06 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/MessageSendRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/MessageSendRequest.kt
+@@ -18,8 +18,8 @@ class MessageSendRequest(my_nick: String, other_nick : String, content : String,
+     private val parameters: MutableMap<String, String>
+ 
+     companion object {
+-        private val URL = "http://172.30.1.50/cc/messagesend.php"
+-        // private val URL = "http://192.168.0.4/cc/messagesend.php"
++        // private val URL = "http://172.30.1.50/cc/messagesend.php"
++        private val URL = "http://192.168.0.4/cc/messagesend.php"
+         // private val URL = "http://192.168.219.103/cc/messagesend.php"
+     }
+ 
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/MyBoardListRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/MyBoardListRequest.kt
+index 2790647..dfaef9b 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/MyBoardListRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/MyBoardListRequest.kt
+@@ -18,8 +18,8 @@ class MyBoardListRequest(memId: String, type : String, listener: Response.Listen
+     private val parameters: MutableMap<String, String>
+ 
+     companion object {
+-        private val URL = "http://172.30.1.50/cc/myboardlist.php"
+-        // private val URL = "http://192.168.0.4/cc/boardlist.php"
++        // private val URL = "http://172.30.1.50/cc/myboardlist.php"
++        private val URL = "http://192.168.0.4/cc/myboardlist.php"
+         // private val URL = "http://192.168.219.103/cc/myboardlist.php"
+     }
+ 
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/NickChangeRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/NickChangeRequest.kt
+index 2b8de84..6bba29b 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/NickChangeRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/NickChangeRequest.kt
+@@ -18,8 +18,8 @@ class NickChangeRequest(
+     private val parameters: MutableMap<String, String>
+ 
+     companion object {
+-        private val URL = "http://172.30.1.50/cc/nickchange.php"
+-        // private val URL = "http://192.168.0.4/cc/nickchange.php"
++        // private val URL = "http://172.30.1.50/cc/nickchange.php"
++        private val URL = "http://192.168.0.4/cc/nickchange.php"
+         // private val URL = "http://192.168.219.103/cc/nickchange.php"
+ 
+     }
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/NickValidateRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/NickValidateRequest.kt
+index 41061ce..fc76dbd 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/NickValidateRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/NickValidateRequest.kt
+@@ -14,8 +14,8 @@ class NickValidateRequest(nickname: String, listener: Response.Listener<String>)
+     private val map: MutableMap<String, String>
+ 
+     companion object {
+-        private const val URL = "http://172.30.1.50/cc/nickvalidate.php"
+-        //private const val URL = "http://192.168.0.4/cc/nickvalidate.php"
++        // private const val URL = "http://172.30.1.50/cc/nickvalidate.php"
++        private const val URL = "http://192.168.0.4/cc/nickvalidate.php"
+         // private const val URL = "http://192.168.219.103/cc/nickvalidate.php"
+     }
+ 
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/PwChangeRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/PwChangeRequest.kt
+index bd44427..3bccdaa 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/PwChangeRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/PwChangeRequest.kt
+@@ -14,8 +14,8 @@ class PwChangeRequest(id: String, pw: String, listener: Response.Listener<String
+     private val parameters: MutableMap<String, String>
+ 
+     companion object {
+-        private val URL = "http://172.30.1.50/cc/pwchange.php"
+-        // private val URL = "http://192.168.0.4/cc/pwchange.php"
++        // private val URL = "http://172.30.1.50/cc/pwchange.php"
++        private val URL = "http://192.168.0.4/cc/pwchange.php"
+         // private val URL = "http://192.168.219.103/cc/pwchange.php"
+     }
+ 
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/PwFindRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/PwFindRequest.kt
+index c199928..8c98053 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/PwFindRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/PwFindRequest.kt
+@@ -14,10 +14,10 @@ class PwFindRequest(id: String, email: String, listener: Response.Listener<Strin
+     private val parameters: MutableMap<String, String>
+ 
+     companion object {
+-        // private val URL = "http://192.168.0.4/cc/pwfind.php"
++        private val URL = "http://192.168.0.4/cc/pwfind.php"
+         // private val URL = "http://192.168.219.103/cc/pwfind.php"
+         // private val URL = "http://192.168.1.93/cc/pwfind.php"
+-        private val URL = "http://172.30.1.50/cc/pwfind.php"
++        // private val URL = "http://172.30.1.50/cc/pwfind.php"
+     }
+ 
+     init {
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/RecommendAddRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/RecommendAddRequest.kt
+index 0cde984..afcf09f 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/RecommendAddRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/RecommendAddRequest.kt
+@@ -13,8 +13,8 @@ class RecommendAddRequest(boardid: String, id: String, listener: Response.Listen
+     private val parameters: MutableMap<String, String>
+ 
+     companion object {
+-        private val URL = "http://172.30.1.50/cc/recommend.php"
+-        // private val URL = "http://192.168.0.4/cc/recommendadd.php"
++        // private val URL = "http://172.30.1.50/cc/recommend.php"
++        private val URL = "http://192.168.0.4/cc/recommendadd.php"
+         // private val URL = "http://192.168.219.103/cc/recommendadd.php"
+     }
+ 
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/RecommendDeleteRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/RecommendDeleteRequest.kt
+index 26ee8d1..930a7d4 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/RecommendDeleteRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/RecommendDeleteRequest.kt
+@@ -13,8 +13,8 @@ class RecommendDeleteRequest(boardid: String, id: String, listener: Response.Lis
+     private val parameters: MutableMap<String, String>
+ 
+     companion object {
+-        private val URL = "http://172.30.1.50/cc/recommenddelete.php"
+-        // private val URL = "http://192.168.0.4/cc/recommenddelete.php"
++        // private val URL = "http://172.30.1.50/cc/recommenddelete.php"
++        private val URL = "http://192.168.0.4/cc/recommenddelete.php"
+         // private val URL = "http://192.168.219.103/cc/recommenddelete.php"
+     }
+ 
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/RecommendRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/RecommendRequest.kt
+index abec025..2a80cf6 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/RecommendRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/RecommendRequest.kt
+@@ -13,8 +13,8 @@ class RecommendRequest(boardid: String, id: String, listener: Response.Listener<
+     private val parameters: MutableMap<String, String>
+ 
+     companion object {
+-        private val URL = "http://172.30.1.50/cc/recommend.php"
+-        // private val URL = "http://192.168.0.4/cc/recommend.php"
++        // private val URL = "http://172.30.1.50/cc/recommend.php"
++        private val URL = "http://192.168.0.4/cc/recommend.php"
+         // private val URL = "http://192.168.219.103/cc/recommend.php"
+     }
+ 
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/RegisterRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/RegisterRequest.kt
+index 0864390..7c2b3d3 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/RegisterRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/RegisterRequest.kt
+@@ -17,8 +17,8 @@ class RegisterRequest(
+     private val map: MutableMap<String, String>
+ 
+     companion object {
+-         const val URL = "http://172.30.1.50/cc/register.php"
+-        // const val URL = "http://192.168.0.4/cc/register.php"
++        // const val URL = "http://172.30.1.50/cc/register.php"
++        const val URL = "http://192.168.0.4/cc/register.php"
+         // const val URL = "http://192.168.219.103/cc/register.php"
+     }
+ 
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/SearchListRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/SearchListRequest.kt
+index d9830a1..a30bad3 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/SearchListRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/SearchListRequest.kt
+@@ -14,8 +14,8 @@ class SearchListRequest(query: String, listener: Response.Listener<String>) :
+     private val parameters: MutableMap<String, String>
+ 
+     companion object {
+-        private val URL = "http://172.30.1.50/cc/searchlist.php"
+-        //private val URL = "http://192.168.0.4/cc/searchlist.php"
++        // private val URL = "http://172.30.1.50/cc/searchlist.php"
++        private val URL = "http://192.168.0.4/cc/searchlist.php"
+         // private val URL = "http://192.168.219.103/cc/searchlist.php"
+     }
+ 
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/ValidateRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/ValidateRequest.kt
+index 2640155..301ac87 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/ValidateRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/ValidateRequest.kt
+@@ -14,8 +14,8 @@ class ValidateRequest(id: String, listener: Response.Listener<String>) :
+     private val map: MutableMap<String, String>
+ 
+     companion object {
+-        private const val URL = "http://172.30.1.50/cc/validate.php"
+-        // private const val URL = "http://192.168.0.4/cc/validate.php"
++        // private const val URL = "http://172.30.1.50/cc/validate.php"
++        private const val URL = "http://192.168.0.4/cc/validate.php"
+         // private const val URL = "http://192.168.219.103/cc/validate.php"
+ 
+     }
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Request/WriteRequest.kt b/app/src/main/java/kr/ac/castcommunity/cc/Request/WriteRequest.kt
+index 997c84f..75c6633 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Request/WriteRequest.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Request/WriteRequest.kt
+@@ -22,8 +22,8 @@ class WriteRequest(
+     private val parameters: MutableMap<String, String>
+ 
+     companion object {
+-        private val URL = "http://172.30.1.50/cc/boardwrite.php"
+-        // private val URL = "http://192.168.0.4/cc/boardwrite.php"
++        // private val URL = "http://172.30.1.50/cc/boardwrite.php"
++        private val URL = "http://192.168.0.4/cc/boardwrite.php"
+         // private val URL = "http://192.168.219.103/cc/boardwrite.php"
+     }
+ 
+diff --git a/app/src/main/java/kr/ac/castcommunity/cc/Toolbar/MessageDetailToolbarActivity.kt b/app/src/main/java/kr/ac/castcommunity/cc/Toolbar/MessageDetailToolbarActivity.kt
+index ca0e6f1..345bbbf 100644
+--- a/app/src/main/java/kr/ac/castcommunity/cc/Toolbar/MessageDetailToolbarActivity.kt
++++ b/app/src/main/java/kr/ac/castcommunity/cc/Toolbar/MessageDetailToolbarActivity.kt
+@@ -1,15 +1,12 @@
+ package kr.ac.castcommunity.cc.Toolbar
+ 
+-import android.content.Intent
+ import android.os.Bundle
+ import android.view.Menu
+-import android.view.MenuItem
+ import android.view.View
+ import android.widget.FrameLayout
+ import android.widget.LinearLayout
+ import androidx.appcompat.app.AppCompatActivity
+ import kr.ac.castcommunity.cc.R
+-import kr.ac.castcommunity.cc.MessageSendActivity
+ 
+ open class MessageDetailToolbarActivity : AppCompatActivity() {
+ 
+@@ -43,7 +40,7 @@ open class MessageDetailToolbarActivity : AppCompatActivity() {
+     }
+ 
+     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+-        menuInflater.inflate(R.menu.note_menu, menu)
++        menuInflater.inflate(R.menu.message_menu, menu)
+         return true
+     }
+ }
+\ No newline at end of file
+diff --git a/app/src/main/res/menu/board_menu.xml b/app/src/main/res/menu/board_menu.xml
+index a7eed2e..c78b54a 100644
+--- a/app/src/main/res/menu/board_menu.xml
++++ b/app/src/main/res/menu/board_menu.xml
+@@ -3,6 +3,11 @@
+     xmlns:app="http://schemas.android.com/apk/res-auto">
+ 
+ 
++    <item
++        android:id="@+id/action_board_send"
++        android:title="전송"
++        android:icon="@drawable/menu_send"
++        app:showAsAction="ifRoom" />
+     <item
+         android:id="@+id/action_more"
+         android:title="메뉴"
+diff --git a/app/src/main/res/menu/note_menu.xml b/app/src/main/res/menu/message_menu.xml
+similarity index 64%
+rename from app/src/main/res/menu/note_menu.xml
+rename to app/src/main/res/menu/message_menu.xml
+index 7d449cb..ee1fd50 100644
+--- a/app/src/main/res/menu/note_menu.xml
++++ b/app/src/main/res/menu/message_menu.xml
+@@ -10,9 +10,15 @@
+         app:showAsAction="ifRoom" /> <!--액션바에 공간이 있을경우 표시-->
+ 
+     <item
+-        android:id="@+id/action_menu"
++        android:id="@+id/action_message_more"
+         android:title="메뉴"
+         android:icon="@drawable/menu_more"
+-        app:showAsAction="ifRoom" />
++        app:showAsAction="ifRoom">
++        <menu>
++            <item
++                android:id="@+id/action_message_delete"
++                android:title="삭제하기" />
++        </menu>
++    </item>
+ 
+ </menu>
+\ No newline at end of file
+-- 
+2.31.1.windows.1
+

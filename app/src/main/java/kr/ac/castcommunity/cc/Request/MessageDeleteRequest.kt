@@ -14,10 +14,7 @@ class MessageDeleteRequest(messageroom: String, listener: Response.Listener<Stri
     private val parameters: MutableMap<String, String>
 
     companion object {
-        //private val URL = "http://192.168.100.251/cc/messagedelete.php"
-        private val URL = "http://192.168.0.4/cc/messagedelete.php"
-        //private val URL = "http://192.168.219.103/cc/messagedelete.php"
-        //private val URL = "http://172.30.1.50/cc/messagedelete.php"
+        private val URL = "http://myIP/cc/messagedelete.php"
     }
 
     init {

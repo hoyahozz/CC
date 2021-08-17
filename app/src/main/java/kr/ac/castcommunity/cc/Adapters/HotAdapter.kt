@@ -16,7 +16,7 @@ import kr.ac.castcommunity.cc.Request.CommentCountRequest
 import org.json.JSONException
 import org.json.JSONObject
 
-class HotAdapter(val context: FragmentActivity?, val datas: ArrayList<Board>) :
+class HotAdapter(val context: FragmentActivity?, val datas: ArrayList<Board> ) :
 
     RecyclerView.Adapter<HotAdapter.BoardViewHolder>() {
 

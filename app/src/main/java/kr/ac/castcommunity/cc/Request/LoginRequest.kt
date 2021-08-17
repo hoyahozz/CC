@@ -13,9 +13,7 @@ class LoginRequest(id: String, password: String, listener: Response.Listener<Str
     private val parameters: MutableMap<String, String>
 
     companion object {
-        // private val URL = "http://172.30.1.50/cc/login.php"
-         private val URL = "http://192.168.0.4/cc/login.php"
-        // private val URL = "http://192.168.219.103/cc/login.php"
+         private val URL = "http://myIP/cc/login.php"
 
     }
 

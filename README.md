@@ -1,8 +1,6 @@
 # CC
 - Title : Cast Commuinity(CC)
 
-- Person & Assign : 김정호(Android), 김지원(Android), 김찬영(Web Front-end), 신승현(Back-end)
-
 - Purpose : 에버랜드 혹은 롯데월드 직원들은 서로 소통할 수 있는 방법이 많이 없음.
 많은 인원들임에도 불구하고 소통 수단이 없다는 것에 주목, 여러 정보를 주고 받고
 친목 도모를 장려하기 위해 해당 어플 및 웹사이트를 생성하려고 함
@@ -14,7 +12,6 @@
 
 ### Android
 - Apache 2.4
-- PHP 7
 - Wampserver
 - Android Studio 4.1.2
 - Kotlin
@@ -30,6 +27,7 @@
 ### Back-end
 - STS(SpringBoot)
 - Spring(Java)
+- PHP 7
 - MyBatis
 
 
